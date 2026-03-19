@@ -16,6 +16,7 @@ Create a scenario workspace tied to one world, with plot structure, stakes, fact
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/global_story_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/tone_and_theme_template.md`
@@ -25,7 +26,7 @@ Create a scenario workspace tied to one world, with plot structure, stakes, fact
 
 1. Confirm the target world context.
 2. Define the scenario premise, stakes, conflicts, major actors, locations, acts, and likely outcomes.
-3. Create or update a `scenario` workspace under `products/rpg-engine/workspaces/` using:
+3. Create or update a `scenario` workspace under `products/rpg-engine/workspaces/` following `products/rpg-engine/assets/workspace_templates/scenario_structure.md` and using:
    - `products/rpg-engine/workspaces/scenario/<slug>/scenario.md`
    - `scenario.md` as the primary card
    - `products/rpg-engine/workspaces/scenario/<slug>/global_story.md`

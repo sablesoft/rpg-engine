@@ -20,6 +20,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/state/runtime.yaml`
+- `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
@@ -63,7 +64,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
   - prefer characters that belong to the selected world and fit the scenario
   - if none fit, propose 3 distinct protagonist options derived from the character card model and create the selected one
 - adventure:
-  - create one playthrough instance from the selected world, scenario, and protagonist
+  - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
   - prepare:
     - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
     - optional local `products/rpg-engine/workspaces/adventure/<slug>/world.md`

@@ -30,6 +30,13 @@ Follow product policy from:
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/ref_rules.md`
 
+Follow workspace structural conventions from:
+
+- `products/rpg-engine/assets/workspace_templates/world_structure.md`
+- `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
+- `products/rpg-engine/assets/workspace_templates/character_structure.md`
+- `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
+
 ## Mode commands
 
 Global mode switch:
