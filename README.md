@@ -264,6 +264,7 @@ If you do want to keep it, `image-save` should:
 - keep the `Images` section only for additional non-preview saved images
 - omit `Images` entirely when the preview is the only saved image
 - add additional saved images as links in the same `Images` section without embedding them all inline
+- write card-facing section headers in the workspace `content_language`
 - optionally record other depicted entities as secondary references
 - write the image metadata card
 - update the owner entity so it knows about the saved image

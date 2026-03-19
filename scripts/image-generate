@@ -6,6 +6,7 @@ require "open3"
 require "fileutils"
 require "time"
 require_relative "../../../scripts/support/terminal_image_link"
+require_relative "support/workspace_card_headers"
 
 ROOT = File.expand_path("..", __dir__)
 TMP_DIR = File.join(ROOT, "tmp")
@@ -128,9 +129,18 @@ def section_lines(path, header)
   collected.reject(&:empty?)
 end
 
-def first_nonempty_section(path, headers)
+def section_lines_any(path, headers)
   headers.each do |header|
     lines = section_lines(path, header)
+    return lines unless lines.empty?
+  end
+
+  []
+end
+
+def first_nonempty_section(path, headers)
+  headers.each do |header|
+    lines = header.is_a?(Array) ? section_lines_any(path, header) : section_lines(path, header)
     next if lines.empty?
     text = lines.map { |line| line.sub(/^- /, "").strip }.join(" ").strip
     return text unless text.empty?
@@ -139,7 +149,7 @@ def first_nonempty_section(path, headers)
 end
 
 def reusable_visual_concept(path)
-  explicit = first_nonempty_section(path, ["## Visual Concept"])
+  explicit = first_nonempty_section(path, [WorkspaceCardHeaders.aliases(:visual_concept)])
   return [explicit, "existing"] if explicit && !explicit.empty?
 
   inferred = first_nonempty_section(

@@ -20,7 +20,6 @@ Move a reviewed image and its already prepared temporary image card from `produc
 - `products/rpg-engine/rules/product_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/image_rules.md`
-- `./assets/entity_images_section_template.md`
 
 # Behavior
 

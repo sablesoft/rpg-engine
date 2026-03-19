@@ -21,6 +21,7 @@
 - `adventure` uses an adventure card
 - image-owning or image-participating entities may include a `Visual Concept` section when visual continuity matters
 - a `Visual Concept` section should describe stable visual identity rather than one transient scene state
+- card-facing section headers should follow `content_language`; engine-language headers may still appear in support metadata files
 
 ## Top-level repository rule
 

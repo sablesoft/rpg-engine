@@ -4,6 +4,7 @@
 require "fileutils"
 require "time"
 require "pathname"
+require_relative "support/workspace_card_headers"
 
 ROOT = File.expand_path("..", __dir__)
 PRODUCT_TMP = File.join(ROOT, "tmp")
@@ -212,6 +213,15 @@ def section_lines(path, header)
   collected
 end
 
+def section_lines_any(path, headers)
+  headers.each do |header|
+    lines = section_lines(path, header)
+    return [header, lines] unless lines.empty?
+  end
+
+  [headers.first, []]
+end
+
 def parse_visual_concept_entries(metadata_path)
   lines = section_lines(metadata_path, "## Visual Concept Basis")
   return [] if lines.empty?
@@ -308,7 +318,8 @@ def extract_card_path_from_line(line)
 end
 
 def preview_info_from_images_section(owner_card)
-  section_lines(owner_card, "## Images").each do |line|
+  _header, lines = section_lines_any(owner_card, WorkspaceCardHeaders.aliases(:images))
+  lines.each do |line|
     preview_slug = extract_preview_slug(line)
     next unless preview_slug
 
@@ -352,7 +363,8 @@ def resolve_preview_media_path(preview_info)
 end
 
 def preview_section_lines(owner_card)
-  section_lines(owner_card, "## Preview")
+  _header, lines = section_lines_any(owner_card, WorkspaceCardHeaders.aliases(:preview))
+  lines
 end
 
 def preview_section_exists?(owner_card)
@@ -361,7 +373,7 @@ end
 
 def insert_preview_section(path, lines)
   content = load_text(path).rstrip
-  block = ["## Preview", *lines].join("\n")
+  block = [WorkspaceCardHeaders.header(:preview), *lines].join("\n")
   headers = read_lines(path)
   insert_after_headers = ["## Сводка", "## Описание", "## Summary", "## Description"]
   insert_after = insert_after_headers.find { |header| headers.include?(header) }
@@ -396,7 +408,7 @@ def ensure_preview_section(owner_card, preview_slug, media_path)
 end
 
 def normalize_images_section(owner_card, preview_slug)
-  existing_lines = section_lines(owner_card, "## Images")
+  header, existing_lines = section_lines_any(owner_card, WorkspaceCardHeaders.aliases(:images))
   return if existing_lines.empty?
 
   normalized = existing_lines
@@ -408,9 +420,9 @@ def normalize_images_section(owner_card, preview_slug)
     end
 
   if normalized.empty?
-    delete_section(owner_card, "## Images")
+    delete_section(owner_card, header)
   else
-    replace_or_append_section(owner_card, "## Images", normalized)
+    replace_or_append_section(owner_card, WorkspaceCardHeaders.header(:images), normalized)
   end
 end
 
@@ -418,17 +430,17 @@ def upsert_visual_concept(path, concept_basis)
   return if concept_basis.nil? || concept_basis.strip.empty?
 
   bullet = "- #{concept_basis.strip}"
-  existing = section_lines(path, "## Visual Concept")
+  visual_header, existing = section_lines_any(path, WorkspaceCardHeaders.aliases(:visual_concept))
 
   if existing.empty?
-    append_section(path, "## Visual Concept", [bullet])
+    append_section(path, WorkspaceCardHeaders.header(:visual_concept), [bullet])
     return
   end
 
   merged = merge_bullets(existing, [bullet])
   content = load_text(path).rstrip
-  updated = content.sub(/## Visual Concept\n(?:.*\n)*?(?=## |\z)/m) do |_match|
-    ["## Visual Concept", *merged, ""].join("\n")
+  updated = content.sub(/#{Regexp.escape(visual_header)}\n(?:.*\n)*?(?=## |\z)/m) do |_match|
+    [WorkspaceCardHeaders.header(:visual_concept), *merged, ""].join("\n")
   end
   File.write(path, "#{updated.rstrip}\n")
 end
@@ -524,7 +536,7 @@ def update_owner_card(owner_card, image_role, metadata_path, media_path)
     media_path
   end
 
-  append_section(owner_card, "## Images", ["- `#{image_slug}` — role: #{image_role}; card: `#{rel_card}`"])
+  append_section(owner_card, WorkspaceCardHeaders.header(:images), ["- `#{image_slug}` — role: #{image_role}; card: `#{rel_card}`"])
   normalize_images_section(owner_card, preview_slug)
   ensure_preview_section(owner_card, preview_slug, preview_media_path)
 end
@@ -535,7 +547,11 @@ def update_secondary_cards(secondary_refs, metadata_path)
     next unless File.exist?(ref[:card_path])
 
     rel = relative_to_root(metadata_path)
-    append_section(ref[:card_path], "## Related Images", ["- `#{File.basename(metadata_path, ".md")}` — role: #{ref[:role]}; card: `#{rel}`"])
+    append_section(
+      ref[:card_path],
+      WorkspaceCardHeaders.header(:related_images),
+      ["- `#{File.basename(metadata_path, ".md")}` — role: #{ref[:role]}; card: `#{rel}`"]
+    )
   end
 end
 
