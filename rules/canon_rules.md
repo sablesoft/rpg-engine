@@ -20,6 +20,7 @@
 - characters are normally world-scoped, but world-owned scenarios and adventures may hold local character cards for scoped variants, temporary roles, or newly introduced actors
 - factions and species may also exist as local scoped entities before they are established more globally
 - images are always scoped to one owning entity and inherit that entity's locality
+- visual concepts should describe persistent or broadly reusable appearance logic for an entity, even when individual scenes may add temporary variation
 - scoped local entities follow the default locality rule from `products/rpg-engine/rules/data_rules.md`
 
 ## Canon boundaries
@@ -29,6 +30,7 @@
 - apply the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - facts discovered during one adventure do not automatically rewrite world canon unless the product workflow explicitly promotes them
 - images may illustrate canon, but they do not outrank the written source cards they are attached to
+- visual concepts should be inferred from canon carefully and updated explicitly when image work reveals stable appearance details worth preserving
 
 ## Consistency rule
 

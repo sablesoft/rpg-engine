@@ -139,6 +139,14 @@ Image work happens in two separate steps:
 This split is intentional.
 It lets you experiment freely without immediately polluting world or adventure content.
 
+Visual continuity also develops in two steps:
+
+- before image generation, the engine should look for a reusable visual concept for each important participating entity
+- if an entity has no visual concept yet, a provisional one can be inferred from the written card and stored in the temporary image card
+- when the image is later saved, missing visual concept details can be pushed back into the relevant entity cards
+
+This helps later images stay visually consistent without locking entities into one rigid scene-specific appearance.
+
 ### How to enable it
 
 1. Copy the template config:
@@ -235,6 +243,7 @@ If you do want to keep it, `image-save` should:
 - optionally record other depicted entities as secondary references
 - write the image metadata card
 - update the owner entity so it knows about the saved image
+- enrich missing `Visual Concept` notes in the relevant entity cards when the temporary image card contains stable visual identity details worth keeping
 
 Each saved image should have one primary owner entity, even if other entities also appear in the picture.
 

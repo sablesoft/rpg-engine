@@ -35,9 +35,12 @@ Move a reviewed image and its already prepared temporary image card from `produc
 6. Choose or normalize the final image slug and filename.
 7. Move the image file from `products/rpg-engine/tmp/` into the destination folder.
 8. Move and adapt the temporary image card so it becomes the final metadata card next to the saved image.
-9. Update the owner entity card with an `Images` section or add the new image entry to the existing section.
-10. If secondary entities should reference the image, add lightweight related-image notes without turning them into co-owners.
-11. Preserve versioned content readability after the save.
+9. Check which involved entities still lack a usable `Visual Concept` section.
+10. Read the temporary image card as a shared concept source for all participating entities in the image, not just the owner.
+11. If the temporary image card contains stable visual concept information that is missing from those entities, add or enrich their `Visual Concept` sections.
+12. Update the owner entity card with an `Images` section or add the new image entry to the existing section.
+13. If secondary entities should reference the image, add lightweight related-image notes without turning them into co-owners.
+14. Preserve versioned content readability after the save.
 
 # Constraints
 
@@ -48,6 +51,9 @@ Move a reviewed image and its already prepared temporary image card from `produc
 - do not invent canon details to fill missing metadata
 - do not leave the saved image unlinked from its owner entity
 - do not bypass scope rules from `products/rpg-engine/rules/image_rules.md`
+- do not write a rigid visual concept that blocks ordinary future scene variation
+- do not overwrite an existing stronger visual concept with a weaker image-derived guess
+- do not ignore missing concepts for non-owner participating entities when the temporary image card already contains usable concept material for them
 
 # Output
 
@@ -56,3 +62,4 @@ Move a reviewed image and its already prepared temporary image card from `produc
 3. final image slug and filename
 4. updated owner entity linkage
 5. note on any secondary entity references that were added
+6. note on any entity `Visual Concept` sections that were created or enriched

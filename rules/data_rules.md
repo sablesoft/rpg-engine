@@ -19,6 +19,8 @@
 - `scenario` uses a scenario card
 - `character` uses a character card
 - `adventure` uses an adventure card
+- image-owning or image-participating entities may include a `Visual Concept` section when visual continuity matters
+- a `Visual Concept` section should describe stable visual identity rather than one transient scene state
 
 ## Top-level repository rule
 
@@ -87,6 +89,7 @@
 - `faction` and `species` cards may exist at world, scenario, or adventure scope depending on where they are established
 - image assets always belong to one concrete owner entity and live in that entity's scope-local `images/` subtree
 - image metadata cards are support artifacts and must not replace the owner primary card as the main readable entry point
+- visual concept notes belong to the entity cards themselves, not to runtime
 
 ## Play-first locality
 
@@ -108,3 +111,4 @@
 - keep cards compact, readable, and directly usable in play or reference
 - prefer clear sections over heavy schema complexity
 - do not turn product data into engine-language metadata dumps
+- keep `Visual Concept` sections reusable and durable rather than locked to one momentary pose, wound, or outfit variation unless that variation is itself canonically stable

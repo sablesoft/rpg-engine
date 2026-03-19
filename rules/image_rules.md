@@ -11,6 +11,15 @@ Define how image assets are stored, linked, promoted, and rendered through provi
 - image files are support artifacts, not standalone canon entities
 - entities may have many images, but each image has only one owner
 - an image may additionally reference secondary depicted entities when that improves discoverability and continuity
+- every generated image should be grounded in a reusable visual concept for each participating entity when possible
+
+## Visual concept
+
+- a visual concept is a compact reusable description of how an entity should usually read visually across images
+- visual concepts should capture stable identity signals such as silhouette, materials, recurring garments, age impression, symbolic marks, palette tendencies, posture logic, and other durable traits
+- visual concepts should avoid overfitting to one transient scene state unless that state is canonically important and persistent
+- a visual concept should leave room for dynamic changes such as injury, weather, emotional state, travel wear, ceremony, disguise, or other moment-specific variation
+- visual concepts belong to the relevant entity cards, not to runtime
 
 ## Supported image-owning entity types
 
@@ -67,6 +76,8 @@ The metadata card is the readable source of truth for the image asset.
 - temporary files may be reviewed, discarded, regenerated, or saved later
 - do not treat a temporary file in `products/rpg-engine/tmp/` as persisted content yet
 - if a temporary image is deleted, delete its temporary image card together with it
+- before generating an image, check whether each participating entity already has a usable visual concept
+- if one or more participating entities lack a usable visual concept, synthesize provisional concepts from canon and store all of those missing concepts together in the temporary image card
 
 ## Metadata requirements
 
@@ -87,6 +98,9 @@ Each image metadata card must record:
 Optional fields may include:
 
 - `secondary_entities`
+- `owner_visual_concept_basis`
+- `secondary_visual_concept_basis`
+- `visual_concept_gaps`
 - `seed`
 - `model`
 - `size`
@@ -101,6 +115,8 @@ Optional fields may include:
 - scene images must be linked from the owning scene file such as `current_scene.md` or the relevant `events/<id>.md`
 - secondary depicted entities should not claim ownership of the image, but may reference it in a lightweight `Related Images` note when useful
 - `image-save` is responsible for moving the temporary image card and updating these links when an image becomes persisted content
+- `image-save` is also responsible for enriching entity `Visual Concept` sections when the temporary image card contains stable concept information that is missing from the entities
+- one temporary image card may therefore carry concept material for several participating entities at once
 
 ## Secondary entity references
 
@@ -108,6 +124,7 @@ Optional fields may include:
 - secondary references are descriptive links, not ownership links
 - the primary owner determines storage location, promotion behavior, and source-of-truth responsibility
 - if a secondary entity later becomes the better canonical owner for a different image, create a separate image package for that entity rather than reassigning ownership silently
+- secondary entities should be checked for visual concept availability before generation when they materially affect the image
 
 ## Multiplicity
 
@@ -151,6 +168,7 @@ Optional fields may include:
 - do not confuse secondary depiction references with ownership
 - do not persist generated images directly from provider output without first staging them in `products/rpg-engine/tmp/`
 - do not keep temporary image files and temporary image cards out of sync
+- do not let scene-specific visual improvisation silently replace a more durable entity visual concept
 
 ## Principle
 

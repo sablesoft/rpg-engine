@@ -1,0 +1,311 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "json"
+require "open3"
+require "fileutils"
+require "time"
+
+ROOT = File.expand_path("..", __dir__)
+TMP_DIR = File.join(ROOT, "tmp")
+OPENAI_SCRIPT = File.join(ROOT, "scripts", "openai-image-request")
+
+def fail_with(message, code = 1)
+  warn message
+  exit code
+end
+
+def usage
+  <<~TEXT
+    Usage:
+      ruby products/rpg-engine/scripts/image-generate \
+        --owner-card PATH \
+        --owner-type TYPE \
+        --image-slug SLUG \
+        --image-role ROLE \
+        --prompt TEXT \
+        [options]
+
+    Options:
+      --owner-slug SLUG
+      --provider ALIAS
+      --prompt-file PATH
+      --secondary-ref TYPE:SLUG:ROLE:CARD_PATH
+      --size SIZE
+      --quality VALUE
+      --background VALUE
+      --format VALUE
+      --compression N
+  TEXT
+end
+
+def parse_args(argv)
+  options = {
+    secondary_refs: []
+  }
+
+  until argv.empty?
+    flag = argv.shift
+    case flag
+    when "--owner-card" then options[:owner_card] = argv.shift
+    when "--owner-type" then options[:owner_type] = argv.shift
+    when "--owner-slug" then options[:owner_slug] = argv.shift
+    when "--image-slug" then options[:image_slug] = argv.shift
+    when "--image-role" then options[:image_role] = argv.shift
+    when "--prompt" then options[:prompt] = argv.shift
+    when "--prompt-file" then options[:prompt_file] = argv.shift
+    when "--provider" then options[:provider] = argv.shift
+    when "--secondary-ref" then options[:secondary_refs] << argv.shift
+    when "--size" then options[:size] = argv.shift
+    when "--quality" then options[:quality] = argv.shift
+    when "--background" then options[:background] = argv.shift
+    when "--format" then options[:format] = argv.shift
+    when "--compression" then options[:compression] = argv.shift
+    when "-h", "--help" then puts usage; exit 0
+    else
+      fail_with("Unknown option: #{flag}\n\n#{usage}", 64)
+    end
+  end
+
+  %i[owner_card owner_type image_slug image_role].each do |key|
+    fail_with("Missing required option --#{key.to_s.tr('_', '-')}\n\n#{usage}", 64) if options[key].nil? || options[key].empty?
+  end
+
+  if (options[:prompt].nil? || options[:prompt].empty?) && (options[:prompt_file].nil? || options[:prompt_file].empty?)
+    fail_with("Missing prompt. Use --prompt or --prompt-file.\n\n#{usage}", 64)
+  end
+
+  options
+end
+
+def infer_owner_slug(owner_card, owner_type, explicit_owner_slug)
+  return explicit_owner_slug if explicit_owner_slug && !explicit_owner_slug.empty?
+
+  basename = File.basename(owner_card, File.extname(owner_card))
+  return basename unless %w[world scenario adventure current_scene].include?(basename)
+
+  case owner_type
+  when "world", "adventure", "scenario"
+    File.basename(File.dirname(owner_card))
+  when "scene"
+    basename.tr("_", "-")
+  else
+    basename
+  end
+end
+
+def parse_secondary_refs(raw_refs)
+  raw_refs.map do |raw|
+    parts = raw.split(":", 4)
+    fail_with("Invalid --secondary-ref format: #{raw}", 64) if parts.length < 4
+    {
+      type: parts[0],
+      slug: parts[1],
+      role: parts[2],
+      card_path: File.expand_path(parts[3])
+    }
+  end
+end
+
+def read_lines(path)
+  File.exist?(path) ? File.readlines(path, chomp: true) : []
+end
+
+def section_lines(path, header)
+  lines = read_lines(path)
+  start = lines.index(header)
+  return [] unless start
+
+  collected = []
+  index = start + 1
+  while index < lines.length
+    line = lines[index]
+    break if line.start_with?("## ")
+    collected << line
+    index += 1
+  end
+  collected.reject(&:empty?)
+end
+
+def first_nonempty_section(path, headers)
+  headers.each do |header|
+    lines = section_lines(path, header)
+    next if lines.empty?
+    text = lines.map { |line| line.sub(/^- /, "").strip }.join(" ").strip
+    return text unless text.empty?
+  end
+  nil
+end
+
+def reusable_visual_concept(path)
+  explicit = first_nonempty_section(path, ["## Visual Concept"])
+  return [explicit, "existing"] if explicit && !explicit.empty?
+
+  inferred = first_nonempty_section(
+    path,
+    [
+      "## Внешность",
+      "## Сводка",
+      "## Описание",
+      "## Манера",
+      "## Ключевые особенности",
+      "## Настроение"
+    ]
+  )
+  return [inferred, "provisional"] if inferred && !inferred.empty?
+
+  ["No stable visual concept could be inferred from the current card.", "missing"]
+end
+
+def relative_to_root(path)
+  path.start_with?(ROOT) ? path.delete_prefix("#{ROOT}/") : path
+end
+
+def resolve_prompt(options)
+  return File.read(options[:prompt_file]).strip if options[:prompt_file]
+  options[:prompt].strip
+end
+
+def build_openai_command(options, output_path)
+  command = ["ruby", OPENAI_SCRIPT, "generate", "--output", output_path]
+  command += ["--provider", options[:provider]] if options[:provider]
+  command += ["--prompt", resolve_prompt(options)]
+  command += ["--size", options[:size]] if options[:size]
+  command += ["--quality", options[:quality]] if options[:quality]
+  command += ["--background", options[:background]] if options[:background]
+  command += ["--format", options[:format]] if options[:format]
+  command += ["--compression", options[:compression]] if options[:compression]
+  command
+end
+
+def write_temp_card(path:, image_slug:, owner_type:, owner_slug:, owner_card:, scope_level:, image_role:, provider_alias:, model:, prompt_summary:, image_path:, participating_concepts:)
+  lines = []
+  lines << "# Image Card"
+  lines << ""
+  lines << "## Image Slug"
+  lines << image_slug
+  lines << ""
+  lines << "## Owner"
+  lines << "- entity_type: #{owner_type}"
+  lines << "- entity_slug: #{owner_slug}"
+  lines << "- owner_card_path: #{relative_to_root(owner_card)}"
+  lines << "- scope_level: #{scope_level}"
+  lines << ""
+  lines << "## Secondary Entities"
+  secondary = participating_concepts.reject { |entry| entry[:relation] == "owner" }
+  if secondary.empty?
+    lines << "- entity_refs: []"
+  else
+    lines << "- entity_refs:"
+    secondary.each do |entry|
+      lines << "  - type: #{entry[:type]}"
+      lines << "    slug: #{entry[:slug]}"
+      lines << "    role_in_image: #{entry[:relation]}"
+    end
+  end
+  lines << ""
+  lines << "## Visual Concept Basis"
+  lines << "- participating_entity_visual_concepts:"
+  participating_concepts.each do |entry|
+    lines << "  - type: #{entry[:type]}"
+    lines << "    slug: #{entry[:slug]}"
+    lines << "    relation_to_image: #{entry[:relation]}"
+    lines << "    concept_status: #{entry[:status]}"
+    lines << "    concept_basis: #{entry[:basis]}"
+  end
+  lines << "- visual_concept_gaps: []"
+  lines << ""
+  lines << "## Role"
+  lines << "- image_role: #{image_role}"
+  lines << "- intended_use: temporary-review"
+  lines << ""
+  lines << "## Provider"
+  lines << "- provider_alias: #{provider_alias}"
+  lines << "- provider_driver: openai_image_api"
+  lines << "- model: #{model}"
+  lines << ""
+  lines << "## Prompt Summary"
+  lines << prompt_summary
+  lines << ""
+  lines << "## Render Details"
+  lines << "- render_status: temporary"
+  lines << "- created_at: #{Time.now.utc.iso8601}"
+  lines << ""
+  lines << "## Files"
+  lines << "- media_file: #{relative_to_root(image_path)}"
+  lines << ""
+  lines << "## Notes"
+  lines << "Temporary review image generated with concept basis aggregated for all participating entities."
+  File.write(path, "#{lines.join("\n")}\n")
+end
+
+def detect_scope(owner_card)
+  normalized = owner_card
+  return "adventure" if normalized.include?("/workspaces/adventure/")
+  return "scenario" if normalized.include?("/workspaces/world/") && normalized.include?("/scenarios/")
+  return "world" if normalized.include?("/workspaces/world/")
+  "unknown"
+end
+
+options = parse_args(ARGV.dup)
+owner_card = File.expand_path(options[:owner_card])
+fail_with("Owner card not found: #{owner_card}", 66) unless File.exist?(owner_card)
+owner_slug = infer_owner_slug(owner_card, options[:owner_type], options[:owner_slug])
+secondary_refs = parse_secondary_refs(options[:secondary_refs])
+secondary_refs.each { |ref| fail_with("Secondary card not found: #{ref[:card_path]}", 66) unless File.exist?(ref[:card_path]) }
+
+participating_concepts = []
+owner_basis, owner_status = reusable_visual_concept(owner_card)
+participating_concepts << {
+  type: options[:owner_type],
+  slug: owner_slug,
+  relation: "owner",
+  status: owner_status,
+  basis: owner_basis
+}
+
+secondary_refs.each do |ref|
+  basis, status = reusable_visual_concept(ref[:card_path])
+  participating_concepts << {
+    type: ref[:type],
+    slug: ref[:slug],
+    relation: ref[:role],
+    status: status,
+    basis: basis
+  }
+end
+
+FileUtils.mkdir_p(TMP_DIR)
+output_path = File.join(TMP_DIR, "#{options[:image_slug]}.png")
+card_path = File.join(TMP_DIR, "#{options[:image_slug]}.md")
+
+stdout, stderr, status = Open3.capture3(*build_openai_command(options, output_path))
+fail_with(stderr.empty? ? stdout : stderr, 1) unless status.success?
+
+result = JSON.parse(stdout)
+provider_alias = result["provider_alias"] || options[:provider] || "unknown"
+model = result["model"] || "unknown"
+prompt_summary = resolve_prompt(options)
+
+write_temp_card(
+  path: card_path,
+  image_slug: options[:image_slug],
+  owner_type: options[:owner_type],
+  owner_slug: owner_slug,
+  owner_card: owner_card,
+  scope_level: detect_scope(owner_card),
+  image_role: options[:image_role],
+  provider_alias: provider_alias,
+  model: model,
+  prompt_summary: prompt_summary,
+  image_path: output_path,
+  participating_concepts: participating_concepts
+)
+
+puts JSON.pretty_generate(
+  image_path: relative_to_root(output_path),
+  card_path: relative_to_root(card_path),
+  next_step: "Save it, delete it, or leave it in tmp for now.",
+  participating_entity_visual_concepts: participating_concepts
+)
+

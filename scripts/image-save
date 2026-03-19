@@ -139,18 +139,29 @@ def destination_media_path(source_path, owner_card:, owner_type:, owner_slug:, i
   [scope_level, image_dir, "#{stem}#{ext}", "#{stem}.md"]
 end
 
+def temporary_card_path_for(source_path)
+  base = source_path.sub(/\.[^.]+\z/, "")
+  "#{base}.md"
+end
+
 def load_text(path)
   File.exist?(path) ? File.read(path) : ""
+end
+
+def read_lines(path)
+  File.exist?(path) ? File.readlines(path, chomp: true) : []
 end
 
 def append_section(path, header, lines)
   content = load_text(path).rstrip
   block = ([header] + lines).join("\n")
+  section_pattern = /#{Regexp.escape(header)}\n.*?(?=\n## |\z)/m
 
   if content.include?(header)
-    updated = content.sub(/#{Regexp.escape(header)}\n(?:- .*\n?)*/m) do |existing|
-      existing.rstrip + "\n" + lines.join("\n")
-    end
+    existing = section_lines(path, header)
+    merged = merge_bullets(existing, lines)
+    replacement = ([header] + merged).join("\n")
+    updated = content.sub(section_pattern, replacement)
     File.write(path, "#{updated.rstrip}\n")
   else
     separator = content.empty? ? "" : "\n\n"
@@ -158,7 +169,111 @@ def append_section(path, header, lines)
   end
 end
 
-def write_metadata(path:, image_slug:, owner_type:, owner_slug:, owner_card:, scope_level:, image_role:, provider_alias:, provider_driver:, prompt_summary:, render_status:, media_file:, secondary_refs:, notes:)
+def section_lines(path, header)
+  lines = read_lines(path)
+  start = lines.index(header)
+  return [] unless start
+
+  collected = []
+  index = start + 1
+  while index < lines.length
+    line = lines[index]
+    break if line.start_with?("## ")
+    collected << line
+    index += 1
+  end
+  collected
+end
+
+def parse_visual_concept_entries(metadata_path)
+  lines = section_lines(metadata_path, "## Visual Concept Basis")
+  return [] if lines.empty?
+
+  entries = []
+  current = nil
+
+  lines.each do |line|
+    stripped = line.strip
+    next if stripped.empty?
+    next if stripped.start_with?("- visual_concept_gaps:")
+    next if stripped.start_with?("- {{") || stripped.include?("{{")
+
+    if stripped.start_with?("- participating_entity_visual_concepts:")
+      next
+    elsif stripped.start_with?("- type: ")
+      entries << current if current
+      current = { type: stripped.sub("- type: ", "").strip }
+    elsif stripped.start_with?("type: ")
+      entries << current if current
+      current = { type: stripped.sub("type: ", "").strip }
+    elsif current && stripped.start_with?("slug: ")
+      current[:slug] = stripped.sub("slug: ", "").strip
+    elsif current && stripped.start_with?("relation_to_image: ")
+      current[:relation] = stripped.sub("relation_to_image: ", "").strip
+    elsif current && stripped.start_with?("concept_status: ")
+      current[:status] = stripped.sub("concept_status: ", "").strip
+    elsif current && stripped.start_with?("concept_basis: ")
+      current[:basis] = stripped.sub("concept_basis: ", "").strip
+    end
+  end
+
+  entries << current if current
+  entries.select { |entry| entry[:type] && entry[:slug] && entry[:basis] && !entry[:basis].empty? }
+end
+
+def extract_model_from_metadata(metadata_path)
+  section_lines(metadata_path, "## Provider").each do |line|
+    stripped = line.strip
+    return stripped.sub("- model: ", "").strip if stripped.start_with?("- model: ")
+  end
+  nil
+end
+
+def extract_size_from_metadata(metadata_path)
+  section_lines(metadata_path, "## Render Details").each do |line|
+    stripped = line.strip
+    return stripped.sub("- size: ", "").strip if stripped.start_with?("- size: ")
+  end
+  nil
+end
+
+def extract_seed_from_metadata(metadata_path)
+  section_lines(metadata_path, "## Render Details").each do |line|
+    stripped = line.strip
+    return stripped.sub("- seed: ", "").strip if stripped.start_with?("- seed: ")
+  end
+  nil
+end
+
+def merge_bullets(existing_lines, new_bullets)
+  existing_bullets = existing_lines.select { |line| line.start_with?("- ") }
+  merged = existing_bullets.dup
+  new_bullets.each do |bullet|
+    merged << bullet unless merged.include?(bullet)
+  end
+  merged
+end
+
+def upsert_visual_concept(path, concept_basis)
+  return if concept_basis.nil? || concept_basis.strip.empty?
+
+  bullet = "- #{concept_basis.strip}"
+  existing = section_lines(path, "## Visual Concept")
+
+  if existing.empty?
+    append_section(path, "## Visual Concept", [bullet])
+    return
+  end
+
+  merged = merge_bullets(existing, [bullet])
+  content = load_text(path).rstrip
+  updated = content.sub(/## Visual Concept\n(?:.*\n)*?(?=## |\z)/m) do |_match|
+    ["## Visual Concept", *merged, ""].join("\n")
+  end
+  File.write(path, "#{updated.rstrip}\n")
+end
+
+def write_metadata(path:, image_slug:, owner_type:, owner_slug:, owner_card:, scope_level:, image_role:, provider_alias:, provider_driver:, prompt_summary:, render_status:, media_file:, secondary_refs:, notes:, visual_concept_entries:, model:, size:, seed:)
   lines = []
   lines << "# Image Card"
   lines << ""
@@ -183,6 +298,21 @@ def write_metadata(path:, image_slug:, owner_type:, owner_slug:, owner_card:, sc
     end
   end
   lines << ""
+  lines << "## Visual Concept Basis"
+  if visual_concept_entries.empty?
+    lines << "- participating_entity_visual_concepts: []"
+  else
+    lines << "- participating_entity_visual_concepts:"
+    visual_concept_entries.each do |entry|
+      lines << "  - type: #{entry[:type]}"
+      lines << "    slug: #{entry[:slug]}"
+      lines << "    relation_to_image: #{entry[:relation] || 'participant'}"
+      lines << "    concept_status: #{entry[:status] || 'existing-or-unspecified'}"
+      lines << "    concept_basis: #{entry[:basis]}"
+    end
+  end
+  lines << "- visual_concept_gaps: []"
+  lines << ""
   lines << "## Role"
   lines << "- image_role: #{image_role}"
   lines << "- intended_use: saved-image"
@@ -190,12 +320,15 @@ def write_metadata(path:, image_slug:, owner_type:, owner_slug:, owner_card:, sc
   lines << "## Provider"
   lines << "- provider_alias: #{provider_alias}"
   lines << "- provider_driver: #{provider_driver}"
+  lines << "- model: #{model}" if model && !model.empty?
   lines << ""
   lines << "## Prompt Summary"
   lines << (prompt_summary.nil? || prompt_summary.empty? ? "Not recorded." : prompt_summary)
   lines << ""
   lines << "## Render Details"
   lines << "- render_status: #{render_status}"
+  lines << "- size: #{size}" if size && !size.empty?
+  lines << "- seed: #{seed}" if seed && !seed.empty?
   lines << "- created_at: #{Time.now.utc.iso8601}"
   lines << ""
   lines << "## Files"
@@ -235,8 +368,26 @@ def update_secondary_cards(secondary_refs, metadata_path)
   end
 end
 
+def enrich_visual_concepts(owner_type, owner_slug, owner_card, secondary_refs, visual_concept_entries)
+  entry_map = {}
+  visual_concept_entries.each do |entry|
+    entry_map[[entry[:type], entry[:slug]]] = entry[:basis]
+  end
+
+  upsert_visual_concept(owner_card, entry_map[[owner_type, owner_slug]])
+
+  secondary_refs.each do |ref|
+    next if ref[:card_path].nil? || ref[:card_path].empty?
+    next unless File.exist?(ref[:card_path])
+
+    upsert_visual_concept(ref[:card_path], entry_map[[ref[:type], ref[:slug]]])
+  end
+end
+
 options = parse_args(ARGV.dup)
 source_path = ensure_product_tmp!(options[:source])
+temporary_card_path = temporary_card_path_for(source_path)
+fail_with("Temporary image card not found: #{temporary_card_path}", 66) unless File.exist?(temporary_card_path)
 owner_card = File.expand_path(options[:owner_card])
 fail_with("Owner card not found: #{owner_card}", 66) unless File.exist?(owner_card)
 
@@ -251,8 +402,13 @@ scope_level, image_dir, media_path, metadata_path = destination_media_path(
 
 FileUtils.mkdir_p(image_dir)
 FileUtils.mv(source_path, media_path)
+FileUtils.mv(temporary_card_path, metadata_path)
 
 secondary_refs = parse_secondary_refs(options[:secondary_refs])
+visual_concept_entries = parse_visual_concept_entries(metadata_path)
+model = extract_model_from_metadata(metadata_path)
+size = extract_size_from_metadata(metadata_path)
+seed = extract_seed_from_metadata(metadata_path)
 write_metadata(
   path: metadata_path,
   image_slug: options[:image_slug],
@@ -267,9 +423,14 @@ write_metadata(
   render_status: options[:render_status],
   media_file: relative_to_root(media_path),
   secondary_refs: secondary_refs,
-  notes: options[:notes]
+  notes: options[:notes],
+  visual_concept_entries: visual_concept_entries,
+  model: model,
+  size: size,
+  seed: seed
 )
 
+enrich_visual_concepts(options[:owner_type], owner_slug, owner_card, secondary_refs, visual_concept_entries)
 update_owner_card(owner_card, options[:image_role], metadata_path)
 update_secondary_cards(secondary_refs, metadata_path)
 
@@ -280,4 +441,3 @@ puts [
   "owner_slug=#{owner_slug}",
   "scope_level=#{scope_level}"
 ].join("\n")
-
