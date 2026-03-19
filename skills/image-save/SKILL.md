@@ -42,7 +42,9 @@ Move a reviewed image and its already prepared temporary image card from `produc
 13. Keep at most one active preview image for the owner card:
    - if the card has no preview yet, the first saved image may become that preview
    - place the inline preview near the beginning of the card, preferably after `Summary` or `Описание` style sections when present
-   - in `## Images`, mark the preview image as `preview` and list the rest without inline embeds
+   - keep the preview itself out of `## Images`
+   - use `## Images` only for additional non-preview saved images
+   - if no additional saved images remain after the preview is chosen, omit `## Images` entirely
 14. If secondary entities should reference the image, add lightweight related-image notes without turning them into co-owners.
 15. Preserve versioned content readability after the save.
 
@@ -61,6 +63,7 @@ Move a reviewed image and its already prepared temporary image card from `produc
 - do not replace the metadata card with a bare image embed; keep the metadata link in the owner card
 - do not embed every saved image inline in the owner card when an entity has multiple images
 - do not keep the active preview embed buried inside `## Images`
+- do not keep an empty `## Images` section when the preview is the only saved image
 
 # Output
 

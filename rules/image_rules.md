@@ -118,10 +118,10 @@ Optional fields may include:
 - every image-owning entity card must include an `Images` section after the main descriptive sections when persisted images exist
 - the `Images` section should list image roles and link to the image metadata cards
 - owner entity cards may embed one Markdown preview of a saved image near the beginning of the card, preferably directly after a summary or description section when present
-- when an entity has multiple saved images, show only one of them as the card preview and list the others in `Images` without inline embeds
-- the `Images` section should mark which listed image is the active preview
+- when an entity has multiple saved images, show only one of them as the card preview and list only the remaining non-preview images in `Images`
 - embedded previews in owner cards are convenience renderings, not a replacement for the image metadata card
 - an entity without persisted images should omit the section rather than keep an empty placeholder
+- if the preview is the only saved image, omit `Images` rather than showing an empty section
 - scene images must be linked from the owning scene file such as `current_scene.md` or the relevant `events/<id>.md`
 - secondary depicted entities should not claim ownership of the image, but may reference it in a lightweight `Related Images` note when useful
 - `image-save` is responsible for moving the temporary image card and updating these links when an image becomes persisted content

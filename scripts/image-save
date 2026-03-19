@@ -188,6 +188,14 @@ def replace_or_append_section(path, header, lines)
   end
 end
 
+def delete_section(path, header)
+  content = load_text(path)
+  return unless content.include?(header)
+
+  updated = content.sub(/\n?#{Regexp.escape(header)}\n.*?(?=\n## |\z)/m, "")
+  write_text(path, updated)
+end
+
 def section_lines(path, header)
   lines = read_lines(path)
   start = lines.index(header)
@@ -311,6 +319,20 @@ def preview_info_from_images_section(owner_card)
   nil
 end
 
+def preview_info_from_preview_section(owner_card)
+  preview_section_lines(owner_card).each do |line|
+    match = line.match(/\[!\[([^\]]+)\]\(([^)]+)\)\]\([^)]+\)/)
+    next unless match
+
+    return {
+      slug: match[1],
+      media_path: File.expand_path(match[2], File.dirname(owner_card))
+    }
+  end
+
+  nil
+end
+
 def resolve_preview_media_path(preview_info)
   return nil unless preview_info
   return nil unless preview_info[:card_path]
@@ -335,15 +357,6 @@ end
 
 def preview_section_exists?(owner_card)
   !preview_section_lines(owner_card).empty?
-end
-
-def preview_section_relative_media_path(owner_card)
-  preview_section_lines(owner_card).each do |line|
-    match = line.match(/\[!\[[^\]]*\]\(([^)]+)\)\]\([^)]+\)/)
-    return match[1] if match
-  end
-
-  nil
 end
 
 def insert_preview_section(path, lines)
@@ -389,14 +402,16 @@ def normalize_images_section(owner_card, preview_slug)
   normalized = existing_lines
     .select { |line| line.start_with?("- ") }
     .map { |line| normalize_image_line(line) }
-    .map do |line|
+    .reject do |line|
       slug = extract_image_slug(line)
-      next line unless slug == preview_slug
-
-      "#{line}; preview"
+      slug == preview_slug
     end
 
-  replace_or_append_section(owner_card, "## Images", normalized)
+  if normalized.empty?
+    delete_section(owner_card, "## Images")
+  else
+    replace_or_append_section(owner_card, "## Images", normalized)
+  end
 end
 
 def upsert_visual_concept(path, concept_basis)
@@ -501,10 +516,10 @@ end
 def update_owner_card(owner_card, image_role, metadata_path, media_path)
   rel_card = relative_to_root(metadata_path)
   image_slug = File.basename(metadata_path, ".md")
-  existing_preview = preview_info_from_images_section(owner_card)
+  existing_preview = preview_info_from_preview_section(owner_card) || preview_info_from_images_section(owner_card)
   preview_slug = existing_preview ? existing_preview[:slug] : image_slug
   preview_media_path = if existing_preview
-    resolve_preview_media_path(existing_preview) || media_path
+    existing_preview[:media_path] || resolve_preview_media_path(existing_preview) || media_path
   else
     media_path
   end

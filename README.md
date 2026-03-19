@@ -261,7 +261,8 @@ If you do want to keep it, `image-save` should:
 - give it a proper final name
 - attach it to one primary owner entity
 - keep one Markdown preview embed near the beginning of the owner card so the main entity card shows a representative image
-- keep the `Images` section as a list of saved image entries and mark one of them as `preview`
+- keep the `Images` section only for additional non-preview saved images
+- omit `Images` entirely when the preview is the only saved image
 - add additional saved images as links in the same `Images` section without embedding them all inline
 - optionally record other depicted entities as secondary references
 - write the image metadata card
