@@ -1,37 +1,37 @@
 # {{title}}
 
-## Entity Type
-Scenario
+## Тип
+Сценарий
 
-## World
+## Мир
 {{world_title}}
 
-## Premise
+## Предпосылка
 {{premise}}
 
-## Tone
+## Тон
 {{tone}}
 
-## Main Conflict
+## Главный Конфликт
 {{main_conflict}}
 
-## Stakes
+## Ставки
 - {{stake_1}}
 - {{stake_2}}
 
-## Major Actors
+## Ключевые Действующие Лица
 - {{actor_1}}
 - {{actor_2}}
 
-## Important Locations
+## Важные Локации
 - {{location_1}}
 - {{location_2}}
 
-## Likely Progression
+## Вероятное Развитие
 - {{beat_1}}
 - {{beat_2}}
 - {{beat_3}}
 
-## Adventure Hooks
+## Крючки Для Приключения
 - {{hook_1}}
 - {{hook_2}}

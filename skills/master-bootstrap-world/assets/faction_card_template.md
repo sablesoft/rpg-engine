@@ -1,25 +1,25 @@
 # {{name}}
 
-## Entity Type
-Faction
+## Тип
+Фракция
 
-## Type
+## Категория
 {{type}}
 
-## Goals
+## Цели
 {{goals}}
 
-## Resources
+## Ресурсы
 {{resources}}
 
-## Methods
+## Методы
 {{methods}}
 
-## Relationship To Player-Facing World
+## Отношение К Игровому Миру
 {{player_relation}}
 
-## Known Members
+## Известные Участники
 - {{npc_1}}
 
-## Notes
+## Заметки
 {{notes}}

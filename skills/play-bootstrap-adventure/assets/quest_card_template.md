@@ -1,29 +1,29 @@
 # {{title}}
 
-## Entity Type
-Quest
+## Тип
+Квест
 
-## Scope
-Adventure
+## Область
+Приключение
 
-## Type
+## Категория
 {{type}}
 
-## Summary
+## Сводка
 {{summary}}
 
-## Objective
+## Цель
 {{objective}}
 
-## Patron
+## Патрон
 {{patron}}
 
-## Obstacles
+## Препятствия
 - {{obstacle_1}}
 - {{obstacle_2}}
 
-## Reward
+## Награда
 {{reward}}
 
-## Status
+## Статус
 {{status}}

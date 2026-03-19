@@ -177,11 +177,25 @@ def resolve_prompt(options)
   options[:prompt].strip
 end
 
+def default_size_for(options)
+  return options[:size] if options[:size] && !options[:size].empty?
+
+  role = options[:image_role].to_s.downcase
+  owner_type = options[:owner_type].to_s.downcase
+  portrait_roles = ["portrait", "character-portrait", "headshot", "bust", "full-body-portrait"]
+
+  return "1024x1536" if portrait_roles.include?(role)
+  return "1024x1536" if owner_type == "character" && role.include?("portrait")
+
+  nil
+end
+
 def build_openai_command(options, output_path)
   command = ["ruby", OPENAI_SCRIPT, "generate", "--output", output_path]
   command += ["--provider", options[:provider]] if options[:provider]
   command += ["--prompt", resolve_prompt(options)]
-  command += ["--size", options[:size]] if options[:size]
+  resolved_size = default_size_for(options)
+  command += ["--size", resolved_size] if resolved_size
   command += ["--quality", options[:quality]] if options[:quality]
   command += ["--background", options[:background]] if options[:background]
   command += ["--format", options[:format]] if options[:format]

@@ -1,37 +1,37 @@
 # {{title}}
 
-## Entity Type
-Adventure
+## Тип
+Приключение
 
-## World
+## Мир
 {{world_title}}
 
-## Scenario
+## Сценарий
 {{scenario_title}}
 
-## Protagonist
+## Протагонист
 {{character_name}}
 
-## Opening Premise
+## Начальная Предпосылка
 {{opening_premise}}
 
-## Starting Situation
+## Стартовая Ситуация
 {{starting_situation}}
 
-## Immediate Goal
+## Немедленная Цель
 {{immediate_goal}}
 
-## Active Tensions
+## Активные Напряжения
 - {{tension_1}}
 - {{tension_2}}
 
-## Known Facts
+## Известные Факты
 - {{fact_1}}
 - {{fact_2}}
 
-## Starting Hooks
+## Начальные Крючки
 - {{hook_1}}
 - {{hook_2}}
 
-## Adventure Status
+## Статус Приключения
 {{status}}

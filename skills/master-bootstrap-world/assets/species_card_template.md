@@ -1,23 +1,23 @@
 # {{name}}
 
-## Entity Type
-Species
+## Тип
+Вид
 
-## Description
+## Описание
 {{description}}
 
-## Traits
+## Черты
 - {{trait_1}}
 - {{trait_2}}
 
-## Culture
+## Культура
 {{culture}}
 
-## Typical Roles
+## Типичные Роли
 - {{role_1}}
 
-## Relations With Others
+## Отношения С Другими
 {{relations}}
 
-## Notes
+## Заметки
 {{notes}}

@@ -1,26 +1,26 @@
 # {{name}}
 
-## Entity Type
-Location
+## Тип
+Локация
 
-## Scope
-Adventure
+## Область
+Приключение
 
-## Type
+## Категория
 {{type}}
 
-## Summary
+## Сводка
 {{summary}}
 
-## Mood
+## Настроение
 {{mood}}
 
-## Key Features
+## Ключевые Особенности
 - {{feature_1}}
 - {{feature_2}}
 
-## Important Characters
+## Важные Персонажи
 - {{character_1}}
 
-## Secrets
+## Секреты
 - {{secret_1}}

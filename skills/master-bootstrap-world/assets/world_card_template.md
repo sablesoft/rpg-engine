@@ -1,35 +1,35 @@
 # {{title}}
 
-## Entity Type
-World
+## Тип
+Мир
 
-## Genre
+## Жанр
 {{genre}}
 
-## Tone
+## Тон
 {{tone}}
 
-## Core Premise
+## Ключевая Предпосылка
 {{core_premise}}
 
-## Physical Or Metaphysical Rules
+## Физические Или Метафизические Правила
 - {{rule_1}}
 - {{rule_2}}
 
-## Power Systems
+## Системы Сил
 - {{power_system_1}}
 
-## Major Factions
+## Крупные Фракции
 - {{faction_1}}
 - {{faction_2}}
 
-## Historical Background
+## Исторический Фон
 {{history}}
 
-## Current Tensions
+## Текущие Напряжения
 - {{tension_1}}
 - {{tension_2}}
 
-## Play Hooks
+## Игровые Крючки
 - {{hook_1}}
 - {{hook_2}}

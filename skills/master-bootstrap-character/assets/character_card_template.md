@@ -1,40 +1,40 @@
 # {{name}}
 
-## Entity Type
-Character
+## Тип
+Персонаж
 
-## World
+## Мир
 {{world_title}}
 
-## Role
+## Роль
 {{role}}
 
-## Archetype
+## Архетип
 {{archetype}}
 
-## Short Backstory
+## Краткая Предыстория
 {{backstory}}
 
-## Strengths
+## Сильные Стороны
 - {{strength_1}}
 - {{strength_2}}
 
-## Weaknesses
+## Слабые Стороны
 - {{weakness_1}}
 - {{weakness_2}}
 
-## Goals
+## Цели
 - {{goal_1}}
 
-## Relationships
+## Отношения
 - {{relationship_1}}
 - {{relationship_2}}
 
-## Inventory Or Signature Assets
+## Инвентарь Или Ключевые Атрибуты
 - {{item_1}}
 
-## Suitability For Player Hero
+## Пригодность Для Героя Игрока
 {{hero_suitability}}
 
-## Current Status
+## Текущий Статус
 {{status}}

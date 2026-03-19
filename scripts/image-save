@@ -367,43 +367,49 @@ def preview_section_lines(owner_card)
   lines
 end
 
-def preview_section_exists?(owner_card)
-  !preview_section_lines(owner_card).empty?
-end
-
 def insert_preview_section(path, lines)
-  content = load_text(path).rstrip
-  block = [WorkspaceCardHeaders.header(:preview), *lines].join("\n")
-  headers = read_lines(path)
-  insert_after_headers = ["## Сводка", "## Описание", "## Summary", "## Description"]
-  insert_after = insert_after_headers.find { |header| headers.include?(header) }
+  content_lines = read_lines(path)
+  block_lines = [WorkspaceCardHeaders.header(:preview), *lines]
+  first_h2_index = content_lines.index { |line| line.start_with?("## ") }
 
-  if insert_after
-    pattern = /(#{Regexp.escape(insert_after)}\n.*?)(?=\n## |\z)/m
-    if content.match?(pattern)
-      updated = content.sub(pattern) { |match| "#{match.rstrip}\n\n#{block}" }
-      write_text(path, updated)
-      return
+  if first_h2_index
+    insert_at = first_h2_index + 1
+    while insert_at < content_lines.length && !content_lines[insert_at].start_with?("## ")
+      insert_at += 1
     end
+
+    updated_lines = content_lines.dup
+    updated_lines.insert(insert_at, "", *block_lines)
+    write_text(path, updated_lines.join("\n"))
+    return
   end
 
+  content = load_text(path).rstrip
   if content.start_with?("# ")
     first_newline = content.index("\n")
     if first_newline
-      updated = "#{content[0..first_newline].rstrip}\n\n#{block}\n\n#{content[(first_newline + 1)..].to_s.lstrip}"
+      updated = "#{content[0..first_newline].rstrip}\n\n#{block_lines.join("\n")}\n\n#{content[(first_newline + 1)..].to_s.lstrip}"
       write_text(path, updated)
       return
     end
   end
 
   separator = content.empty? ? "" : "\n\n"
-  write_text(path, "#{content}#{separator}#{block}")
+  write_text(path, "#{content}#{separator}#{block_lines.join("\n")}")
+end
+
+def remove_existing_preview_section(owner_card)
+  header, lines = section_lines_any(owner_card, WorkspaceCardHeaders.aliases(:preview))
+  return if lines.empty?
+
+  delete_section(owner_card, header)
 end
 
 def ensure_preview_section(owner_card, preview_slug, media_path)
-  return if preview_slug.nil? || preview_slug.empty? || preview_section_exists?(owner_card)
+  return if preview_slug.nil? || preview_slug.empty?
 
   rel_media = relative_path(owner_card, media_path)
+  remove_existing_preview_section(owner_card)
   insert_preview_section(owner_card, ["[![#{preview_slug}](#{rel_media})](#{rel_media})"])
 end
 
