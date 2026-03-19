@@ -35,13 +35,15 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
    - `products/rpg-engine/workspaces/world/<slug>/setting.md`
    - `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
    - `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
-   - optional support files such as `setting.md`, `rules_of_world.md`, and `tone_and_themes.md`
    - `products/rpg-engine/workspaces/world/<slug>/locations/<slug>.md`
+   - `products/rpg-engine/workspaces/world/<slug>/characters/<slug>.md`
    - `products/rpg-engine/workspaces/world/<slug>/factions/<slug>.md`
    - `products/rpg-engine/workspaces/world/<slug>/species/<slug>.md`
-   - optional support-card folders such as `locations/`, `factions/`, and `species/`
-4. Keep the world contract internally consistent and usable by scenarios, characters, and adventures.
-5. Surface missing inputs only when they block coherent world creation.
+   - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/scenario.md`
+   - optional support-card folders such as `locations/`, `characters/`, `factions/`, `species/`, and `scenarios/`
+4. If this is a newly created world workspace, initialize it as its own git repository so world canon can evolve independently from the product repository.
+5. Keep the world contract internally consistent and usable by world-owned scenarios, world-owned characters, and adventures.
+6. Surface missing inputs only when they block coherent world creation.
 
 # Constraints
 

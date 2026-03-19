@@ -30,3 +30,4 @@ Primary card:
 When to use:
 - use for any playable run
 - anything first created during play stays here until explicitly promoted
+- this workspace may be initialized as its own git repository

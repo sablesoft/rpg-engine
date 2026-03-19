@@ -35,7 +35,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - `products/rpg-engine/workspaces/adventure/<slug>/events/<id>.md`
    - `products/rpg-engine/workspaces/adventure/<slug>/sessions/<id>.md`
    - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when relevant
-   - local `world.md` or `scenario.md` when present, otherwise the selected global world or scenario workspace
+   - local `world.md` or `scenario.md` when present, otherwise the selected global world repository and its world-owned scenario content
 4. Present the immediate situation, available options, risks, and observable facts.
 5. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
 6. Update the adventure state, consequences, and newly learned information.

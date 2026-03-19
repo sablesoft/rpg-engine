@@ -1,7 +1,7 @@
 slug: rpg-engine
 name: RPG Engine
 purpose: Product layer for building, running, and referencing tabletop-style role-playing game content.
-scope: Covers world canon, scenarios, characters, playable adventures, and reference access for RPG workflows.
+scope: Covers world canon, world-bound scenarios and characters, playable adventures, and reference access for RPG workflows.
 
 mode_namespace:
   source: product
@@ -15,14 +15,8 @@ workspace_model:
   root: products/rpg-engine/workspaces
   units:
     - name: world
-      purpose: Canon container for lore, physics, factions, history, and all shared setting rules.
+      purpose: Canon repository for one world together with its world-bound scenarios, characters, and support cards.
       primary_card: world.md
-    - name: scenario
-      purpose: Campaign, story arc, or playable narrative that belongs to one world.
-      primary_card: scenario.md
-    - name: character
-      purpose: World-bound character profile that can act as NPC, ally, antagonist, or player hero.
-      primary_card: character.md
     - name: adventure
-      purpose: Playthrough instance built from one world, one scenario, and one selected protagonist.
+      purpose: Playthrough repository built from one world context, one scenario context, and one selected protagonist.
       primary_card: adventure.md

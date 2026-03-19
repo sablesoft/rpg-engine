@@ -1,11 +1,11 @@
-# Character Workspace Structure
+# Character Structure
 
 Root:
-- `products/rpg-engine/workspaces/character/<slug>/character.md`
+- `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
 
 Primary card:
 - `character.md` is the main readable source of truth
 
 When to use:
-- use for global character canon promoted to workspace scope
-- local scoped characters may instead live under `scenario` or `adventure` support-card folders until promoted
+- use for global character canon inside a world repository
+- local scoped characters may instead live under a world-owned `scenario` or an `adventure` support-card folder until promoted

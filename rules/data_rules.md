@@ -20,47 +20,64 @@
 - `character` uses a character card
 - `adventure` uses an adventure card
 
+## Top-level repository rule
+
+- only `world` and `adventure` are top-level workspace repositories
+- every global `scenario` belongs to one `world` repository
+- every global `character` belongs to one `world` repository
+- every `adventure` belongs to one world context and may contain local cards for any entity first created during play
+
 ## Global vs local entity form
 
 - a core entity may exist either as:
-  - a global workspace-level entity
+  - a global entity inside a `world` repository
   - a local card nested inside an `adventure`
 - see the default locality rule
-- only explicitly promoted entities become standalone workspace-level `world` or `scenario` entries
+- only explicitly promoted entities become global content in a `world` repository or, for worlds themselves, standalone `world` repositories
 
 ## Workspace file convention
 
 - `world` workspaces live under `products/rpg-engine/workspaces/world/<slug>/`
-- `scenario` workspaces live under `products/rpg-engine/workspaces/scenario/<slug>/`
-- `character` workspaces live under `products/rpg-engine/workspaces/character/<slug>/`
 - `adventure` workspaces live under `products/rpg-engine/workspaces/adventure/<slug>/`
 
 - each `world` workspace uses:
   - `world.md` as the primary card
   - optional support files such as `setting.md`, `rules_of_world.md`, `global_story.md`, `tone_and_themes.md`
-  - support-card folders such as `locations/`, `characters/`, `factions/`, `species/`
+  - world-owned folders such as:
+    - `locations/`
+    - `characters/`
+    - `factions/`
+    - `species/`
+    - `scenarios/`
 
-- each `scenario` workspace uses:
-  - `scenario.md` as the primary card
-  - optional support files such as `global_story.md`, `tone_and_themes.md`
+- each global scenario inside a world uses:
+  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
+  - optional support files such as `global_story.md` and `tone_and_themes.md`
   - support-card folders such as `quests/`, `locations/`, `characters/`
 
-- each `character` workspace uses:
-  - `character.md` as the primary card
+- each global character inside a world uses:
+  - `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
 
 - each `adventure` workspace uses:
   - `adventure.md` as the primary card
   - optional local `world.md` and `scenario.md` when those entities were first created inside the adventure
+  - optional local protagonist card such as `characters/player.md`
   - `current_scene.md` for the immediate playable scene
   - `state.yaml`, `facts.yaml`, and `flags.yaml` for mutable run state
   - `events/` and `sessions/` for play history
   - support-card folders such as `locations/`, `quests/`, `characters/`, `factions/`, `species/`
 
+## Repository ownership
+
+- each `world` workspace may be initialized as its own git repository
+- each `adventure` workspace may be initialized as its own git repository
+- the product repository should ignore concrete workspace content so engine evolution stays independent from world and adventure content
+
 ## Support-card ownership
 
 - `location` cards are world-level by default, but may exist as local cards inside an `adventure`
 - `quest` cards are scenario-level by default, but may exist as local cards inside an `adventure`
-- `character` cards are world-level by default, but may exist as local cards inside a `scenario` or an `adventure`
+- `character` cards are world-level by default, but may exist as local cards inside a world-owned `scenario` or an `adventure`
 - `faction` and `species` cards may exist at world, scenario, or adventure scope depending on where they are established
 
 ## Play-first locality
@@ -71,8 +88,9 @@
 
 - see the default locality rule
 - local support cards may be promoted to a more global scope through `master` workflows when the user asks for it
-- local `world` and `scenario` cards may be promoted into standalone global workspaces through `master` workflows when the user asks for it
-- promotion may move an entity from `adventure` to `scenario` or `world`, or from `scenario` to `world`, depending on the requested target scope
+- local `world` cards may be promoted into standalone `world` repositories through `master` workflows when the user asks for it
+- local `scenario` and `character` cards may be promoted into a target `world` repository through `master` workflows when the user asks for it
+- promotion may move an entity from `adventure` to `scenario` or `world`, or from a world-owned `scenario` to the wider world scope, depending on the requested target scope
 - promotion must preserve meaning and resolve naming or canon conflicts explicitly
 - do not silently promote local adventure discoveries into world canon
 

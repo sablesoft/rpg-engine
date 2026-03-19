@@ -44,13 +44,14 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
    - choose or generate a protagonist `character`
    - create an `adventure` instance
    - establish an opening scene
-4. At each step, prefer existing compatible workspaces when the user wants to choose from known content.
+4. At each step, prefer existing compatible world or adventure repositories when the user wants to choose from known content.
 5. If the user does not have a preference, offer a compact set of distinct options before creating anything.
 6. If the user wants something new on the fly, create only the missing pieces needed to enter play quickly.
-7. Update product runtime pointers so the newly selected or created context can be resumed later.
-8. Ensure the created or selected inputs are internally compatible before entering live play.
-9. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
-10. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
+7. If a new adventure is created, initialize `products/rpg-engine/workspaces/adventure/<slug>/` as its own git repository.
+8. Update product runtime pointers so the newly selected or created context can be resumed later.
+9. Ensure the created or selected inputs are internally compatible before entering live play.
+10. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
+11. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
 
 # Selection and generation flow
 
@@ -58,10 +59,10 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
   - list existing worlds when available
   - if none fit, generate a compact local world foundation inside the adventure with enough canon for immediate play
 - scenario:
-  - prefer scenarios that belong to the selected world
+  - prefer scenarios that belong to the selected world repository
   - if none fit, generate a local scenario inside the adventure tied to that selected or local world
 - character:
-  - prefer characters that belong to the selected world and fit the scenario
+  - prefer characters that belong to the selected world repository and fit the scenario
   - if none fit, propose 3 distinct protagonist options derived from the character card model and create the selected one
 - adventure:
   - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`

@@ -5,7 +5,7 @@ description: Promote local adventure or scenario entities into broader canon sco
 
 # Purpose
 
-Move a locally scoped entity into a broader canonical scope such as `scenario` or `world`.
+Move a locally scoped entity into a broader canonical scope such as a world-owned scenario, a world-owned character, or world canon itself.
 
 # Read before acting
 
@@ -26,15 +26,21 @@ Move a locally scoped entity into a broader canonical scope such as `scenario` o
 2. Read the source card and any directly related local support cards.
 3. Confirm the target scope is valid under the default locality and promotion rules.
 4. Create or update the target canonical file path for the promoted entity.
-5. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
-6. Update any affected references in the originating adventure or scenario as needed.
-7. Keep the promoted content readable as a primary card in its new scope.
+5. Initialize the target world repository when promotion creates a new global world for the first time.
+6. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
+7. Update any affected references in the originating adventure as needed.
+8. Keep the promoted content readable as a primary card in its new scope.
 
 # Supported promotions
 
-- `adventure -> scenario`
-- `adventure -> world`
-- `scenario -> world`
+- `adventure/world -> world`
+- `adventure/scenario -> world/scenario`
+- `adventure/character -> world/character`
+- `scenario/character -> world/character`
+- `adventure/location -> scenario/location`
+- `adventure/location -> world/location`
+- `scenario/location -> world/location`
+- `adventure/quest -> scenario/quest`
 
 Typical entity types:
 
@@ -51,18 +57,18 @@ Typical entity types:
 - promoted global world:
   - `products/rpg-engine/workspaces/world/<slug>/world.md`
 - promoted global scenario:
-  - `products/rpg-engine/workspaces/scenario/<slug>/scenario.md`
+  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
 - promoted global character:
-  - `products/rpg-engine/workspaces/character/<slug>/character.md`
+  - `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
 - promoted support cards into world scope:
   - `products/rpg-engine/workspaces/world/<world_slug>/locations/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/characters/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/factions/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/species/<slug>.md`
 - promoted support cards into scenario scope:
-  - `products/rpg-engine/workspaces/scenario/<scenario_slug>/quests/<slug>.md`
-  - `products/rpg-engine/workspaces/scenario/<scenario_slug>/locations/<slug>.md`
-  - `products/rpg-engine/workspaces/scenario/<scenario_slug>/characters/<slug>.md`
+  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
+  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
+  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
 
 # Constraints
 
@@ -75,4 +81,4 @@ Typical entity types:
 
 1. promoted entity in its new scope
 2. note on source, target, and continuity impacts
-3. any follow-up edits needed in related canon
+3. any follow-up edits needed in related canon or in the originating adventure

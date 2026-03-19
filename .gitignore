@@ -1,2 +1,5 @@
 state/runtime.yaml
-
+workspaces/world/*
+workspaces/adventure/*
+!workspaces/world/.gitkeep
+!workspaces/adventure/.gitkeep

@@ -5,7 +5,7 @@ description: Create a world-bound RPG character for use as a protagonist, NPC, a
 
 # Purpose
 
-Create a character workspace with identity, motivations, capabilities, history, and world ties.
+Create a world-owned character card with identity, motivations, capabilities, history, and world ties.
 
 # Read before acting
 
@@ -22,10 +22,10 @@ Create a character workspace with identity, motivations, capabilities, history, 
 
 # Behavior
 
-1. Confirm the world context for the character.
+1. Confirm the world context for the character and locate the owning world repository.
 2. Define the character role, background, relationships, capabilities, limits, goals, and narrative hooks.
-3. Create or update a `character` workspace under `products/rpg-engine/workspaces/` following `products/rpg-engine/assets/workspace_templates/character_structure.md` and using:
-   - `products/rpg-engine/workspaces/character/<slug>/character.md`
+3. Create or update a world-owned character card following `products/rpg-engine/assets/workspace_templates/character_structure.md` and using:
+   - `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
    - the character card template as the primary content artifact
 4. Mark whether the character is suitable as a player-controlled protagonist.
 5. Keep the character compatible with established world rules.
@@ -38,6 +38,6 @@ Create a character workspace with identity, motivations, capabilities, history, 
 
 # Output
 
-1. created or updated character workspace content
+1. created or updated character content inside the world repository
 2. summary of the character role and hooks
 3. next recommended step for scenario fit or adventure setup

@@ -74,15 +74,11 @@ If mode is missing:
 Workspace units:
 
 - `world`
-- `scenario`
-- `character`
 - `adventure`
 
 Interpretation:
 
-- `world` stores shared canon, lore, physics, factions, and history
-- `scenario` stores a playable campaign or story arc inside one world
-- `character` stores a world-bound actor that may be a protagonist, ally, NPC, or antagonist
+- `world` stores shared canon, lore, physics, factions, history, and also owns global scenarios and characters for that world
 - `adventure` stores one concrete playthrough instance using selected world, scenario, and protagonist context
 
 Treat `adventure` as play state for one run, not as global canon for the whole world.
@@ -92,7 +88,7 @@ Scoped support entities:
 
 - locations are usually world-scoped but may be local to an adventure
 - quests are usually scenario-scoped but may be local to an adventure
-- characters are usually world-scoped but may be local to a scenario or an adventure
+- characters are usually world-scoped but may be local to a world-owned scenario or an adventure
 - factions and species may also be local before they are promoted more globally
 - `master` may promote local entities into a more global scope when the user requests it
 
