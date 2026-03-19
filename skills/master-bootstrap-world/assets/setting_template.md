@@ -1,34 +1,49 @@
-# Setting
+<!--
+Required sections:
+- {{dict.sections.name}}
+- {{dict.sections.genre}}
+- {{dict.world.core_concept}}
+- {{dict.world.world_overview}}
+Optional sections:
+- {{dict.world.level_of_magic_or_technology}}
+- {{dict.world.known_regions}}
+- {{dict.world.key_factions}}
+- {{dict.world.common_knowledge}}
+- {{dict.world.unknown_or_hidden_truths}}
+- {{dict.world.visual_or_atmosphere_notes}}
+Subsections may be added under any top-level section.
+-->
+# {{dict.document_titles.setting}}
 
-## Name
+## {{dict.sections.name}}
 {{setting_name}}
 
-## Genre
+## {{dict.sections.genre}}
 {{genre}}
 
-## Core Concept
+## {{dict.world.core_concept}}
 {{core_concept}}
 
-## World Overview
+## {{dict.world.world_overview}}
 {{world_overview}}
 
-## Level of Magic / Technology
+## {{dict.world.level_of_magic_or_technology}}
 {{magic_or_tech_level}}
 
-## Known Regions
+## {{dict.world.known_regions}}
 - {{region_1}}
 - {{region_2}}
 
-## Key Factions
+## {{dict.world.key_factions}}
 - {{faction_1}}
 - {{faction_2}}
 
-## Common Knowledge
+## {{dict.world.common_knowledge}}
 - {{fact_1}}
 - {{fact_2}}
 
-## Unknown / Hidden Truths
+## {{dict.world.unknown_or_hidden_truths}}
 - {{secret_1}}
 
-## Visual / Atmosphere Notes
+## {{dict.world.visual_or_atmosphere_notes}}
 {{atmosphere_notes}}

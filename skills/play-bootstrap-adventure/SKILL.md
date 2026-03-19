@@ -20,6 +20,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/state/runtime.yaml`
+- `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`

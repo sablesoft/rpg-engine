@@ -1,25 +1,47 @@
+<!--
+Required sections:
+- {{dict.sections.type}}
+- {{dict.sections.category}}
+- {{dict.sections.description}}
+Optional sections:
+- {{dict.sections.goals}}
+- {{dict.faction.resources}}
+- {{dict.faction.methods}}
+- {{dict.sections.relationships}}
+- {{dict.faction.known_members}}
+- {{dict.sections.notes}}
+- {{dict.sections.images}}
+Subsections may be added under any top-level section.
+-->
 # {{name}}
 
-## Тип
-Фракция
+## {{dict.sections.type}}
+{{dict.entity_types.faction}}
 
-## Категория
+## {{dict.sections.category}}
 {{type}}
 
-## Цели
+## {{dict.sections.description}}
+{{description}}
+
+## {{dict.sections.goals}}
 {{goals}}
 
-## Ресурсы
+## {{dict.faction.resources}}
 {{resources}}
 
-## Методы
+## {{dict.faction.methods}}
 {{methods}}
 
-## Отношение К Игровому Миру
-{{player_relation}}
+## {{dict.sections.relationships}}
+### {{relationship_name_1}}
+{{relationship_text_1}}
 
-## Известные Участники
+## {{dict.faction.known_members}}
 - {{npc_1}}
 
-## Заметки
+## {{dict.sections.notes}}
 {{notes}}
+
+## {{dict.sections.images}}
+- `{{image_slug_1}}` — role: {{image_role_1}}; card: `{{image_card_path_1}}`

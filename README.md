@@ -43,6 +43,22 @@ It adds RPG-specific:
 - workspace conventions
 - resumable product runtime
 
+## Workspace Dictionary
+
+Workspace-facing card titles, section labels, and entity-type labels should be resolved from:
+
+- `products/rpg-engine/assets/workspace_dictionary/*.template.yaml`
+- local overrides such as `products/rpg-engine/assets/workspace_dictionary/ru/sections.yaml`
+
+This keeps `content_language` output consistent across scripts, templates, and hand-authored cards.
+Committed repository content should keep only the template files.
+If `content_language` is not `en`, create local translation files in that directory and adjust those instead of changing individual templates or helpers.
+Card templates should also mark which top-level sections are required and which are optional.
+Required sections must always be present in live cards, while optional sections may be omitted until they become meaningful.
+Subsections may be added under any main section.
+Use `Description` as the shared general-purpose descriptive section instead of introducing new top-level `Summary` fields.
+Use `ruby products/rpg-engine/scripts/validate-workspace-cards` to verify that live workspace cards still match the current template structure.
+
 ## Core idea
 
 `rpg-engine` separates global canon from local play.
@@ -229,6 +245,7 @@ Useful options:
 - `--dry-run` shows the request without sending it
 - `--prompt-file PATH` reads the prompt from a file
 - `--size`, `--quality`, `--background`, `--format`, and `--compression` override output settings
+- portrait-style roles should default to a portrait render size even if the provider itself defaults to landscape
 
 If you already have an image on disk and just want the terminal preview link output again, use:
 
@@ -260,7 +277,7 @@ If you do want to keep it, `image-save` should:
 - move it from `products/rpg-engine/tmp/` into the correct workspace `images/` folder
 - give it a proper final name
 - attach it to one primary owner entity
-- keep one Markdown preview embed near the beginning of the owner card so the main entity card shows a representative image
+- keep one Markdown preview embed immediately after the first main entity-field section in the owner card so the main entity card shows a representative image
 - keep the `Images` section only for additional non-preview saved images
 - omit `Images` entirely when the preview is the only saved image
 - add additional saved images as links in the same `Images` section without embedding them all inline

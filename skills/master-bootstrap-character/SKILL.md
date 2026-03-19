@@ -16,6 +16,7 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/character_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_option_template.md`
@@ -39,5 +40,5 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 # Output
 
 1. created or updated character content inside the world repository
-2. summary of the character role and hooks
+2. concise description of the character role and hooks
 3. next recommended step for scenario fit or adventure setup

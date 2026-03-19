@@ -1,27 +1,40 @@
-# Global Story
+<!--
+Required sections:
+- {{dict.scenario.current_era}}
+- {{dict.scenario.background_history}}
+- {{dict.scenario.main_conflict}}
+- {{dict.scenario.stakes}}
+Optional sections:
+- {{dict.scenario.recent_events}}
+- {{dict.scenario.key_powers_involved}}
+- {{dict.scenario.what_happens_if_nothing_changes}}
+- {{dict.scenario.hidden_agendas}}
+Subsections may be added under any top-level section.
+-->
+# {{dict.document_titles.global_story}}
 
-## Current Era
+## {{dict.scenario.current_era}}
 {{current_era}}
 
-## Background History
+## {{dict.scenario.background_history}}
 {{background_history}}
 
-## Recent Events
+## {{dict.scenario.recent_events}}
 - {{recent_event_1}}
 - {{recent_event_2}}
 
-## Main Conflict
+## {{dict.scenario.main_conflict}}
 {{main_conflict}}
 
-## Key Powers Involved
+## {{dict.scenario.key_powers_involved}}
 - {{power_1}}
 - {{power_2}}
 
-## Stakes
+## {{dict.scenario.stakes}}
 {{stakes}}
 
-## What Happens If Nothing Changes
+## {{dict.scenario.what_happens_if_nothing_changes}}
 {{default_outcome}}
 
-## Hidden Agendas
+## {{dict.scenario.hidden_agendas}}
 - {{hidden_agenda_1}}

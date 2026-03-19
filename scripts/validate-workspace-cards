@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "pathname"
+require_relative "support/workspace_template_schema"
+
+targets =
+  if ARGV.empty?
+    [
+      File.join(__dir__, "..", "workspaces", "adventure"),
+      File.join(__dir__, "..", "workspaces", "world")
+    ]
+  else
+    ARGV.map { |arg| File.expand_path(arg, Dir.pwd) }
+  end
+
+card_paths = targets.flat_map do |target|
+  if File.directory?(target)
+    Dir[File.join(target, "**", "*.md")]
+  elsif File.file?(target)
+    [target]
+  else
+    []
+  end
+end
+
+card_paths.reject! { |path| path.include?("/images/") }
+card_paths.sort!
+
+findings = []
+
+card_paths.each do |card_path|
+  template_path = WorkspaceTemplateSchema.template_for(card_path)
+  next unless template_path
+
+  schema = WorkspaceTemplateSchema.parse(template_path)
+  sections = WorkspaceTemplateSchema.top_level_sections(card_path)
+
+  missing = schema[:required] - sections
+  extra = sections - schema[:allowed]
+
+  next if missing.empty? && extra.empty?
+
+  findings << {
+    card_path: card_path,
+    template_path: template_path,
+    missing: missing,
+    extra: extra
+  }
+end
+
+if findings.empty?
+  puts "workspace card validation passed"
+  exit 0
+end
+
+findings.each do |finding|
+  puts finding[:card_path]
+  puts "  template: #{finding[:template_path]}"
+  puts "  missing required: #{finding[:missing].join(', ')}" unless finding[:missing].empty?
+  puts "  unexpected top-level: #{finding[:extra].join(', ')}" unless finding[:extra].empty?
+end
+
+exit 1

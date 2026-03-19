@@ -1,23 +1,34 @@
-# Tone and Themes
+<!--
+Required sections:
+- {{dict.sections.tone}}
+- {{dict.sections.mood}}
+- {{dict.sections.themes}}
+Optional sections:
+- {{dict.sections.pacing}}
+- {{dict.sections.player_experience_goals}}
+- {{dict.sections.what_this_story_is_not}}
+Subsections may be added under any top-level section.
+-->
+# {{dict.document_titles.tone_and_themes}}
 
-## Tone
+## {{dict.sections.tone}}
 {{tone}}
 
-## Mood
+## {{dict.sections.mood}}
 {{mood}}
 
-## Pacing
+## {{dict.sections.pacing}}
 {{pacing}}
 
-## Themes
+## {{dict.sections.themes}}
 - {{theme_1}}
 - {{theme_2}}
 - {{theme_3}}
 
-## Player Experience Goals
+## {{dict.sections.player_experience_goals}}
 - {{experience_1}}
 - {{experience_2}}
 
-## What This Story Is NOT
+## {{dict.sections.what_this_story_is_not}}
 - {{avoid_1}}
 - {{avoid_2}}

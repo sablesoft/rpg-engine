@@ -7,6 +7,7 @@ require "fileutils"
 require "time"
 require_relative "../../../scripts/support/terminal_image_link"
 require_relative "support/workspace_card_headers"
+require_relative "support/workspace_dictionary"
 
 ROOT = File.expand_path("..", __dir__)
 TMP_DIR = File.join(ROOT, "tmp")
@@ -155,12 +156,12 @@ def reusable_visual_concept(path)
   inferred = first_nonempty_section(
     path,
     [
-      "## Внешность",
-      "## Сводка",
-      "## Описание",
-      "## Манера",
-      "## Ключевые особенности",
-      "## Настроение"
+      WorkspaceDictionary.section_aliases(:appearance),
+      WorkspaceDictionary.section_aliases(:summary),
+      WorkspaceDictionary.section_aliases(:description),
+      WorkspaceDictionary.section_aliases(:manner),
+      WorkspaceDictionary.section_aliases(:key_features),
+      WorkspaceDictionary.section_aliases(:mood)
     ]
   )
   return [inferred, "provisional"] if inferred && !inferred.empty?

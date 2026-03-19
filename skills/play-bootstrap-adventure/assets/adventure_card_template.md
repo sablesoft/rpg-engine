@@ -1,37 +1,56 @@
+<!--
+Required sections:
+- {{dict.sections.type}}
+- {{dict.sections.world}}
+- {{dict.sections.scenario}}
+- {{dict.adventure.protagonist}}
+- {{dict.sections.description}}
+Optional sections:
+- {{dict.adventure.immediate_goal}}
+- {{dict.adventure.active_tensions}}
+- {{dict.adventure.known_facts}}
+- {{dict.adventure.starting_hooks}}
+- {{dict.sections.status}}
+- {{dict.sections.images}}
+Subsections may be added under any top-level section.
+-->
 # {{title}}
 
-## Тип
-Приключение
+## {{dict.sections.type}}
+{{dict.entity_types.adventure}}
 
-## Мир
+## {{dict.sections.world}}
 {{world_title}}
 
-## Сценарий
+## {{dict.sections.scenario}}
 {{scenario_title}}
 
-## Протагонист
+## {{dict.adventure.protagonist}}
 {{character_name}}
 
-## Начальная Предпосылка
+## {{dict.sections.description}}
 {{opening_premise}}
 
-## Стартовая Ситуация
+### {{dict.adventure.starting_situation}}
 {{starting_situation}}
 
-## Немедленная Цель
+## {{dict.adventure.immediate_goal}}
 {{immediate_goal}}
 
-## Активные Напряжения
+## {{dict.adventure.active_tensions}}
 - {{tension_1}}
 - {{tension_2}}
 
-## Известные Факты
+## {{dict.adventure.known_facts}}
 - {{fact_1}}
 - {{fact_2}}
 
-## Начальные Крючки
+## {{dict.adventure.starting_hooks}}
 - {{hook_1}}
 - {{hook_2}}
 
-## Статус Приключения
+## {{dict.sections.status}}
 {{status}}
+
+## {{dict.sections.images}}
+- `{{image_slug_1}}` — role: {{image_role_1}}; card: `{{image_card_path_1}}`

@@ -40,7 +40,7 @@ Move a reviewed image and its already prepared temporary image card from `produc
 12. Update the owner entity card with an `Images` section or add the new image entry to the existing section.
 13. Keep at most one active preview image for the owner card:
    - if the card has no preview yet, the first saved image may become that preview
-   - place the inline preview near the beginning of the card, preferably after `Summary` or `Описание` style sections when present
+   - place the inline preview near the beginning of the card, immediately after the `Type` section
    - keep the preview itself out of `## Images`
    - use `## Images` only for additional non-preview saved images
    - if no additional saved images remain after the preview is chosen, omit `## Images` entirely

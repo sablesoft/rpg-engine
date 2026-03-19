@@ -16,6 +16,10 @@
 ## Scoped entities
 
 - locations are normally world-scoped, but adventures may introduce local location cards for temporary or newly discovered places
+- a location may belong inside another location without changing its canonical scope; location nesting should be modeled explicitly in the card content
+- when location nesting is known, record the chain from the immediate parent upward toward broader enclosing locations
+- each recorded parent in that chain should include the enclosing location name together with its kind
+- when the enclosing card is known, record that parent as a Markdown link to the corresponding card rather than plain text
 - quests are normally scenario-scoped, but adventures may introduce local quest cards for run-specific goals
 - characters are normally world-scoped, but world-owned scenarios and adventures may hold local character cards for scoped variants, temporary roles, or newly introduced actors
 - factions and species may also exist as local scoped entities before they are established more globally

@@ -1,25 +1,38 @@
-# Rules of the World
+<!--
+Required sections:
+- {{dict.world.physical_rules}}
+- {{dict.world.social_rules}}
+- {{dict.world.magic_or_technology_rules}}
+Optional sections:
+- {{dict.world.danger_level}}
+- {{dict.world.death_or_failure_consequences}}
+- {{dict.world.economy_or_resources}}
+- {{dict.world.travel_rules}}
+- {{dict.world.information_availability}}
+Subsections may be added under any top-level section.
+-->
+# {{dict.document_titles.rules_of_world}}
 
-## Physical Rules
+## {{dict.world.physical_rules}}
 {{physical_rules}}
 
-## Social Rules
+## {{dict.world.social_rules}}
 {{social_rules}}
 
-## Magic / Technology Rules
+## {{dict.world.magic_or_technology_rules}}
 {{magic_rules}}
 
-## Danger Level
+## {{dict.world.danger_level}}
 {{danger_level}}
 
-## Death / Failure Consequences
+## {{dict.world.death_or_failure_consequences}}
 {{failure_consequences}}
 
-## Economy / Resources
+## {{dict.world.economy_or_resources}}
 {{economy_rules}}
 
-## Travel Rules
+## {{dict.world.travel_rules}}
 {{travel_rules}}
 
-## Information Availability
+## {{dict.world.information_availability}}
 {{information_rules}}

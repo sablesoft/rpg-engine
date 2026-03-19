@@ -3,6 +3,11 @@ config/*
 !config/*.template.yaml
 tmp/*
 !tmp/.gitkeep
+assets/workspace_dictionary/*
+!assets/workspace_dictionary/*.template.yaml
+!assets/workspace_dictionary/.gitignore
+!assets/workspace_dictionary/*/
+assets/workspace_dictionary/*/*
 workspaces/world/*
 workspaces/adventure/*
 !workspaces/world/.gitkeep

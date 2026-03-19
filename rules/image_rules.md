@@ -72,8 +72,8 @@ The metadata card is the readable source of truth for the image asset.
 - `image-generate` should create both a temporary image file and a temporary image card together
 - after generation, give the user a direct path to the temporary file
 - after generation, emit a clickable OSC 8 `file://` link to the saved temporary image
-- in Kitty, prefer a short bracketed link label such as `[Показать изображение]` and ensure image clicks open through compatible `open_actions` with `kitten icat`, preferably in overlay mode with `--hold`
-- outside Kitty, still emit a regular OSC 8 `file://` link such as `[Открыть изображение]`
+- in Kitty, prefer a short bracketed link label such as `[Show Image]` and ensure image clicks open through compatible `open_actions` with `kitten icat`, preferably in overlay mode with `--hold`
+- outside Kitty, still emit a regular OSC 8 `file://` link such as `[Open Image]`
 - on macOS outside Kitty, also print a ready `open /absolute/path/to/image.png` fallback command near the link
 - print the image link only after the media file is actually written to disk
 - keep the link presentation lightweight so it can sit directly after scene text or generation-result text without extra wrapper prose
@@ -118,7 +118,8 @@ Optional fields may include:
 - every image-owning entity card must include an `Images` section after the main descriptive sections when persisted images exist
 - card-facing section names should follow `content_language` rather than being hard-coded in engine language
 - the `Images` section should list image roles and link to the image metadata cards
-- owner entity cards may embed one Markdown preview of a saved image near the beginning of the card, preferably directly after a summary or description section when present
+- owner entity cards may embed one Markdown preview of a saved image near the beginning of the card, immediately after the first main entity-field section
+- do not infer preview placement from localized section names; placement logic should follow card structure rather than a language-specific header list
 - when an entity has multiple saved images, show only one of them as the card preview and list only the remaining non-preview images in `Images`
 - embedded previews in owner cards are convenience renderings, not a replacement for the image metadata card
 - an entity without persisted images should omit the section rather than keep an empty placeholder
@@ -142,6 +143,7 @@ Optional fields may include:
 - one entity may have multiple images for different roles such as portrait, full body, establishing shot, emblem, map plate, or scene beat
 - image slugs must be unique within the owner entity folder
 - use role-oriented names such as `portrait-01`, `arrival-scene-01`, `heraldic-seal-01`
+- portrait-oriented roles such as `portrait-01` should default to portrait render size unless the user explicitly overrides the size
 
 ## Promotion semantics
 

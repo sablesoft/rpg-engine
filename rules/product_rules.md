@@ -14,6 +14,11 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - each core workspace should have one primary card written in `content_language`
 - keep product data templates simple and readable before adding secondary support files
 - keep product-local engine files independent from concrete world and adventure content
+- keep workspace-facing labels in the workspace dictionary flow rather than hard-coding them in scripts or templates
+- keep shared labels in `workspace_dictionary/sections*`
+- keep labels unique to one entity or document type in dictionary files for that entity or document type
+- commit only `*.template.yaml` dictionary files; keep concrete non-English or user-adjusted realizations local and ignored by git
+- when card templates are created or refactored, update the matching dictionary files in the same change
 
 ## Constraints
 

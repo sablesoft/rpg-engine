@@ -1,29 +1,47 @@
+<!--
+Required sections:
+- {{dict.sections.type}}
+- {{dict.sections.category}}
+- {{dict.sections.description}}
+- {{dict.quest.objective}}
+Optional sections:
+- {{dict.sections.adventure}}
+- {{dict.quest.patron}}
+- {{dict.quest.obstacles}}
+- {{dict.quest.reward}}
+- {{dict.sections.status}}
+- {{dict.sections.images}}
+Subsections may be added under any top-level section.
+-->
 # {{title}}
 
-## Тип
-Квест
+## {{dict.sections.type}}
+{{dict.entity_types.quest}}
 
-## Область
-Приключение
+## {{dict.sections.adventure}}
+{{adventure_title}}
 
-## Категория
+## {{dict.sections.category}}
 {{type}}
 
-## Сводка
-{{summary}}
+## {{dict.sections.description}}
+{{description}}
 
-## Цель
+## {{dict.quest.objective}}
 {{objective}}
 
-## Патрон
+## {{dict.quest.patron}}
 {{patron}}
 
-## Препятствия
+## {{dict.quest.obstacles}}
 - {{obstacle_1}}
 - {{obstacle_2}}
 
-## Награда
+## {{dict.quest.reward}}
 {{reward}}
 
-## Статус
+## {{dict.sections.status}}
 {{status}}
+
+## {{dict.sections.images}}
+- `{{image_slug_1}}` — role: {{image_role_1}}; card: `{{image_card_path_1}}`

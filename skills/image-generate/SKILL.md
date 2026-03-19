@@ -51,27 +51,28 @@ Generate temporary image outputs for RPG canon or adventure context and place th
    - scene illustration
    - item or artifact plate
    - faction emblem or heraldic mark
-10. Build a provider-neutral request using `./assets/image_request_template.md`.
-11. Choose the provider profile that matches the requested backend:
+10. When the selected role is a portrait-oriented role such as `portrait`, default the render size to portrait instead of inheriting a landscape provider default, unless the user explicitly passed `--size`.
+11. Build a provider-neutral request using `./assets/image_request_template.md`.
+12. Choose the provider profile that matches the requested backend:
    - `openai_image_api`
    - `local_invoke_sd`
-12. Convert the neutral request into a provider-ready payload while preserving canonical facts, visual concept continuity, tone, composition intent, and negative constraints.
-13. If the user asked for generation now, write the output image to `products/rpg-engine/tmp/` with a clear temporary filename.
-14. Create a temporary image card next to the temporary image so prompt, owner, provider, depicted-entity information, and all missing visual concept material are not lost before persistence.
-15. Return direct file paths to both the temporary image and its temporary card so the user can inspect them.
-16. After the temporary media file is actually written, emit a clickable terminal link to the absolute `file://` path:
+13. Convert the neutral request into a provider-ready payload while preserving canonical facts, visual concept continuity, tone, composition intent, and negative constraints.
+14. If the user asked for generation now, write the output image to `products/rpg-engine/tmp/` with a clear temporary filename.
+15. Create a temporary image card next to the temporary image so prompt, owner, provider, depicted-entity information, and all missing visual concept material are not lost before persistence.
+16. Return direct file paths to both the temporary image and its temporary card so the user can inspect them.
+17. After the temporary media file is actually written, emit a clickable terminal link to the absolute `file://` path:
    - in Kitty, use a short bracketed label such as `[Показать изображение]`
    - otherwise use a regular OSC 8 label such as `[Открыть изображение]`
    - on macOS outside Kitty, also print a ready `open /absolute/path/to/image.png` fallback command
-17. If the current terminal is Kitty, verify that `~/.config/kitty/kitty.conf` has a compatible `open_actions` rule for `mime image/*`; add or update it without duplicating entries when needed.
-18. Keep the link output lightweight so it can be placed directly after the contextual generation text without extra wrapper prose.
-19. In `master` and `play`, treat this image-link output as the image-specific subset of the broader file-link capability; do not expand the scope to arbitrary non-image files here.
-20. Immediately ask the user what to do next with the temporary result:
+18. If the current terminal is Kitty, verify that `~/.config/kitty/kitty.conf` has a compatible `open_actions` rule for `mime image/*`; add or update it without duplicating entries when needed.
+19. Keep the link output lightweight so it can be placed directly after the contextual generation text without extra wrapper prose.
+20. In `master` and `play`, treat this image-link output as the image-specific subset of the broader file-link capability; do not expand the scope to arbitrary non-image files here.
+21. Immediately ask the user what to do next with the temporary result:
    - save it
    - delete it
    - leave it in `tmp` for now
-21. If the user asks to delete the temporary result, delete both the image and its temporary card together.
-22. Explain that keeping the image as product content is a separate `image-save` step.
+22. If the user asks to delete the temporary result, delete both the image and its temporary card together.
+23. Explain that keeping the image as product content is a separate `image-save` step.
 
 # Provider notes
 

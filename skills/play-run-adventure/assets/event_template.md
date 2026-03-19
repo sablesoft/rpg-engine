@@ -1,18 +1,32 @@
-# Event {{id}}
+<!--
+Required sections:
+- {{dict.sections.type}}
+- {{dict.sections.what_happened}}
+Optional sections:
+- {{dict.sections.immediate_consequences}}
+- {{dict.sections.state_changes}}
+- {{dict.sections.related_files}}
+- {{dict.sections.notes}}
+Subsections may be added under any top-level section.
+-->
+# {{title}}
 
-## Title
-{{title}}
+## {{dict.sections.type}}
+{{dict.entity_types.event}}
 
-## What happened
+## {{dict.sections.what_happened}}
 {{what_happened}}
 
-## Immediate consequences
+## {{dict.sections.immediate_consequences}}
 {{immediate_consequences}}
 
-## State changes
+## {{dict.sections.state_changes}}
 - {{state_change_1}}
 - {{state_change_2}}
 
-## Related files
+## {{dict.sections.related_files}}
 - {{file_1}}
 - {{file_2}}
+
+## {{dict.sections.notes}}
+{{notes}}

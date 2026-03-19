@@ -16,6 +16,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/world_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/setting_template.md`
@@ -55,5 +56,5 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 # Output
 
 1. created or updated world workspace content
-2. summary of the world foundations
+2. concise description of the world foundations
 3. next recommended step for scenario or character work

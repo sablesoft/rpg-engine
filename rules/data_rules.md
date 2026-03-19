@@ -22,6 +22,15 @@
 - image-owning or image-participating entities may include a `Visual Concept` section when visual continuity matters
 - a `Visual Concept` section should describe stable visual identity rather than one transient scene state
 - card-facing section headers should follow `content_language`; engine-language headers may still appear in support metadata files
+- the source of truth for workspace-facing card labels is `products/rpg-engine/assets/workspace_dictionary/`
+- commit only `*.template.yaml` dictionary files in that directory
+- when `content_language` is not `en`, create local translation files under a language subdirectory such as `workspace_dictionary/ru/` and update those instead of hard-coding labels into scripts or templates
+- card templates must distinguish required and optional top-level sections
+- required sections must always be present in generated and refactored cards
+- optional sections may be omitted when unknown, empty, or intentionally deferred
+- subsections may be nested under any main section when that improves readability
+- `Description` is the shared generic descriptive section across card types; do not introduce new top-level `Summary` sections in workspace cards
+- validate workspace cards against their templates after structural template changes
 
 ## Top-level repository rule
 
@@ -85,6 +94,10 @@
 ## Support-card ownership
 
 - `location` cards are world-level by default, but may exist as local cards inside an `adventure`
+- a `location` card may represent a place nested inside a larger location; use an explicit location-placement field in the card rather than overloading scope fields for that relationship
+- when the parent chain is known, store the full known upward chain in order from immediate parent to larger containing locations
+- each item in that location-placement chain should include both the parent location name and its kind
+- when the target card path is known, each item in that chain should use a Markdown link to the corresponding location or world card
 - `quest` cards are scenario-level by default, but may exist as local cards inside an `adventure`
 - `character` cards are world-level by default, but may exist as local cards inside a world-owned `scenario` or an `adventure`
 - `faction` and `species` cards may exist at world, scenario, or adventure scope depending on where they are established

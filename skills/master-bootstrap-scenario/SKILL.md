@@ -16,6 +16,7 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/global_story_template.md`
@@ -48,5 +49,5 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 # Output
 
 1. created or updated scenario content inside the world repository
-2. summary of the playable scenario structure
+2. concise description of the playable scenario structure
 3. next recommended step for character or adventure setup
