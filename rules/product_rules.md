@@ -10,6 +10,8 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - use product runtime only for resumable local context
 - use workspaces as the source of truth for RPG canon and play state
 - keep product-wide mode boundaries consistent across all product-local skills
+- each core workspace should have one primary card written in `content_language`
+- keep product data templates simple and readable before adding secondary support files
 
 ## Constraints
 

@@ -16,12 +16,16 @@ Create a character workspace with identity, motivations, capabilities, history, 
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
+- `products/rpg-engine/skills/master-bootstrap-character/assets/character_option_template.md`
 
 # Behavior
 
 1. Confirm the world context for the character.
 2. Define the character role, background, relationships, capabilities, limits, goals, and narrative hooks.
-3. Create or update a `character` workspace under `products/rpg-engine/workspaces/`.
+3. Create or update a `character` workspace under `products/rpg-engine/workspaces/` using:
+   - `products/rpg-engine/workspaces/character/<slug>/character.md`
+   - the character card template as the primary content artifact
 4. Mark whether the character is suitable as a player-controlled protagonist.
 5. Keep the character compatible with established world rules.
 

@@ -16,12 +16,29 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/setting_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/rules_of_world_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/tone_and_theme_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/location_card_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/faction_card_template.md`
+- `products/rpg-engine/skills/master-bootstrap-world/assets/species_card_template.md`
 
 # Behavior
 
 1. Confirm the request belongs to `rpg-engine` and the `master` mode.
 2. Define the world identity, genre, tone, physical rules, power systems, major factions, history, and open tensions.
-3. Create or update a `world` workspace under `products/rpg-engine/workspaces/`.
+3. Create or update a `world` workspace under `products/rpg-engine/workspaces/` using:
+   - `products/rpg-engine/workspaces/world/<slug>/world.md`
+   - `world.md` as the primary card
+   - `products/rpg-engine/workspaces/world/<slug>/setting.md`
+   - `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
+   - `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
+   - optional support files such as `setting.md`, `rules_of_world.md`, and `tone_and_themes.md`
+   - `products/rpg-engine/workspaces/world/<slug>/locations/<slug>.md`
+   - `products/rpg-engine/workspaces/world/<slug>/factions/<slug>.md`
+   - `products/rpg-engine/workspaces/world/<slug>/species/<slug>.md`
+   - optional support-card folders such as `locations/`, `factions/`, and `species/`
 4. Keep the world contract internally consistent and usable by scenarios, characters, and adventures.
 5. Surface missing inputs only when they block coherent world creation.
 

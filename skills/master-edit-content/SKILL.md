@@ -30,6 +30,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - do not answer with read-only summaries when the user asked for an edit
 - do not hide canon conflicts introduced by the requested change
 - do not advance play state unless the edit explicitly targets an adventure instance
+- do not use this skill for scope promotion workflows that belong to `master-promote`
 
 # Output
 

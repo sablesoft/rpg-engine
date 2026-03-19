@@ -1,18 +1,24 @@
 name: play
-purpose: Run a concrete adventure session using selected world, scenario, and protagonist state.
+purpose: Start or continue a concrete adventure session using selected world, scenario, and protagonist state.
 
 routing:
   entry_hints:
+    - start new adventure
+    - begin adventure
+    - choose world
+    - generate a character for play
     - continue adventure
     - play next turn
     - resolve action
     - narrate scene
     - update consequences
   default_skills:
+    - play-bootstrap-adventure
     - play-run-adventure
 
 boundaries:
   owns:
+    - player-facing bootstrap into a playable adventure
     - scene progression inside one adventure
     - consequence resolution and state updates
     - player-facing narration and choices

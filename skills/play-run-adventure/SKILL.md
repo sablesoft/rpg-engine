@@ -16,14 +16,29 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/play.yaml`
+- `products/rpg-engine/rules/play_rules.md`
+- `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
+- `products/rpg-engine/skills/play-run-adventure/assets/event_template.md`
+- `products/rpg-engine/skills/play-run-adventure/assets/session_log_template.md`
 
 # Behavior
 
 1. Confirm the target adventure instance and current scene context.
-2. Present the immediate situation, available options, risks, and observable facts.
-3. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
-4. Update the adventure state, consequences, and newly learned information.
-5. End with a clear next decision point unless the scene fully concludes.
+2. If the user is clearly trying to start a new game rather than continue one, hand off to `play-bootstrap-adventure`.
+3. Read and update adventure files under:
+   - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
+   - `products/rpg-engine/workspaces/adventure/<slug>/current_scene.md`
+   - `products/rpg-engine/workspaces/adventure/<slug>/state.yaml`
+   - `products/rpg-engine/workspaces/adventure/<slug>/facts.yaml`
+   - `products/rpg-engine/workspaces/adventure/<slug>/flags.yaml`
+   - `products/rpg-engine/workspaces/adventure/<slug>/events/<id>.md`
+   - `products/rpg-engine/workspaces/adventure/<slug>/sessions/<id>.md`
+   - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when relevant
+   - local `world.md` or `scenario.md` when present, otherwise the selected global world or scenario workspace
+4. Present the immediate situation, available options, risks, and observable facts.
+5. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
+6. Update the adventure state, consequences, and newly learned information.
+7. End with a clear next decision point unless the scene fully concludes.
 
 # Constraints
 

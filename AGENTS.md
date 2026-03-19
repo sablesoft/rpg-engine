@@ -26,7 +26,9 @@ Follow product policy from:
 
 - `products/rpg-engine/rules/product_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
+- `products/rpg-engine/rules/ref_rules.md`
 
 ## Mode commands
 
@@ -77,6 +79,15 @@ Interpretation:
 - `adventure` stores one concrete playthrough instance using selected world, scenario, and protagonist context
 
 Treat `adventure` as play state for one run, not as global canon for the whole world.
+Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
+
+Scoped support entities:
+
+- locations are usually world-scoped but may be local to an adventure
+- quests are usually scenario-scoped but may be local to an adventure
+- characters are usually world-scoped but may be local to a scenario or an adventure
+- factions and species may also be local before they are promoted more globally
+- `master` may promote local entities into a more global scope when the user requests it
 
 ---
 
@@ -89,13 +100,13 @@ Use:
 - `master-bootstrap-world`
 - `master-bootstrap-scenario`
 - `master-bootstrap-character`
-- `master-bootstrap-adventure`
+- `master-promote`
 - `master-edit-content`
 
 Responsibilities:
 
 - create and edit canon-bearing content
-- maintain consistency between world, scenario, character, and adventure setup
+- maintain consistency between world, scenario, and character content
 - prepare playable content for `play`
 
 Do not:
@@ -107,10 +118,12 @@ Do not:
 
 Use:
 
+- `play-bootstrap-adventure`
 - `play-run-adventure`
 
 Responsibilities:
 
+- guide the player from world/scenario/character selection or generation into a playable adventure
 - run one adventure scene by scene
 - resolve choices and consequences
 - update the selected adventure workspace

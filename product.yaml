@@ -16,9 +16,13 @@ workspace_model:
   units:
     - name: world
       purpose: Canon container for lore, physics, factions, history, and all shared setting rules.
+      primary_card: world.md
     - name: scenario
       purpose: Campaign, story arc, or playable narrative that belongs to one world.
+      primary_card: scenario.md
     - name: character
       purpose: World-bound character profile that can act as NPC, ally, antagonist, or player hero.
+      primary_card: character.md
     - name: adventure
       purpose: Playthrough instance built from one world, one scenario, and one selected protagonist.
+      primary_card: adventure.md

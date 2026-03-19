@@ -1,0 +1,21 @@
+adventure_title: ""
+adventure_slug: ""
+
+status: starting
+
+player:
+  name: null
+  created: false
+
+world:
+  current_location: null
+  current_scene: null
+
+quests:
+  active: []
+  completed: []
+
+player_status:
+  health: normal
+  danger: low
+  reputation: unknown

@@ -1,18 +1,19 @@
 name: master
-purpose: Create, edit, and govern RPG canon, playable content, and adventure setup.
+purpose: Create, edit, and govern RPG canon and reusable playable content.
 
 routing:
   entry_hints:
     - create world
     - edit scenario
     - design character
-    - prepare adventure
+    - promote local canon
+    - move adventure entity to world
     - update lore
   default_skills:
     - master-bootstrap-world
     - master-bootstrap-scenario
     - master-bootstrap-character
-    - master-bootstrap-adventure
+    - master-promote
     - master-edit-content
 
 boundaries:
@@ -20,7 +21,8 @@ boundaries:
     - world canon creation and editing
     - scenario creation and editing
     - character creation and editing
-    - adventure setup before play
+    - promotion of local entities into broader canon scopes
+    - reusable content preparation before play
   avoids:
     - live turn-by-turn play narration
     - read-only reference workflows when no edits are needed
