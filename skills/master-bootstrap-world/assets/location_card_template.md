@@ -1,10 +1,10 @@
-# Location Card
+# {{name}}
 
-## Name
-{{name}}
+## Entity Type
+Location
 
 ## Scope
-world
+World
 
 ## Type
 {{type}}

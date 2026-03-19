@@ -1,10 +1,10 @@
-# Quest Card
+# {{title}}
 
-## Title
-{{title}}
+## Entity Type
+Quest
 
 ## Scope
-scenario
+Scenario
 
 ## Type
 {{type}}

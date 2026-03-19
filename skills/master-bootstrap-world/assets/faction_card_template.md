@@ -1,7 +1,7 @@
-# Faction Card
+# {{name}}
 
-## Name
-{{name}}
+## Entity Type
+Faction
 
 ## Type
 {{type}}

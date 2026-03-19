@@ -1,7 +1,7 @@
-# Scenario Card
+# {{title}}
 
-## Title
-{{title}}
+## Entity Type
+Scenario
 
 ## World
 {{world_title}}

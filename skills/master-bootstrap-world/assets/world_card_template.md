@@ -1,7 +1,7 @@
-# World Card
+# {{title}}
 
-## Title
-{{title}}
+## Entity Type
+World
 
 ## Genre
 {{genre}}

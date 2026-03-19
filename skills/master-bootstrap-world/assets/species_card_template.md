@@ -1,7 +1,7 @@
-# Species Card
+# {{name}}
 
-## Name
-{{name}}
+## Entity Type
+Species
 
 ## Description
 {{description}}

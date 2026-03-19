@@ -1,7 +1,7 @@
-# Character Card
+# {{name}}
 
-## Name
-{{name}}
+## Entity Type
+Character
 
 ## World
 {{world_title}}

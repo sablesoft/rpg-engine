@@ -1,7 +1,7 @@
-# Adventure Card
+# {{title}}
 
-## Title
-{{title}}
+## Entity Type
+Adventure
 
 ## World
 {{world_title}}
