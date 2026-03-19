@@ -1,0 +1,22 @@
+name: ref
+purpose: Provide read-only reference access to RPG canon, rules, entities, and adventure context.
+
+routing:
+  entry_hints:
+    - explain lore
+    - show character facts
+    - summarize scenario
+    - what is known about
+    - reference world rules
+  default_skills:
+    - ref-answer-query
+
+boundaries:
+  owns:
+    - factual retrieval and summaries
+    - read-only cross-entity reference
+    - clarification of established canon
+  avoids:
+    - content generation
+    - content editing
+    - advancing play state

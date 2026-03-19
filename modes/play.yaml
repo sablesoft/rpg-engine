@@ -1,0 +1,21 @@
+name: play
+purpose: Run a concrete adventure session using selected world, scenario, and protagonist state.
+
+routing:
+  entry_hints:
+    - continue adventure
+    - play next turn
+    - resolve action
+    - narrate scene
+    - update consequences
+  default_skills:
+    - play-run-adventure
+
+boundaries:
+  owns:
+    - scene progression inside one adventure
+    - consequence resolution and state updates
+    - player-facing narration and choices
+  avoids:
+    - global canon redesign
+    - standalone lore reference requests

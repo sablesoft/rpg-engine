@@ -1,0 +1,11 @@
+last_mode: master
+
+# Product-local active entity pointers for resumable context
+active_world_slug: null
+active_scenario_slug: null
+active_character_slug: null
+active_adventure_slug: null
+
+# Optional continuity metadata
+last_opened_at: null
+
