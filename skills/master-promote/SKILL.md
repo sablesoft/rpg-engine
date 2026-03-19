@@ -36,11 +36,17 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `adventure/world -> world`
 - `adventure/scenario -> world/scenario`
 - `adventure/character -> world/character`
-- `scenario/character -> world/character`
 - `adventure/location -> scenario/location`
 - `adventure/location -> world/location`
-- `scenario/location -> world/location`
 - `adventure/quest -> scenario/quest`
+- `adventure/faction -> scenario/faction`
+- `adventure/faction -> world/faction`
+- `adventure/specie -> scenario/specie`
+- `adventure/specie -> world/specie`
+- `scenario/character -> world/character`
+- `scenario/location -> world/location`
+- `scenario/faction -> world/faction`
+- `scenario/specie -> world/specie`
 
 Typical entity types:
 
