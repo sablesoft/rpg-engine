@@ -6,6 +6,7 @@ Root:
 Optional support files:
 - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/global_story.md`
 - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/tone_and_themes.md`
+- `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/images/`
 
 Optional support-card folders:
 - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/`

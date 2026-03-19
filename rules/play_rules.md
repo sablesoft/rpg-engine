@@ -13,6 +13,8 @@
 - `play` may create a new adventure instance and any missing player-facing setup needed to enter play
 - apply the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - `play` may write only to adventure state unless the user explicitly asks for authoring work outside live play
+- `play` may generate temporary images into `products/rpg-engine/tmp/`
+- `play` may save approved images only into the active adventure scope unless the user explicitly switches to broader authoring intent
 - `ref` is read-only
 - `master` is the mode for canon creation and revision
 

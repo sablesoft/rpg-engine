@@ -1,4 +1,8 @@
 state/runtime.yaml
+config/*
+!config/*.template.yaml
+tmp/*
+!tmp/.gitkeep
 workspaces/world/*
 workspaces/adventure/*
 !workspaces/world/.gitkeep

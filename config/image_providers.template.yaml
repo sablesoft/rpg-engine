@@ -1,0 +1,45 @@
+default_provider: openai-gpt-image-1-5
+
+providers:
+  openai-gpt-image-1-5:
+    driver: openai_image_api
+    enabled: false
+    base_url: https://api.openai.com/v1
+    model: gpt-image-1.5
+    defaults:
+      size: 1536x1024
+      quality: high
+      background: auto
+    auth:
+      type: bearer
+      token_env: OPENAI_API_KEY
+      token_literal: null
+
+  openai-gpt-image-mini:
+    driver: openai_image_api
+    enabled: false
+    base_url: https://api.openai.com/v1
+    model: gpt-image-1-mini
+    defaults:
+      size: 1536x1024
+      quality: medium
+      background: auto
+    auth:
+      type: bearer
+      token_env: OPENAI_API_KEY
+      token_literal: null
+
+  invoke-local:
+    driver: local_invoke_sd
+    enabled: false
+    base_url: http://127.0.0.1:9090
+    model: sdxl
+    defaults:
+      width: 1024
+      height: 1536
+      steps: 30
+      cfg_scale: 6.5
+      sampler: dpmpp_2m
+      seed: null
+    auth:
+      type: none

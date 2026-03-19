@@ -43,6 +43,8 @@
 - each `world` workspace uses:
   - `world.md` as the primary card
   - optional support files such as `setting.md`, `rules_of_world.md`, `global_story.md`, `tone_and_themes.md`
+  - optional scope-local image root:
+    - `images/`
   - world-owned folders such as:
     - `locations/`
     - `characters/`
@@ -53,6 +55,8 @@
 - each global scenario inside a world uses:
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
   - optional support files such as `global_story.md` and `tone_and_themes.md`
+  - optional scope-local image root:
+    - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/images/`
   - support-card folders such as `quests/`, `locations/`, `characters/`
 
 - each global character inside a world uses:
@@ -65,6 +69,8 @@
   - `current_scene.md` for the immediate playable scene
   - `state.yaml`, `facts.yaml`, and `flags.yaml` for mutable run state
   - `events/` and `sessions/` for play history
+  - optional scope-local image root:
+    - `images/`
   - support-card folders such as `locations/`, `quests/`, `characters/`, `factions/`, `species/`
 
 ## Repository ownership
@@ -79,6 +85,8 @@
 - `quest` cards are scenario-level by default, but may exist as local cards inside an `adventure`
 - `character` cards are world-level by default, but may exist as local cards inside a world-owned `scenario` or an `adventure`
 - `faction` and `species` cards may exist at world, scenario, or adventure scope depending on where they are established
+- image assets always belong to one concrete owner entity and live in that entity's scope-local `images/` subtree
+- image metadata cards are support artifacts and must not replace the owner primary card as the main readable entry point
 
 ## Play-first locality
 
@@ -91,6 +99,7 @@
 - local `world` cards may be promoted into standalone `world` repositories through `master` workflows when the user asks for it
 - local `scenario` and `character` cards may be promoted into a target `world` repository through `master` workflows when the user asks for it
 - promotion may move an entity from `adventure` to `scenario` or `world`, or from a world-owned `scenario` to the wider world scope, depending on the requested target scope
+- image assets may move upward only under the promotion constraints defined in `products/rpg-engine/rules/image_rules.md`
 - promotion must preserve meaning and resolve naming or canon conflicts explicitly
 - do not silently promote local adventure discoveries into world canon
 

@@ -19,18 +19,21 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
+- `products/rpg-engine/rules/image_rules.md`
 
 # Behavior
 
 1. Identify the source entity, its current scope, and the requested target scope.
 2. Read the source card and any directly related local support cards.
-3. Confirm the target scope is valid under the default locality and promotion rules.
-4. Create or update the target canonical file path for the promoted entity.
-5. Initialize the target world repository when promotion creates a new global world for the first time.
-6. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
-7. After a successful promotion, remove the source primary card from its original local scope by default.
-8. Update any affected references in the originating adventure or scenario as needed.
-9. Keep the promoted content readable as a primary card in its new scope.
+3. Detect whether the source entity has persisted images in its scope-local `images/` subtree and whether the user asked to move them.
+4. Confirm the target scope is valid under the default locality and promotion rules.
+5. Create or update the target canonical file path for the promoted entity.
+6. Initialize the target world repository when promotion creates a new global world for the first time.
+7. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
+8. Move related image assets only under the image promotion rules from `products/rpg-engine/rules/image_rules.md`.
+9. After a successful promotion, remove the source primary card from its original local scope by default.
+10. Update any affected references in the originating adventure or scenario as needed.
+11. Keep the promoted content readable as a primary card in its new scope.
 
 # Supported promotions
 
@@ -62,6 +65,7 @@ Typical entity types:
 - `faction`
 - `species`
 - `fact`
+- `image`
 
 # File path targets
 
@@ -80,6 +84,19 @@ Typical entity types:
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
+
+# Image promotion
+
+- image assets are never promoted as unattached global artifacts
+- valid image moves are:
+  - together with the owning entity during that entity's promotion
+  - separately only when the owner entity already exists in the broader target scope
+- when an entity promotion includes images, move:
+  - the media files
+  - the image metadata cards
+  - the owner entity `Images` section references
+- if the user asks to promote one image while leaving others behind, move only the named image package and keep the remaining local image links intact
+- do not move an image into scenario or world scope if the target owner entity does not already exist there by the end of the operation
 
 # Fact promotion
 
@@ -124,6 +141,7 @@ Typical entity types:
 - do not use promotion to advance live play state
 - do not leave duplicate source cards behind unless the user explicitly wants parallel local and global variants
 - do not treat promoted facts as raw YAML transport; integrate them into readable canonical files
+- do not move orphaned image files without their metadata cards and owner references
 
 # Output
 

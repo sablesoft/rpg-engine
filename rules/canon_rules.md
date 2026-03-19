@@ -19,6 +19,7 @@
 - quests are normally scenario-scoped, but adventures may introduce local quest cards for run-specific goals
 - characters are normally world-scoped, but world-owned scenarios and adventures may hold local character cards for scoped variants, temporary roles, or newly introduced actors
 - factions and species may also exist as local scoped entities before they are established more globally
+- images are always scoped to one owning entity and inherit that entity's locality
 - scoped local entities follow the default locality rule from `products/rpg-engine/rules/data_rules.md`
 
 ## Canon boundaries
@@ -27,6 +28,7 @@
 - treat `adventure` as state for one concrete playthrough, not as global canon for the whole world
 - apply the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - facts discovered during one adventure do not automatically rewrite world canon unless the product workflow explicitly promotes them
+- images may illustrate canon, but they do not outrank the written source cards they are attached to
 
 ## Consistency rule
 

@@ -15,6 +15,8 @@ routing:
   default_skills:
     - play-bootstrap-adventure
     - play-run-adventure
+    - image-generate
+    - image-save
 
 boundaries:
   owns:
@@ -22,6 +24,8 @@ boundaries:
     - scene progression inside one adventure
     - consequence resolution and state updates
     - player-facing narration and choices
+    - temporary image generation for the active adventure context
+    - saving approved temporary images into versioned adventure content
   avoids:
     - global canon redesign
     - standalone lore reference requests

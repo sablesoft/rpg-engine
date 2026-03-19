@@ -1,0 +1,55 @@
+providers:
+  openai_image_api:
+    label: "OpenAI Image API"
+    output_mode: "json_payload"
+    use_when:
+      - "The user wants a hosted API workflow."
+      - "The user wants a compact prompt and a portable request body."
+    expected_fields:
+      - "model"
+      - "prompt"
+      - "size"
+      - "quality"
+      - "background"
+    notes:
+      - "Prefer one consolidated prompt with explicit subject, environment, lighting, and constraints."
+      - "Keep negative constraints inside the main prompt when a separate negative field is unavailable."
+      - "Use neutral, implementation-safe wording instead of product-specific SDK assumptions."
+    example_shape:
+      model: "gpt-image-1"
+      prompt: "<assembled prompt>"
+      size: "1536x1024"
+      quality: "high"
+      background: "auto"
+
+  local_invoke_sd:
+    label: "Local InvokeAI or Stable Diffusion"
+    output_mode: "command_or_parameter_block"
+    use_when:
+      - "The user wants local generation."
+      - "The user needs direct control over model, steps, CFG, sampler, and seed."
+    expected_fields:
+      - "prompt"
+      - "negative_prompt"
+      - "width"
+      - "height"
+      - "steps"
+      - "cfg_scale"
+      - "sampler"
+      - "seed"
+      - "model"
+    notes:
+      - "Split positive and negative guidance explicitly."
+      - "Preserve canon details in the positive prompt before adding style modifiers."
+      - "Use aspect ratios that match the requested deliverable."
+    example_shape:
+      model: "sdxl"
+      prompt: "<assembled prompt>"
+      negative_prompt: "<assembled negative prompt>"
+      width: 1024
+      height: 1536
+      steps: 30
+      cfg_scale: 6.5
+      sampler: "dpmpp_2m"
+      seed: 42
+

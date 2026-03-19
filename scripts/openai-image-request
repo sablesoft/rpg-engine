@@ -1,0 +1,228 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "yaml"
+require "json"
+require "net/http"
+require "uri"
+require "base64"
+require "fileutils"
+require "time"
+
+ROOT = File.expand_path("..", __dir__)
+CONFIG_PATH = File.join(ROOT, "config", "image_providers.yaml")
+
+def usage
+  <<~TEXT
+    Usage:
+      ruby products/rpg-engine/scripts/openai-image-request models [--provider ALIAS] [--all]
+      ruby products/rpg-engine/scripts/openai-image-request generate --prompt TEXT --output PATH [options]
+
+    Generate options:
+      --provider ALIAS        Provider alias from config/image_providers.yaml
+      --prompt TEXT           Prompt text
+      --prompt-file PATH      Read prompt text from file
+      --output PATH           Output image path
+      --size SIZE             1024x1024, 1536x1024, 1024x1536, or auto
+      --quality LEVEL         low, medium, high, or auto
+      --background VALUE      auto, opaque, or transparent
+      --format VALUE          png, jpeg, or webp
+      --compression N         0-100 for jpeg or webp
+      --dry-run               Print resolved request without calling API
+  TEXT
+end
+
+def fail_with(message, code = 1)
+  warn message
+  exit code
+end
+
+def parse_args(argv)
+  command = argv.shift
+  fail_with(usage, 64) if command.nil?
+
+  options = {
+    provider: nil,
+    prompt: nil,
+    prompt_file: nil,
+    output: nil,
+    size: nil,
+    quality: nil,
+    background: nil,
+    format: nil,
+    compression: nil,
+    dry_run: false,
+    all: false
+  }
+
+  until argv.empty?
+    flag = argv.shift
+    case flag
+    when "--provider" then options[:provider] = argv.shift
+    when "--prompt" then options[:prompt] = argv.shift
+    when "--prompt-file" then options[:prompt_file] = argv.shift
+    when "--output" then options[:output] = argv.shift
+    when "--size" then options[:size] = argv.shift
+    when "--quality" then options[:quality] = argv.shift
+    when "--background" then options[:background] = argv.shift
+    when "--format" then options[:format] = argv.shift
+    when "--compression" then options[:compression] = argv.shift
+    when "--dry-run" then options[:dry_run] = true
+    when "--all" then options[:all] = true
+    when "-h", "--help" then puts usage; exit 0
+    else
+      fail_with("Unknown option: #{flag}\n\n#{usage}", 64)
+    end
+  end
+
+  [command, options]
+end
+
+def load_config
+  fail_with("Missing config: #{CONFIG_PATH}", 66) unless File.exist?(CONFIG_PATH)
+  YAML.load_file(CONFIG_PATH)
+end
+
+def resolve_provider(config, explicit_alias)
+  alias_name = explicit_alias || config["default_provider"]
+  fail_with("No provider alias specified and no default_provider configured.", 65) if alias_name.nil? || alias_name.empty?
+
+  provider = config.fetch("providers", {})[alias_name]
+  fail_with("Provider alias not found: #{alias_name}", 65) unless provider
+  fail_with("Provider is disabled: #{alias_name}", 65) unless provider["enabled"]
+  fail_with("Provider #{alias_name} is not an OpenAI image provider.", 65) unless provider["driver"] == "openai_image_api"
+
+  [alias_name, provider]
+end
+
+def resolve_bearer_token(provider)
+  auth = provider["auth"] || {}
+  return nil if auth["type"] == "none"
+
+  token = auth["token_literal"]
+  env_name = auth["token_env"]
+  token = ENV[env_name] if (token.nil? || token.empty?) && env_name && !env_name.empty?
+  fail_with("Missing bearer token for provider auth.", 65) if token.nil? || token.empty?
+
+  token
+end
+
+def build_uri(provider, path)
+  base_url = provider["base_url"] || "https://api.openai.com/v1"
+  URI.join("#{base_url}/", path.sub(%r{^/}, ""))
+end
+
+def request_json(method:, uri:, token:, payload: nil)
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = uri.scheme == "https"
+  http.read_timeout = 300
+
+  req = method == :get ? Net::HTTP::Get.new(uri) : Net::HTTP::Post.new(uri)
+  req["Authorization"] = "Bearer #{token}" if token
+  req["Content-Type"] = "application/json"
+  req.body = JSON.generate(payload) if payload
+
+  response = http.request(req)
+  body = response.body.to_s
+  parsed = body.empty? ? {} : JSON.parse(body)
+  [response, parsed]
+rescue JSON::ParserError
+  fail_with("OpenAI returned non-JSON response with status #{response.code}.", 1)
+rescue SocketError => e
+  fail_with("Network error while connecting to OpenAI: #{e.message}", 1)
+rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT => e
+  fail_with("Connection error while connecting to OpenAI: #{e.message}", 1)
+end
+
+def command_models(options)
+  config = load_config
+  alias_name, provider = resolve_provider(config, options[:provider])
+  token = resolve_bearer_token(provider)
+  uri = build_uri(provider, "/models")
+  response, parsed = request_json(method: :get, uri: uri, token: token)
+
+  fail_with("OpenAI request failed: #{response.code} #{parsed}", 1) unless response.code.to_i == 200
+
+  ids = parsed.fetch("data", []).map { |item| item["id"] }.compact.sort
+  ids = ids.grep(/image/i) unless options[:all]
+
+  puts "provider_alias=#{alias_name}"
+  puts "model=#{provider['model']}"
+  puts(ids.join("\n"))
+end
+
+def resolve_prompt(options)
+  prompt = options[:prompt]
+  if options[:prompt_file]
+    fail_with("Prompt file not found: #{options[:prompt_file]}", 66) unless File.exist?(options[:prompt_file])
+    prompt = File.read(options[:prompt_file]).strip
+  end
+
+  fail_with("Missing prompt. Use --prompt or --prompt-file.", 64) if prompt.nil? || prompt.strip.empty?
+  prompt
+end
+
+def command_generate(options)
+  config = load_config
+  alias_name, provider = resolve_provider(config, options[:provider])
+  token = resolve_bearer_token(provider)
+  prompt = resolve_prompt(options)
+
+  defaults = provider["defaults"] || {}
+  model = provider["model"]
+  output_path = options[:output]
+  fail_with("Missing --output PATH", 64) if output_path.nil? || output_path.empty?
+
+  output_format = options[:format] || "png"
+  payload = {
+    model: model,
+    prompt: prompt,
+    size: options[:size] || defaults["size"] || "auto",
+    quality: options[:quality] || defaults["quality"] || "auto",
+    background: options[:background] || defaults["background"] || "auto",
+    output_format: output_format
+  }
+  payload[:output_compression] = Integer(options[:compression]) if options[:compression]
+
+  if options[:dry_run]
+    puts JSON.pretty_generate(
+      provider_alias: alias_name,
+      request_uri: build_uri(provider, "/images/generations").to_s,
+      payload: payload.merge(prompt: prompt)
+    )
+    return
+  end
+
+  uri = build_uri(provider, "/images/generations")
+  response, parsed = request_json(method: :post, uri: uri, token: token, payload: payload)
+  fail_with("OpenAI request failed: #{response.code} #{JSON.pretty_generate(parsed)}", 1) unless response.code.to_i == 200
+
+  image_data = parsed.fetch("data", []).first
+  fail_with("OpenAI response did not include image data.", 1) unless image_data
+
+  b64 = image_data["b64_json"]
+  fail_with("OpenAI response did not include b64_json image data.", 1) if b64.nil? || b64.empty?
+
+  bytes = Base64.decode64(b64)
+  FileUtils.mkdir_p(File.dirname(output_path))
+  File.binwrite(output_path, bytes)
+
+  puts JSON.pretty_generate(
+    provider_alias: alias_name,
+    model: model,
+    output_path: output_path,
+    bytes_written: bytes.bytesize,
+    created_at: Time.now.utc.iso8601
+  )
+end
+
+command, options = parse_args(ARGV.dup)
+
+case command
+when "models"
+  command_models(options)
+when "generate"
+  command_generate(options)
+else
+  fail_with("Unknown command: #{command}\n\n#{usage}", 64)
+end

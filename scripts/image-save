@@ -1,0 +1,283 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+require "time"
+
+ROOT = File.expand_path("..", __dir__)
+PRODUCT_TMP = File.join(ROOT, "tmp")
+
+def fail_with(message, code = 1)
+  warn message
+  exit code
+end
+
+def usage
+  <<~TEXT
+    Usage:
+      ruby products/rpg-engine/scripts/image-save \
+        --source products/rpg-engine/tmp/file.png \
+        --owner-card PATH \
+        --owner-type TYPE \
+        --image-slug SLUG \
+        --image-role ROLE \
+        [options]
+
+    Options:
+      --owner-slug SLUG
+      --provider-alias NAME
+      --provider-driver NAME
+      --prompt-summary TEXT
+      --secondary-ref TYPE:SLUG:ROLE[:CARD_PATH]
+      --render-status STATUS
+      --notes TEXT
+  TEXT
+end
+
+def parse_args(argv)
+  options = {
+    secondary_refs: [],
+    render_status: "saved",
+    provider_alias: "unknown",
+    provider_driver: "unknown",
+    prompt_summary: "",
+    notes: ""
+  }
+
+  until argv.empty?
+    flag = argv.shift
+    case flag
+    when "--source" then options[:source] = argv.shift
+    when "--owner-card" then options[:owner_card] = argv.shift
+    when "--owner-type" then options[:owner_type] = argv.shift
+    when "--owner-slug" then options[:owner_slug] = argv.shift
+    when "--image-slug" then options[:image_slug] = argv.shift
+    when "--image-role" then options[:image_role] = argv.shift
+    when "--provider-alias" then options[:provider_alias] = argv.shift
+    when "--provider-driver" then options[:provider_driver] = argv.shift
+    when "--prompt-summary" then options[:prompt_summary] = argv.shift
+    when "--secondary-ref" then options[:secondary_refs] << argv.shift
+    when "--render-status" then options[:render_status] = argv.shift
+    when "--notes" then options[:notes] = argv.shift
+    when "-h", "--help" then puts usage; exit 0
+    else
+      fail_with("Unknown option: #{flag}\n\n#{usage}", 64)
+    end
+  end
+
+  %i[source owner_card owner_type image_slug image_role].each do |key|
+    value = options[key]
+    fail_with("Missing required option --#{key.to_s.tr('_', '-')}\n\n#{usage}", 64) if value.nil? || value.empty?
+  end
+
+  options
+end
+
+def relative_to_root(path)
+  path.start_with?(ROOT) ? path.delete_prefix("#{ROOT}/") : path
+end
+
+def ensure_product_tmp!(source)
+  abs = File.expand_path(source)
+  tmp_prefix = "#{PRODUCT_TMP}/"
+  fail_with("Source image must be inside #{PRODUCT_TMP}", 65) unless abs.start_with?(tmp_prefix) || abs == PRODUCT_TMP
+  fail_with("Source image not found: #{abs}", 66) unless File.exist?(abs)
+  abs
+end
+
+def infer_owner_slug(owner_card, owner_type, explicit_owner_slug)
+  return explicit_owner_slug if explicit_owner_slug && !explicit_owner_slug.empty?
+
+  basename = File.basename(owner_card, File.extname(owner_card))
+  return basename unless %w[world scenario adventure current_scene].include?(basename)
+
+  case owner_type
+  when "world", "adventure", "scenario"
+    File.basename(File.dirname(owner_card))
+  when "scene"
+    basename.tr("_", "-")
+  else
+    basename
+  end
+end
+
+def detect_scope(owner_card)
+  normalized = owner_card
+  if normalized.include?("/workspaces/adventure/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/adventure/[^/]+)/})
+    return [:adventure, match[1]]
+  end
+
+  if normalized.include?("/workspaces/world/") && normalized.include?("/scenarios/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/world/[^/]+/scenarios/[^/]+)/})
+    return [:scenario, match[1]]
+  end
+
+  if normalized.include?("/workspaces/world/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/world/[^/]+)/})
+    return [:world, match[1]]
+  end
+
+  fail_with("Could not determine scope from owner card path: #{owner_card}", 65)
+end
+
+def image_extension(source_path)
+  ext = File.extname(source_path)
+  ext.empty? ? ".png" : ext
+end
+
+def destination_paths(owner_card:, owner_type:, owner_slug:, image_slug:)
+  scope_level, scope_root = detect_scope(owner_card)
+  image_dir = File.join(scope_root, "images", owner_type, owner_slug)
+  ext = image_extension(owner_card)
+  [scope_level, image_dir, File.join(image_dir, image_slug)]
+end
+
+def destination_media_path(source_path, owner_card:, owner_type:, owner_slug:, image_slug:)
+  scope_level, image_dir, stem = destination_paths(owner_card: owner_card, owner_type: owner_type, owner_slug: owner_slug, image_slug: image_slug)
+  ext = image_extension(source_path)
+  [scope_level, image_dir, "#{stem}#{ext}", "#{stem}.md"]
+end
+
+def load_text(path)
+  File.exist?(path) ? File.read(path) : ""
+end
+
+def append_section(path, header, lines)
+  content = load_text(path).rstrip
+  block = ([header] + lines).join("\n")
+
+  if content.include?(header)
+    updated = content.sub(/#{Regexp.escape(header)}\n(?:- .*\n?)*/m) do |existing|
+      existing.rstrip + "\n" + lines.join("\n")
+    end
+    File.write(path, "#{updated.rstrip}\n")
+  else
+    separator = content.empty? ? "" : "\n\n"
+    File.write(path, "#{content}#{separator}#{block}\n")
+  end
+end
+
+def write_metadata(path:, image_slug:, owner_type:, owner_slug:, owner_card:, scope_level:, image_role:, provider_alias:, provider_driver:, prompt_summary:, render_status:, media_file:, secondary_refs:, notes:)
+  lines = []
+  lines << "# Image Card"
+  lines << ""
+  lines << "## Image Slug"
+  lines << image_slug
+  lines << ""
+  lines << "## Owner"
+  lines << "- entity_type: #{owner_type}"
+  lines << "- entity_slug: #{owner_slug}"
+  lines << "- owner_card_path: #{relative_to_root(owner_card)}"
+  lines << "- scope_level: #{scope_level}"
+  lines << ""
+  lines << "## Secondary Entities"
+  if secondary_refs.empty?
+    lines << "- entity_refs: []"
+  else
+    lines << "- entity_refs:"
+    secondary_refs.each do |ref|
+      lines << "  - type: #{ref[:type]}"
+      lines << "    slug: #{ref[:slug]}"
+      lines << "    role_in_image: #{ref[:role]}"
+    end
+  end
+  lines << ""
+  lines << "## Role"
+  lines << "- image_role: #{image_role}"
+  lines << "- intended_use: saved-image"
+  lines << ""
+  lines << "## Provider"
+  lines << "- provider_alias: #{provider_alias}"
+  lines << "- provider_driver: #{provider_driver}"
+  lines << ""
+  lines << "## Prompt Summary"
+  lines << (prompt_summary.nil? || prompt_summary.empty? ? "Not recorded." : prompt_summary)
+  lines << ""
+  lines << "## Render Details"
+  lines << "- render_status: #{render_status}"
+  lines << "- created_at: #{Time.now.utc.iso8601}"
+  lines << ""
+  lines << "## Files"
+  lines << "- media_file: #{media_file}"
+  lines << ""
+  lines << "## Notes"
+  lines << (notes.nil? || notes.empty? ? "None." : notes)
+
+  File.write(path, "#{lines.join("\n")}\n")
+end
+
+def parse_secondary_refs(raw_refs)
+  raw_refs.map do |raw|
+    parts = raw.split(":", 4)
+    fail_with("Invalid --secondary-ref format: #{raw}", 64) if parts.length < 3
+    {
+      type: parts[0],
+      slug: parts[1],
+      role: parts[2],
+      card_path: parts[3]
+    }
+  end
+end
+
+def update_owner_card(owner_card, image_role, metadata_path)
+  rel = relative_to_root(metadata_path)
+  append_section(owner_card, "## Images", ["- `#{File.basename(metadata_path, ".md")}` — role: #{image_role}; card: `#{rel}`"])
+end
+
+def update_secondary_cards(secondary_refs, metadata_path)
+  secondary_refs.each do |ref|
+    next if ref[:card_path].nil? || ref[:card_path].empty?
+    next unless File.exist?(ref[:card_path])
+
+    rel = relative_to_root(metadata_path)
+    append_section(ref[:card_path], "## Related Images", ["- `#{File.basename(metadata_path, ".md")}` — role: #{ref[:role]}; card: `#{rel}`"])
+  end
+end
+
+options = parse_args(ARGV.dup)
+source_path = ensure_product_tmp!(options[:source])
+owner_card = File.expand_path(options[:owner_card])
+fail_with("Owner card not found: #{owner_card}", 66) unless File.exist?(owner_card)
+
+owner_slug = infer_owner_slug(owner_card, options[:owner_type], options[:owner_slug])
+scope_level, image_dir, media_path, metadata_path = destination_media_path(
+  source_path,
+  owner_card: owner_card,
+  owner_type: options[:owner_type],
+  owner_slug: owner_slug,
+  image_slug: options[:image_slug]
+)
+
+FileUtils.mkdir_p(image_dir)
+FileUtils.mv(source_path, media_path)
+
+secondary_refs = parse_secondary_refs(options[:secondary_refs])
+write_metadata(
+  path: metadata_path,
+  image_slug: options[:image_slug],
+  owner_type: options[:owner_type],
+  owner_slug: owner_slug,
+  owner_card: owner_card,
+  scope_level: scope_level,
+  image_role: options[:image_role],
+  provider_alias: options[:provider_alias],
+  provider_driver: options[:provider_driver],
+  prompt_summary: options[:prompt_summary],
+  render_status: options[:render_status],
+  media_file: relative_to_root(media_path),
+  secondary_refs: secondary_refs,
+  notes: options[:notes]
+)
+
+update_owner_card(owner_card, options[:image_role], metadata_path)
+update_secondary_cards(secondary_refs, metadata_path)
+
+puts [
+  "saved_image=#{relative_to_root(media_path)}",
+  "metadata_card=#{relative_to_root(metadata_path)}",
+  "owner_type=#{options[:owner_type]}",
+  "owner_slug=#{owner_slug}",
+  "scope_level=#{scope_level}"
+].join("\n")
+

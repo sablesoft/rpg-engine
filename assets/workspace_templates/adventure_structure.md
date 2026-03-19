@@ -12,6 +12,7 @@ Play state files:
 - `products/rpg-engine/workspaces/adventure/<slug>/state.yaml`
 - `products/rpg-engine/workspaces/adventure/<slug>/facts.yaml`
 - `products/rpg-engine/workspaces/adventure/<slug>/flags.yaml`
+- `products/rpg-engine/workspaces/adventure/<slug>/images/`
 
 History:
 - `products/rpg-engine/workspaces/adventure/<slug>/events/`

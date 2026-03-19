@@ -8,6 +8,7 @@ Optional support files:
 - `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
 - `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
 - `products/rpg-engine/workspaces/world/<slug>/global_story.md`
+- `products/rpg-engine/workspaces/world/<slug>/images/`
 
 Optional support-card folders:
 - `products/rpg-engine/workspaces/world/<slug>/locations/`
@@ -20,6 +21,7 @@ World-owned scenarios:
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/scenario.md`
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/global_story.md`
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/tone_and_themes.md`
+- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/images/`
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/quests/`
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/locations/`
 - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/characters/`

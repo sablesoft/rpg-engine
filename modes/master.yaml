@@ -15,6 +15,8 @@ routing:
     - master-bootstrap-character
     - master-promote
     - master-edit-content
+    - image-generate
+    - image-save
 
 boundaries:
   owns:
@@ -23,6 +25,8 @@ boundaries:
     - character creation and editing
     - promotion of local entities into broader canon scopes
     - reusable content preparation before play
+    - temporary image generation for canon-bearing content
+    - saving approved images into versioned canon-bearing content
   avoids:
     - live turn-by-turn play narration
     - read-only reference workflows when no edits are needed

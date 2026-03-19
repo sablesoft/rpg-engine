@@ -29,6 +29,7 @@ Follow product policy from:
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/ref_rules.md`
+- `products/rpg-engine/rules/image_rules.md`
 
 Follow workspace structural conventions from:
 
@@ -105,12 +106,16 @@ Use:
 - `master-bootstrap-character`
 - `master-promote`
 - `master-edit-content`
+- `image-generate`
+- `image-save`
 
 Responsibilities:
 
 - create and edit canon-bearing content
 - maintain consistency between world, scenario, and character content
 - prepare playable content for `play`
+- prepare temporary visual generation results grounded in established canon
+- save approved images into versioned product content
 
 Do not:
 
@@ -123,6 +128,8 @@ Use:
 
 - `play-bootstrap-adventure`
 - `play-run-adventure`
+- `image-generate`
+- `image-save`
 
 Responsibilities:
 
@@ -130,6 +137,8 @@ Responsibilities:
 - run one adventure scene by scene
 - resolve choices and consequences
 - update the selected adventure workspace
+- prepare temporary scene, character, and location image results grounded in current adventure context
+- save approved adventure-local images into versioned content
 
 Do not:
 
