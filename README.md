@@ -10,6 +10,25 @@ Its purpose is to provide a structured product layer for:
 - turn-by-turn adventure play
 - read-only reference access to known content
 
+## Installation
+
+Install `rpg-engine` as a product inside a local `product-engine` checkout.
+
+1. Clone `product-engine`:
+
+```bash
+git clone https://github.com/sablesoft/product-engine.git
+cd product-engine
+```
+
+2. Clone the `rpg-engine` repository into `products/rpg-engine`:
+
+```bash
+git clone https://github.com/sablesoft/rpg-engine.git products/rpg-engine
+```
+
+3. After that, `product-engine` can treat `rpg-engine` as one of its connected products.
+
 ## Product role inside Product Engine
 
 `product-engine` defines the shared engine architecture, runtime model, rules, and bootstrap workflows.
@@ -59,25 +78,6 @@ Concrete content may live in nested repositories:
 - each adventure workspace may be its own git repository
 
 This keeps the RPG engine independent from specific worlds, scenarios, and playthroughs.
-
-## Installation
-
-Install `rpg-engine` as a product inside a local `product-engine` checkout.
-
-1. Clone `product-engine`:
-
-```bash
-git clone https://github.com/sablesoft/product-engine.git
-cd product-engine
-```
-
-2. Clone the `rpg-engine` repository into `products/rpg-engine`:
-
-```bash
-git clone https://github.com/sablesoft/rpg-engine.git products/rpg-engine
-```
-
-3. After that, `product-engine` can treat `rpg-engine` as one of its connected products.
 
 ## Runtime model
 
