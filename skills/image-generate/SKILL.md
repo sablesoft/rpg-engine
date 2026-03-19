@@ -59,12 +59,19 @@ Generate temporary image outputs for RPG canon or adventure context and place th
 13. If the user asked for generation now, write the output image to `products/rpg-engine/tmp/` with a clear temporary filename.
 14. Create a temporary image card next to the temporary image so prompt, owner, provider, depicted-entity information, and all missing visual concept material are not lost before persistence.
 15. Return direct file paths to both the temporary image and its temporary card so the user can inspect them.
-16. Immediately ask the user what to do next with the temporary result:
+16. After the temporary media file is actually written, emit a clickable terminal link to the absolute `file://` path:
+   - in Kitty, use a short bracketed label such as `[Показать изображение]`
+   - otherwise use a regular OSC 8 label such as `[Открыть изображение]`
+   - on macOS outside Kitty, also print a ready `open /absolute/path/to/image.png` fallback command
+17. If the current terminal is Kitty, verify that `~/.config/kitty/kitty.conf` has a compatible `open_actions` rule for `mime image/*`; add or update it without duplicating entries when needed.
+18. Keep the link output lightweight so it can be placed directly after the contextual generation text without extra wrapper prose.
+19. In `master` and `play`, treat this image-link output as the image-specific subset of the broader file-link capability; do not expand the scope to arbitrary non-image files here.
+20. Immediately ask the user what to do next with the temporary result:
    - save it
    - delete it
    - leave it in `tmp` for now
-17. If the user asks to delete the temporary result, delete both the image and its temporary card together.
-18. Explain that keeping the image as product content is a separate `image-save` step.
+21. If the user asks to delete the temporary result, delete both the image and its temporary card together.
+22. Explain that keeping the image as product content is a separate `image-save` step.
 
 # Provider notes
 
@@ -90,6 +97,8 @@ Generate temporary image outputs for RPG canon or adventure context and place th
 - do not skip the visual concept check for participating entities
 - do not mistake a scene-specific appearance detail for a fully reusable visual concept without saying so in the temporary card
 - do not record only the owner's missing concept when several participating entities in the same image also lack concepts
+- do not emit the image link before the file is actually present on disk
+- do not add duplicate Kitty `open_actions` rules for image previews
 
 # Output
 
@@ -100,5 +109,6 @@ Generate temporary image outputs for RPG canon or adventure context and place th
 5. provider-specific payload or command variant when requested
 6. path to the temporary image in `products/rpg-engine/tmp/` when generation was performed
 7. path to the temporary image card in `products/rpg-engine/tmp/` when generation was performed
-8. explicit next-step question asking whether to save, delete, or leave the temporary result
-9. visual concept basis used for all materially relevant participating entities, including any that lacked concepts before generation
+8. clickable terminal link output for the temporary image, with platform fallback when needed
+9. explicit next-step question asking whether to save, delete, or leave the temporary result
+10. visual concept basis used for all materially relevant participating entities, including any that lacked concepts before generation

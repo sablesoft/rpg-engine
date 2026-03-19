@@ -3,6 +3,7 @@
 
 require "fileutils"
 require "time"
+require "pathname"
 
 ROOT = File.expand_path("..", __dir__)
 PRODUCT_TMP = File.join(ROOT, "tmp")
@@ -148,6 +149,10 @@ def load_text(path)
   File.exist?(path) ? File.read(path) : ""
 end
 
+def write_text(path, content)
+  File.write(path, "#{content.rstrip}\n")
+end
+
 def read_lines(path)
   File.exist?(path) ? File.readlines(path, chomp: true) : []
 end
@@ -166,6 +171,20 @@ def append_section(path, header, lines)
   else
     separator = content.empty? ? "" : "\n\n"
     File.write(path, "#{content}#{separator}#{block}\n")
+  end
+end
+
+def replace_or_append_section(path, header, lines)
+  content = load_text(path).rstrip
+  block = ([header] + lines).join("\n")
+  section_pattern = /#{Regexp.escape(header)}\n.*?(?=\n## |\z)/m
+
+  if content.include?(header)
+    updated = content.sub(section_pattern, block)
+    write_text(path, updated)
+  else
+    separator = content.empty? ? "" : "\n\n"
+    write_text(path, "#{content}#{separator}#{block}")
   end
 end
 
@@ -252,6 +271,132 @@ def merge_bullets(existing_lines, new_bullets)
     merged << bullet unless merged.include?(bullet)
   end
   merged
+end
+
+def relative_path(from_path, to_path)
+  Pathname.new(to_path).relative_path_from(Pathname.new(File.dirname(from_path))).to_s
+end
+
+def normalize_image_line(line)
+  normalized = line.sub(/; preview: \[!\[[^\]]*\]\([^)]+\)\]\([^)]+\)/, "")
+  normalized = normalized.sub(/; preview\b/, "")
+  normalized.rstrip
+end
+
+def extract_image_slug(line)
+  match = line.match(/`([^`]+)`/)
+  match && match[1]
+end
+
+def extract_preview_slug(line)
+  return extract_image_slug(line) if line.include?("; preview: [![") || line.include?("; preview")
+
+  nil
+end
+
+def extract_card_path_from_line(line)
+  match = line.match(/card: `([^`]+)`/)
+  match && match[1]
+end
+
+def preview_info_from_images_section(owner_card)
+  section_lines(owner_card, "## Images").each do |line|
+    preview_slug = extract_preview_slug(line)
+    next unless preview_slug
+
+    card_path = extract_card_path_from_line(line)
+    return { slug: preview_slug, card_path: card_path, line: line }
+  end
+
+  nil
+end
+
+def resolve_preview_media_path(preview_info)
+  return nil unless preview_info
+  return nil unless preview_info[:card_path]
+
+  metadata_path = File.join(ROOT, preview_info[:card_path])
+  return nil unless File.exist?(metadata_path)
+
+  section_lines(metadata_path, "## Files").each do |line|
+    stripped = line.strip
+    next unless stripped.start_with?("- media_file: ")
+
+    rel_media = stripped.sub("- media_file: ", "").strip
+    return File.join(ROOT, rel_media)
+  end
+
+  nil
+end
+
+def preview_section_lines(owner_card)
+  section_lines(owner_card, "## Preview")
+end
+
+def preview_section_exists?(owner_card)
+  !preview_section_lines(owner_card).empty?
+end
+
+def preview_section_relative_media_path(owner_card)
+  preview_section_lines(owner_card).each do |line|
+    match = line.match(/\[!\[[^\]]*\]\(([^)]+)\)\]\([^)]+\)/)
+    return match[1] if match
+  end
+
+  nil
+end
+
+def insert_preview_section(path, lines)
+  content = load_text(path).rstrip
+  block = ["## Preview", *lines].join("\n")
+  headers = read_lines(path)
+  insert_after_headers = ["## Сводка", "## Описание", "## Summary", "## Description"]
+  insert_after = insert_after_headers.find { |header| headers.include?(header) }
+
+  if insert_after
+    pattern = /(#{Regexp.escape(insert_after)}\n.*?)(?=\n## |\z)/m
+    if content.match?(pattern)
+      updated = content.sub(pattern) { |match| "#{match.rstrip}\n\n#{block}" }
+      write_text(path, updated)
+      return
+    end
+  end
+
+  if content.start_with?("# ")
+    first_newline = content.index("\n")
+    if first_newline
+      updated = "#{content[0..first_newline].rstrip}\n\n#{block}\n\n#{content[(first_newline + 1)..].to_s.lstrip}"
+      write_text(path, updated)
+      return
+    end
+  end
+
+  separator = content.empty? ? "" : "\n\n"
+  write_text(path, "#{content}#{separator}#{block}")
+end
+
+def ensure_preview_section(owner_card, preview_slug, media_path)
+  return if preview_slug.nil? || preview_slug.empty? || preview_section_exists?(owner_card)
+
+  rel_media = relative_path(owner_card, media_path)
+  insert_preview_section(owner_card, ["[![#{preview_slug}](#{rel_media})](#{rel_media})"])
+end
+
+def normalize_images_section(owner_card, preview_slug)
+  existing_lines = section_lines(owner_card, "## Images")
+  return if existing_lines.empty?
+
+  normalized = existing_lines
+    .select { |line| line.start_with?("- ") }
+    .map { |line| normalize_image_line(line) }
+    .map do |line|
+      slug = extract_image_slug(line)
+      next line unless slug == preview_slug
+
+      "#{line}; preview"
+    end
+
+  replace_or_append_section(owner_card, "## Images", normalized)
 end
 
 def upsert_visual_concept(path, concept_basis)
@@ -353,9 +498,20 @@ def parse_secondary_refs(raw_refs)
   end
 end
 
-def update_owner_card(owner_card, image_role, metadata_path)
-  rel = relative_to_root(metadata_path)
-  append_section(owner_card, "## Images", ["- `#{File.basename(metadata_path, ".md")}` — role: #{image_role}; card: `#{rel}`"])
+def update_owner_card(owner_card, image_role, metadata_path, media_path)
+  rel_card = relative_to_root(metadata_path)
+  image_slug = File.basename(metadata_path, ".md")
+  existing_preview = preview_info_from_images_section(owner_card)
+  preview_slug = existing_preview ? existing_preview[:slug] : image_slug
+  preview_media_path = if existing_preview
+    resolve_preview_media_path(existing_preview) || media_path
+  else
+    media_path
+  end
+
+  append_section(owner_card, "## Images", ["- `#{image_slug}` — role: #{image_role}; card: `#{rel_card}`"])
+  normalize_images_section(owner_card, preview_slug)
+  ensure_preview_section(owner_card, preview_slug, preview_media_path)
 end
 
 def update_secondary_cards(secondary_refs, metadata_path)
@@ -431,7 +587,7 @@ write_metadata(
 )
 
 enrich_visual_concepts(options[:owner_type], owner_slug, owner_card, secondary_refs, visual_concept_entries)
-update_owner_card(owner_card, options[:image_role], metadata_path)
+update_owner_card(owner_card, options[:image_role], metadata_path, media_path)
 update_secondary_cards(secondary_refs, metadata_path)
 
 puts [

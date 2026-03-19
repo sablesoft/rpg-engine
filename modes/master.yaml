@@ -15,6 +15,7 @@ routing:
     - master-bootstrap-character
     - master-promote
     - master-edit-content
+    - master-file-link
     - image-generate
     - image-save
 
@@ -25,6 +26,7 @@ boundaries:
     - character creation and editing
     - promotion of local entities into broader canon scopes
     - reusable content preparation before play
+    - direct file-link output for master-mode artifacts when inspection is useful
     - temporary image generation for canon-bearing content
     - saving approved images into versioned canon-bearing content
   avoids:

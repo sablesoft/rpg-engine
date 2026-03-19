@@ -106,6 +106,7 @@ Use:
 - `master-bootstrap-character`
 - `master-promote`
 - `master-edit-content`
+- `master-file-link`
 - `image-generate`
 - `image-save`
 
@@ -114,6 +115,7 @@ Responsibilities:
 - create and edit canon-bearing content
 - maintain consistency between world, scenario, and character content
 - prepare playable content for `play`
+- emit direct file links for saved or generated master-mode artifacts when the user wants to inspect them
 - prepare temporary visual generation results grounded in established canon
 - save approved images into versioned product content
 

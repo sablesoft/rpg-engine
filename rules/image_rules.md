@@ -71,6 +71,12 @@ The metadata card is the readable source of truth for the image asset.
 - `image-generate` produces temporary output in `products/rpg-engine/tmp/`
 - `image-generate` should create both a temporary image file and a temporary image card together
 - after generation, give the user a direct path to the temporary file
+- after generation, emit a clickable OSC 8 `file://` link to the saved temporary image
+- in Kitty, prefer a short bracketed link label such as `[Показать изображение]` and ensure image clicks open through compatible `open_actions` with `kitten icat`, preferably in overlay mode with `--hold`
+- outside Kitty, still emit a regular OSC 8 `file://` link such as `[Открыть изображение]`
+- on macOS outside Kitty, also print a ready `open /absolute/path/to/image.png` fallback command near the link
+- print the image link only after the media file is actually written to disk
+- keep the link presentation lightweight so it can sit directly after scene text or generation-result text without extra wrapper prose
 - after generation, give the user a direct path to the temporary image card as well
 - after showing the result, immediately ask whether to save it, delete it, or leave it in `tmp`
 - temporary files may be reviewed, discarded, regenerated, or saved later
@@ -111,6 +117,10 @@ Optional fields may include:
 
 - every image-owning entity card must include an `Images` section after the main descriptive sections when persisted images exist
 - the `Images` section should list image roles and link to the image metadata cards
+- owner entity cards may embed one Markdown preview of a saved image near the beginning of the card, preferably directly after a summary or description section when present
+- when an entity has multiple saved images, show only one of them as the card preview and list the others in `Images` without inline embeds
+- the `Images` section should mark which listed image is the active preview
+- embedded previews in owner cards are convenience renderings, not a replacement for the image metadata card
 - an entity without persisted images should omit the section rather than keep an empty placeholder
 - scene images must be linked from the owning scene file such as `current_scene.md` or the relevant `events/<id>.md`
 - secondary depicted entities should not claim ownership of the image, but may reference it in a lightweight `Related Images` note when useful

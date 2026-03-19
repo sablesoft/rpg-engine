@@ -105,6 +105,8 @@ Provider wiring is local to the product checkout:
 
 Local helper script:
 
+- `ruby scripts/file-link --path path/to/file`
+- `ruby scripts/image-link --path products/rpg-engine/tmp/example.png`
 - `ruby products/rpg-engine/scripts/openai-image-request models`
 - `ruby products/rpg-engine/scripts/openai-image-request generate --prompt "..." --output products/rpg-engine/tmp/example.png`
 
@@ -131,7 +133,7 @@ It should follow the written canon, not replace it.
 Image work happens in two separate steps:
 
 1. `image-generate`
-   creates a temporary image in `products/rpg-engine/tmp/` so you can look at it first
+   creates a temporary image in `products/rpg-engine/tmp/`, emits a clickable terminal link to it, and lets you look at it first
 
 2. `image-save`
    takes an approved temporary image and saves it into the correct versioned content location, links it to the right entity, and writes image metadata
@@ -228,10 +230,28 @@ Useful options:
 - `--prompt-file PATH` reads the prompt from a file
 - `--size`, `--quality`, `--background`, `--format`, and `--compression` override output settings
 
+If you already have an image on disk and just want the terminal preview link output again, use:
+
+```bash
+ruby scripts/image-link \
+  --path products/rpg-engine/tmp/comet-shrine.png
+```
+
+If you want the same clickable terminal link behavior for a non-image product file, use:
+
+```bash
+ruby scripts/file-link \
+  --path products/rpg-engine/workspaces/world/example-world/world.md
+```
+
 ### What happens after generation
 
 Temporary results should go into `products/rpg-engine/tmp/`.
 After that you decide whether the image is worth keeping.
+
+After a successful generation, the engine should print a clickable OSC 8 `file://` link to the saved temporary image.
+In Kitty, the link should use Kitty-compatible image opening via `open_actions`.
+Outside Kitty, the engine should still print a normal clickable file link, and on macOS it should also print a ready `open ...` fallback command.
 
 If you do not want to keep it, it can remain a temporary file.
 
@@ -240,6 +260,9 @@ If you do want to keep it, `image-save` should:
 - move it from `products/rpg-engine/tmp/` into the correct workspace `images/` folder
 - give it a proper final name
 - attach it to one primary owner entity
+- keep one Markdown preview embed near the beginning of the owner card so the main entity card shows a representative image
+- keep the `Images` section as a list of saved image entries and mark one of them as `preview`
+- add additional saved images as links in the same `Images` section without embedding them all inline
 - optionally record other depicted entities as secondary references
 - write the image metadata card
 - update the owner entity so it knows about the saved image

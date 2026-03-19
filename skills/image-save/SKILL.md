@@ -39,8 +39,12 @@ Move a reviewed image and its already prepared temporary image card from `produc
 10. Read the temporary image card as a shared concept source for all participating entities in the image, not just the owner.
 11. If the temporary image card contains stable visual concept information that is missing from those entities, add or enrich their `Visual Concept` sections.
 12. Update the owner entity card with an `Images` section or add the new image entry to the existing section.
-13. If secondary entities should reference the image, add lightweight related-image notes without turning them into co-owners.
-14. Preserve versioned content readability after the save.
+13. Keep at most one active preview image for the owner card:
+   - if the card has no preview yet, the first saved image may become that preview
+   - place the inline preview near the beginning of the card, preferably after `Summary` or `Описание` style sections when present
+   - in `## Images`, mark the preview image as `preview` and list the rest without inline embeds
+14. If secondary entities should reference the image, add lightweight related-image notes without turning them into co-owners.
+15. Preserve versioned content readability after the save.
 
 # Constraints
 
@@ -54,6 +58,9 @@ Move a reviewed image and its already prepared temporary image card from `produc
 - do not write a rigid visual concept that blocks ordinary future scene variation
 - do not overwrite an existing stronger visual concept with a weaker image-derived guess
 - do not ignore missing concepts for non-owner participating entities when the temporary image card already contains usable concept material for them
+- do not replace the metadata card with a bare image embed; keep the metadata link in the owner card
+- do not embed every saved image inline in the owner card when an entity has multiple images
+- do not keep the active preview embed buried inside `## Images`
 
 # Output
 

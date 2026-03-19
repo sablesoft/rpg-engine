@@ -5,6 +5,7 @@ require "json"
 require "open3"
 require "fileutils"
 require "time"
+require_relative "../../../scripts/support/terminal_image_link"
 
 ROOT = File.expand_path("..", __dir__)
 TMP_DIR = File.join(ROOT, "tmp")
@@ -302,10 +303,9 @@ write_temp_card(
   participating_concepts: participating_concepts
 )
 
-puts JSON.pretty_generate(
-  image_path: relative_to_root(output_path),
-  card_path: relative_to_root(card_path),
-  next_step: "Save it, delete it, or leave it in tmp for now.",
-  participating_entity_visual_concepts: participating_concepts
-)
-
+puts [
+  "image_path=#{relative_to_root(output_path)}",
+  "card_path=#{relative_to_root(card_path)}",
+  *TerminalImageLink.preview_lines(path: output_path),
+  "next_step=Save it, delete it, or leave it in tmp for now."
+].join("\n")
