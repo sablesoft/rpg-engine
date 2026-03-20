@@ -22,7 +22,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 # Behavior
 
 1. Identify the target entity type and requested changes.
-2. Read relevant workspace-local rules when editing a concrete `world` or `adventure` that defines them.
+2. Read relevant optional workspace rule layers when they exist; if a layer is missing, treat it as adding no extra rules.
 3. Check which linked entities may be affected.
 4. Apply the edit while preserving established world and scenario consistency.
 5. Highlight downstream consequences when edits affect playable content.
@@ -35,6 +35,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - do not advance play state unless the edit explicitly targets an adventure instance
 - do not use this skill for scope promotion workflows that belong to `master-promote`
 - do not ignore workspace-local rules when they exist for the edited world or adventure
+- do not fail or stall just because an optional workspace rule file is absent
 - do not leave plain-text mentions of entities that already have known separate cards when the surrounding card content should link them
 
 # Output

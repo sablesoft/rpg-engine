@@ -55,8 +55,10 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `scenario/faction -> world/faction`
 - `scenario/specie -> world/specie`
 - `scenario/fact -> world/fact`
+- `workspace/rule -> rules/workspaces/global`
 - `world/rule -> rules/workspaces/world`
 - `adventure/rule -> rules/workspaces/adventure`
+- `rules/workspaces/global -> workspace/rule`
 - `rules/workspaces/world -> world/rule`
 - `rules/workspaces/adventure -> adventure/rule`
 
@@ -90,7 +92,9 @@ Typical entity types:
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
-- promoted workspace-type global rules:
+- promoted all-workspace global rule file:
+  - `products/rpg-engine/rules/workspaces/global.md`
+- promoted `rpg-engine` workspace-type rule files:
   - `products/rpg-engine/rules/workspaces/world.md`
   - `products/rpg-engine/rules/workspaces/adventure.md`
 - localized workspace rules:
@@ -99,12 +103,15 @@ Typical entity types:
 
 # Rule promotion and localization
 
-- promote a workspace-local rule when it should apply to every workspace of that type
+- promote a workspace-local rule into `rules/workspaces/global.md` when it should apply to every workspace regardless of type
+- promote a workspace-local rule into a type-specific rule file when it should apply to every `world` or every `adventure` in `rpg-engine`
+- localize an all-workspace global rule when one workspace type or one concrete workspace needs an explicit narrower form
 - localize a workspace-type global rule when one concrete workspace needs an explicit narrower form
+- if a broader destination rule file does not exist yet, create it as part of the promotion instead of treating that as a failure
 - when promoting a rule upward, rewrite it so it no longer depends on one workspace slug, one local proper noun, or one transient run condition unless that dependency is still intended
 - when localizing a broader rule downward, preserve the broader intent while narrowing the wording for that concrete workspace
-- after a successful upward rule promotion, remove the local duplicate only when the new workspace-type global rule fully supersedes the local wording
-- after a successful localization, keep the broader workspace-type global rule by default unless the user explicitly wants to stop applying it product-wide
+- after a successful upward rule promotion, remove the local duplicate only when the new broader rule fully supersedes the local wording
+- after a successful localization, keep the broader rule by default unless the user explicitly wants to stop applying it at the broader scope
 
 # Image promotion
 

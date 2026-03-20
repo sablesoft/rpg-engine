@@ -26,13 +26,16 @@ Follow product policy from:
 
 - `products/rpg-engine/rules/product_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
-- `products/rpg-engine/rules/workspaces/world.md`
-- `products/rpg-engine/rules/workspaces/adventure.md`
+- `products/rpg-engine/rules/workspaces/global.md` when present
+- `products/rpg-engine/rules/workspaces/world.md` when present
+- `products/rpg-engine/rules/workspaces/adventure.md` when present
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/ref_rules.md`
 - `products/rpg-engine/rules/image_rules.md`
+
+If any optional workspace rule file is absent, treat that layer as having no additional rules rather than as an error.
 
 When working inside a concrete `world` or `adventure` workspace, also follow that workspace's local `rules/` files when they exist.
 

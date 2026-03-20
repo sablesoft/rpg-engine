@@ -41,6 +41,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when relevant
    - local `world.md` or `scenario.md` when present, otherwise the selected global world repository and its world-owned scenario content
    - `products/rpg-engine/workspaces/world/<world_slug>/rules/world_rules.md` when that world workspace exists and defines local rules
+   - skip any absent optional rule layer without treating it as an error
 4. Present the immediate situation, available options, risks, and observable facts.
 5. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
 6. Update the adventure state, consequences, and newly learned information.
@@ -52,6 +53,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not answer as a read-only encyclopedia
 - do not skip consequence updates after meaningful player actions
 - do not violate established workspace-local world or adventure rules
+- do not fail or stall because an optional workspace rule file is absent
 - when updating cards during play, link mentions of entities that already have known separate cards
 
 # Output

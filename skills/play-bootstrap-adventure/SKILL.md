@@ -55,7 +55,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 8. Update product runtime pointers so the newly selected or created context can be resumed later.
 9. Ensure the created or selected inputs are internally compatible before entering live play.
 10. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
-11. If the selected world or created adventure defines workspace-local rules, respect them during bootstrap.
+11. Respect optional workspace rule layers when they exist; if one is absent, continue without adding that layer.
 12. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
 
 # Selection and generation flow

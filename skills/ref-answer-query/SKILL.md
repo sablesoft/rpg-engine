@@ -21,7 +21,7 @@ Provide factual reference answers without editing content or advancing gameplay.
 # Behavior
 
 1. Identify the referenced entity or topic.
-2. Retrieve the relevant established content from world, scenario, character, or adventure sources, including workspace-local rules when they materially constrain the answer.
+2. Retrieve the relevant established content from world, scenario, character, or adventure sources, including optional workspace rule layers when they materially constrain the answer.
 3. Answer the question in a concise, factual way.
 4. Distinguish between established facts, inferred conclusions, and unknowns.
 5. Keep the response safe for read-only use.
@@ -31,6 +31,7 @@ Provide factual reference answers without editing content or advancing gameplay.
 - do not generate new canon to fill gaps
 - do not edit any content
 - do not advance adventure state
+- do not treat an absent optional workspace rule file as missing canon by itself
 
 # Output
 
