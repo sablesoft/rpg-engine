@@ -26,6 +26,8 @@ Follow product policy from:
 
 - `products/rpg-engine/rules/product_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
+- `products/rpg-engine/rules/workspaces/world.md`
+- `products/rpg-engine/rules/workspaces/adventure.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`

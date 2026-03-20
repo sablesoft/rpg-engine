@@ -5,7 +5,7 @@ description: Promote local adventure or scenario entities into broader canon sco
 
 # Purpose
 
-Move a locally scoped entity into a broader canonical scope such as a world-owned scenario, a world-owned character, or world canon itself.
+Move a locally scoped entity into a broader canonical scope such as a world-owned scenario, a world-owned character, world canon itself, or a broader workspace rule layer.
 
 # Read before acting
 
@@ -20,14 +20,15 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/image_rules.md`
+- `products/rpg-engine/rules/workspace_rules.md`
 
 # Behavior
 
 1. Identify the source entity, its current scope, and the requested target scope.
-2. Read the source card and any directly related local support cards.
+2. Read the source card, rule file, or any directly related local support cards.
 3. Detect whether the source entity has persisted images in its scope-local `images/` subtree and whether the user asked to move them.
 4. Confirm the target scope is valid under the default locality and promotion rules.
-5. Create or update the target canonical file path for the promoted entity.
+5. Create or update the target canonical file path for the promoted entity or rule destination.
 6. Initialize the target world repository when promotion creates a new global world for the first time.
 7. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
 8. Move related image assets only under the image promotion rules from `products/rpg-engine/rules/image_rules.md`.
@@ -54,6 +55,10 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `scenario/faction -> world/faction`
 - `scenario/specie -> world/specie`
 - `scenario/fact -> world/fact`
+- `world/rule -> rules/workspaces/world`
+- `adventure/rule -> rules/workspaces/adventure`
+- `rules/workspaces/world -> world/rule`
+- `rules/workspaces/adventure -> adventure/rule`
 
 Typical entity types:
 
@@ -66,6 +71,7 @@ Typical entity types:
 - `species`
 - `fact`
 - `image`
+- `rule`
 
 # File path targets
 
@@ -84,6 +90,21 @@ Typical entity types:
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
+- promoted workspace-type global rules:
+  - `products/rpg-engine/rules/workspaces/world.md`
+  - `products/rpg-engine/rules/workspaces/adventure.md`
+- localized workspace rules:
+  - `products/rpg-engine/workspaces/world/<world_slug>/rules/world_rules.md`
+  - `products/rpg-engine/workspaces/adventure/<adventure_slug>/rules/adventure_rules.md`
+
+# Rule promotion and localization
+
+- promote a workspace-local rule when it should apply to every workspace of that type
+- localize a workspace-type global rule when one concrete workspace needs an explicit narrower form
+- when promoting a rule upward, rewrite it so it no longer depends on one workspace slug, one local proper noun, or one transient run condition unless that dependency is still intended
+- when localizing a broader rule downward, preserve the broader intent while narrowing the wording for that concrete workspace
+- after a successful upward rule promotion, remove the local duplicate only when the new workspace-type global rule fully supersedes the local wording
+- after a successful localization, keep the broader workspace-type global rule by default unless the user explicitly wants to stop applying it product-wide
 
 # Image promotion
 
@@ -132,16 +153,19 @@ Typical entity types:
 - if the user explicitly wants to keep a local variant, treat that as an exception and preserve the source card as a separate local version
 - never delete `events/`, `sessions/`, `facts.yaml`, `flags.yaml`, or other run-history artifacts from the originating adventure
 - keep or rewrite local references as needed so the originating adventure or scenario still reads coherently after promotion
+- keep or rewrite affected rule references and nearby card wording as needed so the resulting scope boundaries remain clear
 
 # Constraints
 
 - do not silently promote local entities
 - do not lose the meaning of the source entity during promotion
 - do not overwrite broader canon without resolving conflicts explicitly
+- do not silently broaden one workspace's rule into a global default
 - do not use promotion to advance live play state
 - do not leave duplicate source cards behind unless the user explicitly wants parallel local and global variants
 - do not treat promoted facts as raw YAML transport; integrate them into readable canonical files
 - do not move orphaned image files without their metadata cards and owner references
+- do not localize a global rule in a way that accidentally contradicts broader defaults without surfacing the exception clearly
 
 # Output
 
