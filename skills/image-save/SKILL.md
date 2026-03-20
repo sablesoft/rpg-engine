@@ -72,3 +72,9 @@ Move a reviewed image and its already prepared temporary image card from `produc
 4. updated owner entity linkage
 5. note on any secondary entity references that were added
 6. note on any entity `Visual Concept` sections that were created or enriched
+
+## Delivery note
+
+- when saving was performed, pass through the emitted terminal link output directly instead of rewriting it as markdown file links
+- include both relative and absolute paths for the saved image and metadata card when useful
+- prefer showing clickable terminal links for both the saved image and its metadata card

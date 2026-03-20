@@ -32,3 +32,8 @@ boundaries:
   avoids:
     - live turn-by-turn play narration
     - read-only reference workflows when no edits are needed
+    - step-by-step progress chatter after the initial processing acknowledgement
+
+interaction:
+  progress_style: single_ack_then_result
+  acknowledgement: short

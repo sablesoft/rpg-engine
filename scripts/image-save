@@ -5,6 +5,7 @@ require "fileutils"
 require "time"
 require "pathname"
 require_relative "support/workspace_card_headers"
+require_relative "../../../scripts/support/terminal_file_link"
 
 ROOT = File.expand_path("..", __dir__)
 PRODUCT_TMP = File.join(ROOT, "tmp")
@@ -629,8 +630,12 @@ update_secondary_cards(secondary_refs, metadata_path)
 
 puts [
   "saved_image=#{relative_to_root(media_path)}",
+  "saved_image_abs_path=#{media_path}",
   "metadata_card=#{relative_to_root(metadata_path)}",
+  "metadata_card_abs_path=#{metadata_path}",
   "owner_type=#{options[:owner_type]}",
   "owner_slug=#{owner_slug}",
-  "scope_level=#{scope_level}"
+  "scope_level=#{scope_level}",
+  *TerminalFileLink.file_link_lines(path: media_path, kind: "image", fallback_label: "[Открыть сохраненное изображение]"),
+  *TerminalFileLink.file_link_lines(path: metadata_path, kind: "file", fallback_label: "[Открыть карточку изображения]")
 ].join("\n")

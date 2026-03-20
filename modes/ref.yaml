@@ -20,3 +20,8 @@ boundaries:
     - content generation
     - content editing
     - advancing play state
+    - step-by-step progress chatter after the initial processing acknowledgement
+
+interaction:
+  progress_style: single_ack_then_result
+  acknowledgement: short

@@ -330,7 +330,9 @@ write_temp_card(
 
 puts [
   "image_path=#{relative_to_root(output_path)}",
+  "image_abs_path=#{output_path}",
   "card_path=#{relative_to_root(card_path)}",
+  "card_abs_path=#{card_path}",
   *TerminalImageLink.preview_lines(path: output_path),
   "next_step=Save it, delete it, or leave it in tmp for now."
 ].join("\n")

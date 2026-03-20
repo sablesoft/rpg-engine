@@ -269,6 +269,7 @@ After that you decide whether the image is worth keeping.
 After a successful generation, the engine should print a clickable OSC 8 `file://` link to the saved temporary image.
 In Kitty, the link should use Kitty-compatible image opening via `open_actions`.
 Outside Kitty, the engine should still print a normal clickable file link, and on macOS it should also print a ready `open ...` fallback command.
+In assistant responses, this terminal link output should be passed through directly rather than rewritten as a markdown path link.
 
 If you do not want to keep it, it can remain a temporary file.
 
@@ -288,6 +289,16 @@ If you do want to keep it, `image-save` should:
 - enrich missing `Visual Concept` notes in the relevant entity cards when the temporary image card contains stable visual identity details worth keeping
 
 Each saved image should have one primary owner entity, even if other entities also appear in the picture.
+
+### Response contract for image flows
+
+When an image workflow returns file artifacts, the response contract should stay terminal-first:
+
+- include relative paths for machine-readable workflow output
+- include absolute paths when useful for local inspection or follow-up commands
+- pass through clickable terminal link output directly
+- on macOS, keep the emitted `open ...` fallback command
+- do not rewrite these artifact links as markdown file links when the workflow already emitted terminal-friendly links
 
 ## First places to read
 

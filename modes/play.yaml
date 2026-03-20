@@ -29,3 +29,8 @@ boundaries:
   avoids:
     - global canon redesign
     - standalone lore reference requests
+    - step-by-step progress chatter after the initial processing acknowledgement
+
+interaction:
+  progress_style: single_ack_then_result
+  acknowledgement: short

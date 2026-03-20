@@ -113,3 +113,8 @@ Generate temporary image outputs for RPG canon or adventure context and place th
 8. clickable terminal link output for the temporary image, with platform fallback when needed
 9. explicit next-step question asking whether to save, delete, or leave the temporary result
 10. visual concept basis used for all materially relevant participating entities, including any that lacked concepts before generation
+
+## Delivery note
+
+- when generation was performed, pass through the emitted terminal link output directly instead of rewriting it as a markdown file link
+- when useful, also include the absolute temp image path and absolute temp image card path alongside the terminal link output
