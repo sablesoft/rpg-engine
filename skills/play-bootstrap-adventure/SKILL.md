@@ -55,9 +55,10 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 8. Update product runtime pointers so the newly selected or created context can be resumed later.
 9. Ensure the created or selected inputs are internally compatible before entering live play.
 10. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
-11. Respect optional workspace rule layers when they exist; if one is absent, continue without adding that layer.
-12. When explicit scoped local rules already exist for the selected world, scenario, protagonist, or other immediately relevant entity, carry them forward as active play constraints for the new run.
-13. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
+11. Ensure any newly created local entities for the run use visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being reused.
+12. Respect optional workspace rule layers when they exist; if one is absent, continue without adding that layer.
+13. When explicit scoped local rules already exist for the selected world, scenario, protagonist, or other immediately relevant entity, carry them forward as active play constraints for the new run.
+14. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
 
 # Selection and generation flow
 
@@ -96,6 +97,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - do not enter live play before a world, scenario, protagonist, and opening situation are all established
 - do not create `rules/workspace/adventure/<slug>.md` unless the run actually needs explicit local constraints
 - do not discard or ignore relevant scoped local rules that should meaningfully shape the opening situation, NPC behavior, scene framing, or environmental logic
+- do not create a local adventure entity with a visible title that duplicates another established entity title inside the same world context unless the user is clearly reusing that same entity
 - when bootstrap content mentions an entity that already has a known separate card, link that mention to the card
 
 # Output

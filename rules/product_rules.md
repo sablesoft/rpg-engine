@@ -19,6 +19,7 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - use `rules/workspace/<workspace_type>/<slug>.md` for rules that apply only to one concrete workspace
 - use `rules/workspace/<scope_type>/<slug>.md` more generally for any local working rules tied to one concrete product scope such as a scenario, character, quest, location, faction, or species
 - if any optional workspace-rule file is absent, treat that scope as having no extra rules
+- keep visible entity names unique within each world context and its descendant content; when natural collisions occur inside that world context, disambiguate with explicit epithets or qualifiers in the title itself
 - keep inter-card references explicit with Markdown links when the referenced entity already has its own card
 - keep workspace-facing labels in the workspace dictionary flow rather than hard-coding them in scripts or templates
 - keep shared labels in `workspace_dictionary/sections*`

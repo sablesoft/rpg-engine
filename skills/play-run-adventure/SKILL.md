@@ -46,8 +46,9 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - skip any absent optional rule layer without treating it as an error
 4. Present the immediate situation, available options, risks, and observable facts.
 5. Resolve the player's action according to world rules, scenario pressure, character capabilities, and any relevant scoped local rule files.
-6. Update the adventure state, consequences, and newly learned information.
-7. End with a clear next decision point unless the scene fully concludes.
+6. When new local entities are introduced during play, give them visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being referenced again.
+7. Update the adventure state, consequences, and newly learned information.
+8. End with a clear next decision point unless the scene fully concludes.
 
 # Constraints
 
@@ -59,6 +60,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not fail or stall because an optional workspace rule file is absent
 - treat relevant scoped local rules as active gameplay constraints and behavior instructions, not as passive metadata
 - do not promote a local entity rule into general world law unless the canon already supports that broader scope
+- do not introduce a new local entity under a visible title that already belongs to a different established entity inside the same world context; add an epithet or qualifier instead
 - when updating cards during play, link mentions of entities that already have known separate cards
 
 # Output

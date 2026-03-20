@@ -31,10 +31,11 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 5. Create or update the target canonical file path for the promoted entity or rule destination.
 6. Initialize the target world repository when promotion creates a new global world for the first time.
 7. Preserve continuity by noting the origin of the promotion and resolving naming or canon conflicts explicitly.
-8. Move related image assets only under the image promotion rules from `products/rpg-engine/rules/image_rules.md`.
-9. After a successful promotion, remove the source primary card from its original local scope by default.
-10. Update any affected references in the originating adventure or scenario as needed.
-11. Keep the promoted content readable as a primary card in its new scope.
+8. If the promoted entity's visible title would collide with another distinct established entity inside the same target world context, rename or qualify it during the same promotion pass so titles remain unambiguous.
+9. Move related image assets only under the image promotion rules from `products/rpg-engine/rules/image_rules.md`.
+10. After a successful promotion, remove the source primary card from its original local scope by default.
+11. Update any affected references in the originating adventure or scenario as needed.
+12. Keep the promoted content readable as a primary card in its new scope.
 
 # Supported promotions
 
@@ -165,6 +166,7 @@ Typical entity types:
 - do not silently broaden one workspace's rule into a global default
 - do not use promotion to advance live play state
 - do not leave duplicate source cards behind unless the user explicitly wants parallel local and global variants
+- do not leave two distinct canonical entities with the same visible title inside the same world context after promotion; add an epithet or qualifier if needed
 - do not treat promoted facts as raw YAML transport; integrate them into readable canonical files
 - do not move orphaned image files without their metadata cards and owner references
 - do not localize a global rule in a way that accidentally contradicts broader defaults without surfacing the exception clearly

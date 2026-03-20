@@ -32,6 +32,16 @@
 - `Description` is the shared generic descriptive section across card types; do not introduce new top-level `Summary` sections in workspace cards
 - validate workspace cards against their templates after structural template changes
 
+## Entity naming uniqueness
+
+- names of established entities must be unique within one `world` context, including that world's own content plus its world-owned scenarios, characters, and any adventure-local entities that belong to adventures in that same world
+- do not create two different entities with the same visible title even when their scope, type, or file path differs
+- when two entities are conceptually close enough that they might naturally share a base name, add an epithet, qualifier, or other explicit differentiator so the final visible names remain unambiguous
+- prefer disambiguation in the title itself rather than relying on surrounding prose, folder placement, or slug differences
+- apply this rule to core entities and support entities alike, including worlds, scenarios, adventures, characters, locations, quests, factions, species, items, and similar named content
+- different worlds may reuse the same visible title when those entities do not belong to the same world context
+- when promoting, refactoring, or expanding canon reveals a naming collision, resolve it explicitly as part of the same editing pass rather than leaving duplicate visible names in place
+
 ## Card cross-reference rule
 
 - when one workspace card mentions an entity that already has its own separate card, that mention should be a Markdown link to the corresponding card whenever the target card path is known

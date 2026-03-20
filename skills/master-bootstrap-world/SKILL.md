@@ -32,7 +32,8 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 
 1. Confirm the request belongs to `rpg-engine` and the `master` mode.
 2. Define the world identity, genre, tone, physical rules, power systems, major factions, history, and open tensions.
-3. Create or update a `world` workspace under `products/rpg-engine/workspace/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
+3. Ensure the world title and any newly introduced entity names are distinct from other established entity names inside that same world context unless the same entity is intentionally being revised.
+4. Create or update a `world` workspace under `products/rpg-engine/workspace/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
    - `products/rpg-engine/workspace/world/<slug>/world.md`
    - `world.md` as the primary card
    - optional `products/rpg-engine/rules/workspace/world/<slug>.md` when this world needs explicit workspace-local invariants
@@ -45,9 +46,9 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
    - `products/rpg-engine/workspace/world/<slug>/species/<slug>.md`
    - `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/scenario.md`
    - optional support-card folders such as `locations/`, `characters/`, `factions/`, `species/`, and `scenarios/`
-4. If this is a newly created world workspace, initialize it as its own git repository so world canon can evolve independently from the product repository.
-5. Keep the world contract internally consistent and usable by world-owned scenarios, world-owned characters, and adventures.
-6. Surface missing inputs only when they block coherent world creation.
+5. If this is a newly created world workspace, initialize it as its own git repository so world canon can evolve independently from the product repository.
+6. Keep the world contract internally consistent and usable by world-owned scenarios, world-owned characters, and adventures.
+7. Surface missing inputs only when they block coherent world creation.
 
 # Constraints
 
@@ -56,6 +57,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - keep canon distinct from scenario-specific events
 - keep all engine-side instructions in English
 - do not create `rules/workspace/world/<slug>.md` just to restate the whole `world.md`; use it only for workspace-local guardrails that benefit from explicit rule form
+- do not introduce a world or support entity title that duplicates another established entity title inside the same world context; add an epithet or qualifier instead
 - when a created or updated mention points to an existing separate card with a known path, write it as a Markdown link
 
 # Output
