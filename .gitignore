@@ -1,6 +1,6 @@
 state/runtime.yaml
-rules/workspaces
-!rules/workspaces/.gitkeep
+rules/workspace/*
+!rules/workspace/.gitkeep
 config/*
 !config/*.template.yaml
 tmp/*
@@ -10,7 +10,7 @@ assets/workspace_dictionary/*
 !assets/workspace_dictionary/.gitignore
 !assets/workspace_dictionary/*/
 assets/workspace_dictionary/*/*
-workspaces/world/*
-workspaces/adventure/*
-!workspaces/world/.gitkeep
-!workspaces/adventure/.gitkeep
+workspace/world/*
+workspace/adventure/*
+!workspace/world/.gitkeep
+!workspace/adventure/.gitkeep
