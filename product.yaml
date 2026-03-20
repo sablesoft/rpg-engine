@@ -11,9 +11,9 @@ mode_namespace:
     - play
     - ref
 
-workspace_model:
-  root: products/rpg-engine/workspaces
-  units:
+workspace:
+  root: products/rpg-engine/workspace
+  entities:
     - name: world
       purpose: Canon repository for one world together with its world-bound scenarios, characters, and support cards.
       primary_card: world.md

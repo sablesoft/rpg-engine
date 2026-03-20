@@ -55,12 +55,12 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `scenario/faction -> world/faction`
 - `scenario/specie -> world/specie`
 - `scenario/fact -> world/fact`
-- `workspace/rule -> rules/workspaces/global`
-- `world/rule -> rules/workspaces/world`
-- `adventure/rule -> rules/workspaces/adventure`
-- `rules/workspaces/global -> workspace/rule`
-- `rules/workspaces/world -> world/rule`
-- `rules/workspaces/adventure -> adventure/rule`
+- `workspace/rule -> rules/workspace/global`
+- `world/rule -> rules/workspace/world/<slug>.md`
+- `adventure/rule -> rules/workspace/adventure/<slug>.md`
+- `rules/workspace/global -> workspace/rule`
+- `rules/workspace/world/<slug>.md -> world/rule`
+- `rules/workspace/adventure/<slug>.md -> adventure/rule`
 
 Typical entity types:
 
@@ -78,35 +78,30 @@ Typical entity types:
 # File path targets
 
 - promoted global world:
-  - `products/rpg-engine/workspaces/world/<slug>/world.md`
+  - `products/rpg-engine/workspace/world/<slug>/world.md`
 - promoted global scenario:
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
 - promoted global character:
-  - `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/characters/<character_slug>.md`
 - promoted support cards into world scope:
-  - `products/rpg-engine/workspaces/world/<world_slug>/locations/<slug>.md`
-  - `products/rpg-engine/workspaces/world/<world_slug>/characters/<slug>.md`
-  - `products/rpg-engine/workspaces/world/<world_slug>/factions/<slug>.md`
-  - `products/rpg-engine/workspaces/world/<world_slug>/species/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/locations/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/characters/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/factions/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/species/<slug>.md`
 - promoted support cards into scenario scope:
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
 - promoted all-workspace global rule file:
-  - `products/rpg-engine/rules/workspaces/global.md`
-- promoted `rpg-engine` workspace-type rule files:
-  - `products/rpg-engine/rules/workspaces/world.md`
-  - `products/rpg-engine/rules/workspaces/adventure.md`
+  - `products/rpg-engine/rules/workspace/global.md`
 - localized workspace rules:
-  - `products/rpg-engine/workspaces/world/<world_slug>/rules/world_rules.md`
-  - `products/rpg-engine/workspaces/adventure/<adventure_slug>/rules/adventure_rules.md`
+  - `products/rpg-engine/rules/workspace/world/<world_slug>.md`
+  - `products/rpg-engine/rules/workspace/adventure/<adventure_slug>.md`
 
 # Rule promotion and localization
 
-- promote a workspace-local rule into `rules/workspaces/global.md` when it should apply to every workspace regardless of type
-- promote a workspace-local rule into a type-specific rule file when it should apply to every `world` or every `adventure` in `rpg-engine`
+- promote a workspace-local rule into `rules/workspace/global.md` when it should apply to every workspace regardless of type
 - localize an all-workspace global rule when one workspace type or one concrete workspace needs an explicit narrower form
-- localize a workspace-type global rule when one concrete workspace needs an explicit narrower form
 - if a broader destination rule file does not exist yet, create it as part of the promotion instead of treating that as a failure
 - when promoting a rule upward, rewrite it so it no longer depends on one workspace slug, one local proper noun, or one transient run condition unless that dependency is still intended
 - when localizing a broader rule downward, preserve the broader intent while narrowing the wording for that concrete workspace

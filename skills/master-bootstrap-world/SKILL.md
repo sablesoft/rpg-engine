@@ -32,18 +32,18 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 
 1. Confirm the request belongs to `rpg-engine` and the `master` mode.
 2. Define the world identity, genre, tone, physical rules, power systems, major factions, history, and open tensions.
-3. Create or update a `world` workspace under `products/rpg-engine/workspaces/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
-   - `products/rpg-engine/workspaces/world/<slug>/world.md`
+3. Create or update a `world` workspace under `products/rpg-engine/workspace/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
+   - `products/rpg-engine/workspace/world/<slug>/world.md`
    - `world.md` as the primary card
-   - optional `products/rpg-engine/workspaces/world/<slug>/rules/world_rules.md` when this world needs explicit workspace-local invariants
-   - `products/rpg-engine/workspaces/world/<slug>/setting.md`
-   - `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
-   - `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
-   - `products/rpg-engine/workspaces/world/<slug>/locations/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<slug>/characters/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<slug>/factions/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<slug>/species/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/scenario.md`
+   - optional `products/rpg-engine/rules/workspace/world/<slug>.md` when this world needs explicit workspace-local invariants
+   - `products/rpg-engine/workspace/world/<slug>/setting.md`
+   - `products/rpg-engine/workspace/world/<slug>/rules_of_world.md`
+   - `products/rpg-engine/workspace/world/<slug>/tone_and_themes.md`
+   - `products/rpg-engine/workspace/world/<slug>/locations/<slug>.md`
+   - `products/rpg-engine/workspace/world/<slug>/characters/<slug>.md`
+   - `products/rpg-engine/workspace/world/<slug>/factions/<slug>.md`
+   - `products/rpg-engine/workspace/world/<slug>/species/<slug>.md`
+   - `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/scenario.md`
    - optional support-card folders such as `locations/`, `characters/`, `factions/`, `species/`, and `scenarios/`
 4. If this is a newly created world workspace, initialize it as its own git repository so world canon can evolve independently from the product repository.
 5. Keep the world contract internally consistent and usable by world-owned scenarios, world-owned characters, and adventures.
@@ -55,7 +55,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - do not use read-only reference mode for creation work
 - keep canon distinct from scenario-specific events
 - keep all engine-side instructions in English
-- do not create `rules/world_rules.md` just to restate the whole `world.md`; use it only for workspace-local guardrails that benefit from explicit rule form
+- do not create `rules/workspace/world/<slug>.md` just to restate the whole `world.md`; use it only for workspace-local guardrails that benefit from explicit rule form
 - when a created or updated mention points to an existing separate card with a known path, write it as a Markdown link
 
 # Output

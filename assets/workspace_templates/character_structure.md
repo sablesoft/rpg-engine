@@ -1,7 +1,7 @@
 # Character Structure
 
 Root:
-- `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
+- `products/rpg-engine/workspace/world/<world_slug>/characters/<character_slug>.md`
 
 Primary card:
 - `character.md` is the main readable source of truth

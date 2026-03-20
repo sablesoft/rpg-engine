@@ -30,20 +30,22 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 1. Confirm the target adventure instance and current scene context.
 2. If the user is clearly trying to start a new game rather than continue one, hand off to `play-bootstrap-adventure`.
 3. Read and update adventure files under:
-   - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
-   - `products/rpg-engine/workspaces/adventure/<slug>/current_scene.md`
-   - `products/rpg-engine/workspaces/adventure/<slug>/state.yaml`
-   - `products/rpg-engine/workspaces/adventure/<slug>/facts.yaml`
-   - `products/rpg-engine/workspaces/adventure/<slug>/flags.yaml`
-   - `products/rpg-engine/workspaces/adventure/<slug>/events/<id>.md`
-   - `products/rpg-engine/workspaces/adventure/<slug>/sessions/<id>.md`
-   - `products/rpg-engine/workspaces/adventure/<slug>/rules/adventure_rules.md` when present
+   - `products/rpg-engine/workspace/adventure/<slug>/adventure.md`
+   - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+   - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
+   - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
+   - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
+   - `products/rpg-engine/workspace/adventure/<slug>/events/<id>.md`
+   - `products/rpg-engine/workspace/adventure/<slug>/sessions/<id>.md`
+   - `products/rpg-engine/rules/workspace/global.md` when present
+   - `products/rpg-engine/rules/workspace/adventure/<slug>.md` when present
    - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when relevant
    - local `world.md` or `scenario.md` when present, otherwise the selected global world repository and its world-owned scenario content
-   - `products/rpg-engine/workspaces/world/<world_slug>/rules/world_rules.md` when that world workspace exists and defines local rules
+   - `products/rpg-engine/rules/workspace/world/<world_slug>.md` when that world workspace exists and defines local rules
+   - other scoped files under `products/rpg-engine/rules/workspace/<scope_type>/<entity_slug>.md` when the current scene depends on that concrete scenario, character, location, quest, faction, species, item, or other product-defined entity
    - skip any absent optional rule layer without treating it as an error
 4. Present the immediate situation, available options, risks, and observable facts.
-5. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
+5. Resolve the player's action according to world rules, scenario pressure, character capabilities, and any relevant scoped local rule files.
 6. Update the adventure state, consequences, and newly learned information.
 7. End with a clear next decision point unless the scene fully concludes.
 
@@ -53,7 +55,10 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not answer as a read-only encyclopedia
 - do not skip consequence updates after meaningful player actions
 - do not violate established workspace-local world or adventure rules
+- do not ignore relevant scoped local rules for concrete entities that materially shape the active scene
 - do not fail or stall because an optional workspace rule file is absent
+- treat relevant scoped local rules as active gameplay constraints and behavior instructions, not as passive metadata
+- do not promote a local entity rule into general world law unless the canon already supports that broader scope
 - when updating cards during play, link mentions of entities that already have known separate cards
 
 # Output

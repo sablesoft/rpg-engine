@@ -1,38 +1,38 @@
 # World Workspace Structure
 
 Root:
-- `products/rpg-engine/workspaces/world/<slug>/world.md`
-- optional `products/rpg-engine/workspaces/world/<slug>/rules/world_rules.md`
+- `products/rpg-engine/workspace/world/<slug>/world.md`
+- optional `products/rpg-engine/rules/workspace/world/<slug>.md`
 
 Optional support files:
-- `products/rpg-engine/workspaces/world/<slug>/setting.md`
-- `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
-- `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
-- `products/rpg-engine/workspaces/world/<slug>/global_story.md`
-- `products/rpg-engine/workspaces/world/<slug>/images/`
+- `products/rpg-engine/workspace/world/<slug>/setting.md`
+- `products/rpg-engine/workspace/world/<slug>/rules_of_world.md`
+- `products/rpg-engine/workspace/world/<slug>/tone_and_themes.md`
+- `products/rpg-engine/workspace/world/<slug>/global_story.md`
+- `products/rpg-engine/workspace/world/<slug>/images/`
 
 Optional support-card folders:
-- `products/rpg-engine/workspaces/world/<slug>/locations/`
-- `products/rpg-engine/workspaces/world/<slug>/characters/`
-- `products/rpg-engine/workspaces/world/<slug>/factions/`
-- `products/rpg-engine/workspaces/world/<slug>/species/`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/`
+- `products/rpg-engine/workspace/world/<slug>/locations/`
+- `products/rpg-engine/workspace/world/<slug>/characters/`
+- `products/rpg-engine/workspace/world/<slug>/factions/`
+- `products/rpg-engine/workspace/world/<slug>/species/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/`
 
 World-owned scenarios:
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/scenario.md`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/global_story.md`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/tone_and_themes.md`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/images/`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/quests/`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/locations/`
-- `products/rpg-engine/workspaces/world/<slug>/scenarios/<scenario_slug>/characters/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/scenario.md`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/global_story.md`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/tone_and_themes.md`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/images/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/quests/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/locations/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/characters/`
 
 World-owned global characters:
-- `products/rpg-engine/workspaces/world/<slug>/characters/<character_slug>.md`
+- `products/rpg-engine/workspace/world/<slug>/characters/<character_slug>.md`
 
 Primary card:
 - `world.md` is the main readable source of truth
-- `rules/world_rules.md` is the local invariant layer when this world needs explicit workspace-specific rules
+- `products/rpg-engine/rules/workspace/world/<slug>.md` is the local invariant layer when this world needs explicit workspace-specific rules
 
 When to use:
 - use for global world canon promoted to workspace scope

@@ -26,9 +26,7 @@ Follow product policy from:
 
 - `products/rpg-engine/rules/product_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
-- `products/rpg-engine/rules/workspaces/global.md` when present
-- `products/rpg-engine/rules/workspaces/world.md` when present
-- `products/rpg-engine/rules/workspaces/adventure.md` when present
+- `products/rpg-engine/rules/workspace/global.md` when present
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
@@ -37,7 +35,8 @@ Follow product policy from:
 
 If any optional workspace rule file is absent, treat that layer as having no additional rules rather than as an error.
 
-When working inside a concrete `world` or `adventure` workspace, also follow that workspace's local `rules/` files when they exist.
+When working inside a concrete `world` or `adventure` workspace, also follow `products/rpg-engine/rules/workspace/<entity>/<slug>.md` when it exists for that workspace.
+When a current scene materially depends on a more specific product entity such as a scenario, character, location, quest, faction, species, item, or similar scope, also follow `products/rpg-engine/rules/workspace/<entity>/<slug>.md` when it exists for that concrete entity.
 
 Follow workspace structural conventions from:
 
@@ -85,7 +84,7 @@ If mode is missing:
 
 ## Workspace model
 
-Workspace units:
+Workspace entities:
 
 - `world`
 - `adventure`
@@ -128,7 +127,7 @@ Responsibilities:
 - create and edit canon-bearing content
 - maintain consistency between world, scenario, and character content
 - prepare playable content for `play`
-- emit direct terminal file links only for artifacts under `products/rpg-engine/workspaces/` when the user wants to inspect them
+- emit direct terminal file links only for artifacts under `products/rpg-engine/workspace/` when the user wants to inspect them
 - prepare temporary visual generation results grounded in established canon
 - save approved images into versioned product content
 
@@ -136,7 +135,7 @@ Do not:
 
 - advance live adventure state unless editing an adventure setup directly
 - answer read-only reference requests when no changes are needed
-- emit file links to product files outside `products/rpg-engine/workspaces/`
+- emit file links to product files outside `products/rpg-engine/workspace/`
 - stream step-by-step progress commentary; at most send one short processing acknowledgement before the final result
 
 ### play
@@ -154,7 +153,8 @@ Responsibilities:
 - run one adventure scene by scene
 - resolve choices and consequences
 - update the selected adventure workspace
-- emit direct file links only for image artifacts under `products/rpg-engine/workspaces/` when visual inspection is useful
+- honor relevant local rule files under `products/rpg-engine/rules/workspace/` as active gameplay constraints for the current run and current scene
+- emit direct file links only for image artifacts under `products/rpg-engine/workspace/` when visual inspection is useful
 - prepare temporary scene, character, and location image results grounded in current adventure context
 - save approved adventure-local images into versioned content
 
@@ -162,6 +162,7 @@ Do not:
 
 - redesign world canon during live play
 - answer as a pure encyclopedia when the user is clearly playing
+- ignore relevant scoped local rules for the active adventure, world, or currently involved entities
 - emit direct links to full cards or other non-image workspace files
 - stream step-by-step progress commentary; at most send one short processing acknowledgement before the final result
 
@@ -175,12 +176,12 @@ Responsibilities:
 
 - answer factual questions about established canon and current adventure context
 - summarize known information without changing it
-- emit direct file links only for image artifacts under `products/rpg-engine/workspaces/` when they are explicitly useful to the answer
+- emit direct file links only for image artifacts under `products/rpg-engine/workspace/` when they are explicitly useful to the answer
 
 Do not:
 
 - generate new canon to fill gaps
-- update workspaces or advance play state
+- update workspace or advance play state
 - emit direct links to full cards or other non-image workspace files
 - stream step-by-step progress commentary; at most send one short processing acknowledgement before the final result
 
@@ -188,6 +189,6 @@ Do not:
 
 ## Principle
 
-Canon lives in workspaces.  
+Canon lives in workspace.  
 Context lives in runtime.  
 Play state lives in adventure.

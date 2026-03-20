@@ -29,14 +29,14 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 1. Confirm the target world context and locate the owning world repository.
 2. Define the scenario premise, stakes, conflicts, major actors, locations, acts, and likely outcomes.
 3. Create or update a world-owned scenario structure following `products/rpg-engine/assets/workspace_templates/scenario_structure.md` and using:
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
    - `scenario.md` as the primary card
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/global_story.md`
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/tone_and_themes.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/global_story.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/tone_and_themes.md`
    - optional support files such as `global_story.md` and `tone_and_themes.md`
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
-   - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
+   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
    - optional support-card folders such as `quests/`, `locations/`, and `characters/`
 4. Ensure the scenario depends on world canon instead of redefining it.
 5. Keep enough structure for later adventure setup and play.

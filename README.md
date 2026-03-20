@@ -258,7 +258,7 @@ If you want the same clickable terminal link behavior for a non-image product fi
 
 ```bash
 ruby scripts/file-link \
-  --path products/rpg-engine/workspaces/world/example-world/world.md
+  --path products/rpg-engine/workspace/world/example-world/world.md
 ```
 
 ### What happens after generation

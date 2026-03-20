@@ -46,14 +46,14 @@ Define how image assets are stored, linked, promoted, and rendered through provi
 ### World workspace
 
 - world-owned images live under:
-  - `products/rpg-engine/workspaces/world/<world_slug>/images/<entity_type>/<entity_slug>/`
+  - `products/rpg-engine/workspace/world/<world_slug>/images/<entity_type>/<entity_slug>/`
 - world-owned scenario images live under:
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/images/<entity_type>/<entity_slug>/`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/images/<entity_type>/<entity_slug>/`
 
 ### Adventure workspace
 
 - adventure-local images live under:
-  - `products/rpg-engine/workspaces/adventure/<adventure_slug>/images/<entity_type>/<entity_slug>/`
+  - `products/rpg-engine/workspace/adventure/<adventure_slug>/images/<entity_type>/<entity_slug>/`
 
 ## Persisted image package
 

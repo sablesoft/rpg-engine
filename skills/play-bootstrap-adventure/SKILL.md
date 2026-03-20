@@ -51,12 +51,13 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 4. At each step, prefer existing compatible world or adventure repositories when the user wants to choose from known content.
 5. If the user does not have a preference, offer a compact set of distinct options before creating anything.
 6. If the user wants something new on the fly, create only the missing pieces needed to enter play quickly.
-7. If a new adventure is created, initialize `products/rpg-engine/workspaces/adventure/<slug>/` as its own git repository.
+7. If a new adventure is created, initialize `products/rpg-engine/workspace/adventure/<slug>/` as its own git repository.
 8. Update product runtime pointers so the newly selected or created context can be resumed later.
 9. Ensure the created or selected inputs are internally compatible before entering live play.
 10. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
 11. Respect optional workspace rule layers when they exist; if one is absent, continue without adding that layer.
-12. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
+12. When explicit scoped local rules already exist for the selected world, scenario, protagonist, or other immediately relevant entity, carry them forward as active play constraints for the new run.
+13. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
 
 # Selection and generation flow
 
@@ -72,17 +73,18 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - adventure:
   - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
   - prepare:
-    - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
-    - optional `products/rpg-engine/workspaces/adventure/<slug>/rules/adventure_rules.md`
-    - optional local `products/rpg-engine/workspaces/adventure/<slug>/world.md`
-    - optional local `products/rpg-engine/workspaces/adventure/<slug>/scenario.md`
-    - `products/rpg-engine/workspaces/adventure/<slug>/current_scene.md`
-    - `products/rpg-engine/workspaces/adventure/<slug>/state.yaml`
-    - `products/rpg-engine/workspaces/adventure/<slug>/facts.yaml`
-    - `products/rpg-engine/workspaces/adventure/<slug>/flags.yaml`
-    - `products/rpg-engine/workspaces/adventure/<slug>/events/<id>.md`
-    - `products/rpg-engine/workspaces/adventure/<slug>/sessions/<id>.md`
+    - `products/rpg-engine/workspace/adventure/<slug>/adventure.md`
+    - optional `products/rpg-engine/rules/workspace/adventure/<slug>.md`
+    - optional local `products/rpg-engine/workspace/adventure/<slug>/world.md`
+    - optional local `products/rpg-engine/workspace/adventure/<slug>/scenario.md`
+    - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+    - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
+    - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
+    - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
+    - `products/rpg-engine/workspace/adventure/<slug>/events/<id>.md`
+    - `products/rpg-engine/workspace/adventure/<slug>/sessions/<id>.md`
     - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when needed
+  - when existing scoped local rule files already define meaningful play behavior for the selected content, preserve and honor them rather than flattening them into plain flavor text
 
 # Constraints
 
@@ -92,7 +94,8 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - do not store full canon or full adventure state in product runtime
 - do not violate the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - do not enter live play before a world, scenario, protagonist, and opening situation are all established
-- do not create `rules/adventure_rules.md` unless the run actually needs explicit local constraints
+- do not create `rules/workspace/adventure/<slug>.md` unless the run actually needs explicit local constraints
+- do not discard or ignore relevant scoped local rules that should meaningfully shape the opening situation, NPC behavior, scene framing, or environmental logic
 - when bootstrap content mentions an entity that already has a known separate card, link that mention to the card
 
 # Output

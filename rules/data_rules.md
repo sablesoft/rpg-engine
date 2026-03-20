@@ -58,13 +58,13 @@
 
 ## Workspace file convention
 
-- `world` workspaces live under `products/rpg-engine/workspaces/world/<slug>/`
-- `adventure` workspaces live under `products/rpg-engine/workspaces/adventure/<slug>/`
+- `world` workspace live under `products/rpg-engine/workspace/world/<slug>/`
+- `adventure` workspace live under `products/rpg-engine/workspace/adventure/<slug>/`
 
 - each `world` workspace uses:
   - `world.md` as the primary card
-  - optional local rules root:
-    - `rules/world_rules.md`
+  - optional local rules file:
+    - `products/rpg-engine/rules/workspace/world/<slug>.md`
   - optional support files such as `setting.md`, `rules_of_world.md`, `global_story.md`, `tone_and_themes.md`
   - optional scope-local image root:
     - `images/`
@@ -76,19 +76,19 @@
     - `scenarios/`
 
 - each global scenario inside a world uses:
-  - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
   - optional support files such as `global_story.md` and `tone_and_themes.md`
   - optional scope-local image root:
-    - `products/rpg-engine/workspaces/world/<world_slug>/scenarios/<scenario_slug>/images/`
+    - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/images/`
   - support-card folders such as `quests/`, `locations/`, `characters/`
 
 - each global character inside a world uses:
-  - `products/rpg-engine/workspaces/world/<world_slug>/characters/<character_slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/characters/<character_slug>.md`
 
 - each `adventure` workspace uses:
   - `adventure.md` as the primary card
-  - optional local rules root:
-    - `rules/adventure_rules.md`
+  - optional local rules file:
+    - `products/rpg-engine/rules/workspace/adventure/<slug>.md`
   - optional local `world.md` and `scenario.md` when those entities were first created inside the adventure
   - optional local protagonist card such as `characters/player.md`
   - `current_scene.md` for the immediate playable scene
