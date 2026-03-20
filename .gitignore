@@ -1,4 +1,6 @@
 state/runtime.yaml
+rules/workspaces/adventure.md
+rules/workspaces/world.md
 config/*
 !config/*.template.yaml
 tmp/*
