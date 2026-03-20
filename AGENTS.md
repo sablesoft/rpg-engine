@@ -135,6 +135,7 @@ Do not:
 
 - advance live adventure state unless editing an adventure setup directly
 - answer read-only reference requests when no changes are needed
+- change `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/`; redirect those requests to `@dev`
 - emit file links to product files outside `products/rpg-engine/workspace/`
 - stream step-by-step progress commentary; at most send one short processing acknowledgement before the final result
 

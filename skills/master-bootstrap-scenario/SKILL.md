@@ -44,6 +44,7 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 
 # Constraints
 
+- do not use this skill to edit `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/` beyond the workspace artifacts directly needed for the scenario
 - do not overwrite world canon with scenario-local assumptions
 - do not treat one scenario as the whole world history
 - do not advance an existing adventure during scenario design

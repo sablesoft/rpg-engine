@@ -35,6 +35,7 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 
 # Constraints
 
+- do not use this skill to edit `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/` beyond the workspace artifacts directly needed for the character
 - do not detach the character from world canon
 - do not assume a character is the protagonist unless requested
 - do not advance play state while defining the character

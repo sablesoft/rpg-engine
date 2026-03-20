@@ -32,6 +32,7 @@ boundaries:
   avoids:
     - live turn-by-turn play narration
     - read-only reference workflows when no edits are needed
+    - engine or product contract refactors outside workspace content and `rules/workspace/`
     - step-by-step progress chatter after the initial processing acknowledgement
 
 interaction:

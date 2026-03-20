@@ -34,8 +34,9 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 8. If the promoted entity's visible title would collide with another distinct established entity inside the same target world context, rename or qualify it during the same promotion pass so titles remain unambiguous.
 9. Move related image assets only under the image promotion rules from `products/rpg-engine/rules/image_rules.md`.
 10. After a successful promotion, remove the source primary card from its original local scope by default.
-11. Update any affected references in the originating adventure or scenario as needed.
-12. Keep the promoted content readable as a primary card in its new scope.
+11. Update any affected references in the originating adventure, scenario, world, or other directly affected scope so they point to the new canonical location or are rewritten cleanly when a direct link no longer makes sense.
+12. Check for stale references to the old local path and resolve them before considering the promotion complete.
+13. Keep the promoted content readable as a primary card in its new scope.
 
 # Supported promotions
 
@@ -155,11 +156,14 @@ Typical entity types:
 - when a support card is promoted as a canonical replacement, delete the original source card from the narrower scope
 - if the user explicitly wants to keep a local variant, treat that as an exception and preserve the source card as a separate local version
 - never delete `events/`, `sessions/`, `facts.yaml`, `flags.yaml`, or other run-history artifacts from the originating adventure
-- keep or rewrite local references as needed so the originating adventure or scenario still reads coherently after promotion
+- always update or rewrite local references as part of the same promotion pass so the originating adventure or scenario still reads coherently after promotion
+- when the promoted entity moved to a new canonical path, replace old links to the former local path with links to the new path wherever that reference should remain a link
+- when a former local dependency was not promoted together with the entity, rewrite the promoted card so it no longer contains misleading or broken links to narrower-scope artifacts unless that narrower dependency is still intentionally valid
 - keep or rewrite affected rule references and nearby card wording as needed so the resulting scope boundaries remain clear
 
 # Constraints
 
+- do not use this skill to edit `rpg-engine` product contracts outside workspace content and `rules/workspace/`; broader engine or product refactors belong to `@dev`
 - do not silently promote local entities
 - do not lose the meaning of the source entity during promotion
 - do not overwrite broader canon without resolving conflicts explicitly
@@ -167,6 +171,7 @@ Typical entity types:
 - do not use promotion to advance live play state
 - do not leave duplicate source cards behind unless the user explicitly wants parallel local and global variants
 - do not leave two distinct canonical entities with the same visible title inside the same world context after promotion; add an epithet or qualifier if needed
+- do not finish a promotion while stale links or broken path references to the old source location remain in directly affected files
 - do not treat promoted facts as raw YAML transport; integrate them into readable canonical files
 - do not move orphaned image files without their metadata cards and owner references
 - do not localize a global rule in a way that accidentally contradicts broader defaults without surfacing the exception clearly

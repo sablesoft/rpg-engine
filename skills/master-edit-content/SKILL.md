@@ -31,6 +31,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 
 # Constraints
 
+- do not use this skill to modify `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/`; such requests belong to `@dev`
 - do not answer with read-only summaries when the user asked for an edit
 - do not hide canon conflicts introduced by the requested change
 - do not advance play state unless the edit explicitly targets an adventure instance

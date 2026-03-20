@@ -52,6 +52,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 
 # Constraints
 
+- do not use this skill to edit `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/` beyond the workspace artifacts directly needed for the world
 - do not advance live adventure state
 - do not use read-only reference mode for creation work
 - keep canon distinct from scenario-specific events
