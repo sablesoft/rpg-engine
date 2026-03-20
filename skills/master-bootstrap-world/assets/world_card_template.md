@@ -5,6 +5,7 @@ Required sections:
 - {{dict.sections.tone}}
 - {{dict.world.core_premise}}
 Optional sections:
+- {{dict.sections.visual_concept}}
 - {{dict.world.physical_or_metaphysical_rules}}
 - {{dict.world.power_systems}}
 - {{dict.world.major_factions}}
@@ -24,6 +25,10 @@ Subsections may be added under any top-level section.
 
 ## {{dict.sections.tone}}
 {{tone}}
+
+## {{dict.sections.visual_concept}}
+- {{visual_concept_1}}
+- {{visual_concept_2}}
 
 ## {{dict.world.core_premise}}
 {{core_premise}}
