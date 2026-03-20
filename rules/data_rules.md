@@ -32,6 +32,15 @@
 - `Description` is the shared generic descriptive section across card types; do not introduce new top-level `Summary` sections in workspace cards
 - validate workspace cards against their templates after structural template changes
 
+## Card cross-reference rule
+
+- when one workspace card mentions an entity that already has its own separate card, that mention should be a Markdown link to the corresponding card whenever the target card path is known
+- this applies to mentions inside prose, lists, field values, relationship sections, and similar card content, not only to dedicated placement fields
+- prefer linking the existing card rather than repeating the same entity as plain text nearby
+- do not add a self-link to the title of the current card just because that card is itself the referenced entity
+- if the entity does not have its own card yet or the target path is still unknown, plain text is allowed temporarily
+- when a separate card is later created or resolved, update relevant mentions to links as part of the same editing pass when practical
+
 ## Top-level repository rule
 
 - only `world` and `adventure` are top-level workspace repositories

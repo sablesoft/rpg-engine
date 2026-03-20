@@ -17,6 +17,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/rules/workspace_rules.md`
+- `products/rpg-engine/rules/data_rules.md`
 
 # Behavior
 
@@ -34,6 +35,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - do not advance play state unless the edit explicitly targets an adventure instance
 - do not use this skill for scope promotion workflows that belong to `master-promote`
 - do not ignore workspace-local rules when they exist for the edited world or adventure
+- do not leave plain-text mentions of entities that already have known separate cards when the surrounding card content should link them
 
 # Output
 

@@ -20,6 +20,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/state/runtime.yaml`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
@@ -92,6 +93,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - do not violate the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - do not enter live play before a world, scenario, protagonist, and opening situation are all established
 - do not create `rules/adventure_rules.md` unless the run actually needs explicit local constraints
+- when bootstrap content mentions an entity that already has a known separate card, link that mention to the card
 
 # Output
 

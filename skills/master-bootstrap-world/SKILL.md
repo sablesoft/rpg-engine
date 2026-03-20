@@ -19,6 +19,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/world_structure.md`
 - `products/rpg-engine/assets/workspace_templates/world_rules_template.md`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/setting_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/rules_of_world_template.md`
@@ -55,6 +56,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - keep canon distinct from scenario-specific events
 - keep all engine-side instructions in English
 - do not create `rules/world_rules.md` just to restate the whole `world.md`; use it only for workspace-local guardrails that benefit from explicit rule form
+- when a created or updated mention points to an existing separate card with a known path, write it as a Markdown link
 
 # Output
 

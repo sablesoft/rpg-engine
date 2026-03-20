@@ -16,6 +16,7 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
@@ -45,6 +46,7 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 - do not overwrite world canon with scenario-local assumptions
 - do not treat one scenario as the whole world history
 - do not advance an existing adventure during scenario design
+- when a created or updated mention points to an existing separate card with a known path, write it as a Markdown link
 
 # Output
 

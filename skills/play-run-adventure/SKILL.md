@@ -18,6 +18,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `products/rpg-engine/modes/play.yaml`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
@@ -51,6 +52,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not answer as a read-only encyclopedia
 - do not skip consequence updates after meaningful player actions
 - do not violate established workspace-local world or adventure rules
+- when updating cards during play, link mentions of entities that already have known separate cards
 
 # Output
 

@@ -16,6 +16,7 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/character_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
@@ -36,6 +37,7 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 - do not detach the character from world canon
 - do not assume a character is the protagonist unless requested
 - do not advance play state while defining the character
+- when a created or updated mention points to an existing separate card with a known path, write it as a Markdown link
 
 # Output
 
