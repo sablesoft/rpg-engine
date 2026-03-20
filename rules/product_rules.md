@@ -15,6 +15,7 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - each core workspace should have one primary card written in `content_language`
 - keep product data templates simple and readable before adding secondary support files
 - keep product-local engine files independent from concrete world and adventure content
+- use workspace-local `rules/` only for one concrete `world` or `adventure` when product-wide rules are too broad
 - keep workspace-facing labels in the workspace dictionary flow rather than hard-coding them in scripts or templates
 - keep shared labels in `workspace_dictionary/sections*`
 - keep labels unique to one entity or document type in dictionary files for that entity or document type
@@ -38,6 +39,7 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - do not store world canon or adventure history in product runtime
 - do not treat one workspace instance as the contract for the whole product
 - do not require the product repo to track world or adventure content
+- do not let one workspace's local rules masquerade as global `rpg-engine` rules
 
 ## Principle
 

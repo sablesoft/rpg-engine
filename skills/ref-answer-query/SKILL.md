@@ -16,11 +16,12 @@ Provide factual reference answers without editing content or advancing gameplay.
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/ref.yaml`
+- `products/rpg-engine/rules/workspace_rules.md`
 
 # Behavior
 
 1. Identify the referenced entity or topic.
-2. Retrieve the relevant established content from world, scenario, character, or adventure sources.
+2. Retrieve the relevant established content from world, scenario, character, or adventure sources, including workspace-local rules when they materially constrain the answer.
 3. Answer the question in a concise, factual way.
 4. Distinguish between established facts, inferred conclusions, and unknowns.
 5. Keep the response safe for read-only use.

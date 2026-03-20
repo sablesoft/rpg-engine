@@ -25,11 +25,14 @@ Do not store full canon or gameplay history in product runtime.
 Follow product policy from:
 
 - `products/rpg-engine/rules/product_rules.md`
+- `products/rpg-engine/rules/workspace_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/ref_rules.md`
 - `products/rpg-engine/rules/image_rules.md`
+
+When working inside a concrete `world` or `adventure` workspace, also follow that workspace's local `rules/` files when they exist.
 
 Follow workspace structural conventions from:
 
@@ -53,6 +56,11 @@ One-shot override:
 - `@ref: ...`
 
 Use engine-level one-shot override semantics from the root `AGENTS.md`.
+
+Persistent mode switch semantics:
+
+- a persistent switch to `master`, `play`, or `ref` must update `products/rpg-engine/state/runtime.yaml:last_mode`
+- because `rpg-engine` is the active product when these modes are used, the same persistent switch must also update engine runtime `state/runtime.yaml:mode`
 
 ---
 

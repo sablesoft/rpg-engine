@@ -17,6 +17,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/play.yaml`
 - `products/rpg-engine/rules/play_rules.md`
+- `products/rpg-engine/rules/workspace_rules.md`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
@@ -35,8 +36,10 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - `products/rpg-engine/workspaces/adventure/<slug>/flags.yaml`
    - `products/rpg-engine/workspaces/adventure/<slug>/events/<id>.md`
    - `products/rpg-engine/workspaces/adventure/<slug>/sessions/<id>.md`
+   - `products/rpg-engine/workspaces/adventure/<slug>/rules/adventure_rules.md` when present
    - local support cards under `locations/`, `quests/`, `characters/`, `factions/`, `species/` when relevant
    - local `world.md` or `scenario.md` when present, otherwise the selected global world repository and its world-owned scenario content
+   - `products/rpg-engine/workspaces/world/<world_slug>/rules/world_rules.md` when that world workspace exists and defines local rules
 4. Present the immediate situation, available options, risks, and observable facts.
 5. Resolve the player's action according to world rules, scenario pressure, and character capabilities.
 6. Update the adventure state, consequences, and newly learned information.
@@ -47,6 +50,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not redesign core canon during live play
 - do not answer as a read-only encyclopedia
 - do not skip consequence updates after meaningful player actions
+- do not violate established workspace-local world or adventure rules
 
 # Output
 

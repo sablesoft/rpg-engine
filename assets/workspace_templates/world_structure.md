@@ -2,6 +2,7 @@
 
 Root:
 - `products/rpg-engine/workspaces/world/<slug>/world.md`
+- optional `products/rpg-engine/workspaces/world/<slug>/rules/world_rules.md`
 
 Optional support files:
 - `products/rpg-engine/workspaces/world/<slug>/setting.md`
@@ -31,6 +32,7 @@ World-owned global characters:
 
 Primary card:
 - `world.md` is the main readable source of truth
+- `rules/world_rules.md` is the local invariant layer when this world needs explicit workspace-specific rules
 
 When to use:
 - use for global world canon promoted to workspace scope

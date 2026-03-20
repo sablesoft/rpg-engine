@@ -16,14 +16,16 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
+- `products/rpg-engine/rules/workspace_rules.md`
 
 # Behavior
 
 1. Identify the target entity type and requested changes.
-2. Check which linked entities may be affected.
-3. Apply the edit while preserving established world and scenario consistency.
-4. Highlight downstream consequences when edits affect playable content.
-5. Keep revisions explicit rather than silently rewriting canon assumptions.
+2. Read relevant workspace-local rules when editing a concrete `world` or `adventure` that defines them.
+3. Check which linked entities may be affected.
+4. Apply the edit while preserving established world and scenario consistency.
+5. Highlight downstream consequences when edits affect playable content.
+6. Keep revisions explicit rather than silently rewriting canon assumptions.
 
 # Constraints
 
@@ -31,6 +33,7 @@ Revise existing RPG content with clear control over scope and canon consistency.
 - do not hide canon conflicts introduced by the requested change
 - do not advance play state unless the edit explicitly targets an adventure instance
 - do not use this skill for scope promotion workflows that belong to `master-promote`
+- do not ignore workspace-local rules when they exist for the edited world or adventure
 
 # Output
 

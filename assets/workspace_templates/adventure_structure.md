@@ -2,6 +2,7 @@
 
 Root:
 - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
+- optional `products/rpg-engine/workspaces/adventure/<slug>/rules/adventure_rules.md`
 
 Local core cards when first created in play:
 - `products/rpg-engine/workspaces/adventure/<slug>/world.md`
@@ -27,6 +28,7 @@ Local support-card folders:
 
 Primary card:
 - `adventure.md` is the main readable source of truth for the run
+- `rules/adventure_rules.md` is the local constraint layer when this run needs explicit adventure-specific rules
 
 When to use:
 - use for any playable run

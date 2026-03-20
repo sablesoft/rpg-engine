@@ -18,6 +18,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/world_structure.md`
+- `products/rpg-engine/assets/workspace_templates/world_rules_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/setting_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/rules_of_world_template.md`
@@ -33,6 +34,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 3. Create or update a `world` workspace under `products/rpg-engine/workspaces/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
    - `products/rpg-engine/workspaces/world/<slug>/world.md`
    - `world.md` as the primary card
+   - optional `products/rpg-engine/workspaces/world/<slug>/rules/world_rules.md` when this world needs explicit workspace-local invariants
    - `products/rpg-engine/workspaces/world/<slug>/setting.md`
    - `products/rpg-engine/workspaces/world/<slug>/rules_of_world.md`
    - `products/rpg-engine/workspaces/world/<slug>/tone_and_themes.md`
@@ -52,6 +54,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - do not use read-only reference mode for creation work
 - keep canon distinct from scenario-specific events
 - keep all engine-side instructions in English
+- do not create `rules/world_rules.md` just to restate the whole `world.md`; use it only for workspace-local guardrails that benefit from explicit rule form
 
 # Output
 

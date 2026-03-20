@@ -19,9 +19,11 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/modes/play.yaml`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/canon_rules.md`
+- `products/rpg-engine/rules/workspace_rules.md`
 - `products/rpg-engine/state/runtime.yaml`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
+- `products/rpg-engine/assets/workspace_templates/adventure_rules_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
@@ -52,7 +54,8 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 8. Update product runtime pointers so the newly selected or created context can be resumed later.
 9. Ensure the created or selected inputs are internally compatible before entering live play.
 10. Apply the default locality rule from `products/rpg-engine/rules/data_rules.md`.
-11. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
+11. If the selected world or created adventure defines workspace-local rules, respect them during bootstrap.
+12. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
 
 # Selection and generation flow
 
@@ -69,6 +72,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
   - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
   - prepare:
     - `products/rpg-engine/workspaces/adventure/<slug>/adventure.md`
+    - optional `products/rpg-engine/workspaces/adventure/<slug>/rules/adventure_rules.md`
     - optional local `products/rpg-engine/workspaces/adventure/<slug>/world.md`
     - optional local `products/rpg-engine/workspaces/adventure/<slug>/scenario.md`
     - `products/rpg-engine/workspaces/adventure/<slug>/current_scene.md`
@@ -87,6 +91,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - do not store full canon or full adventure state in product runtime
 - do not violate the default locality rule from `products/rpg-engine/rules/data_rules.md`
 - do not enter live play before a world, scenario, protagonist, and opening situation are all established
+- do not create `rules/adventure_rules.md` unless the run actually needs explicit local constraints
 
 # Output
 

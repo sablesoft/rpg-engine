@@ -54,6 +54,8 @@
 
 - each `world` workspace uses:
   - `world.md` as the primary card
+  - optional local rules root:
+    - `rules/world_rules.md`
   - optional support files such as `setting.md`, `rules_of_world.md`, `global_story.md`, `tone_and_themes.md`
   - optional scope-local image root:
     - `images/`
@@ -76,6 +78,8 @@
 
 - each `adventure` workspace uses:
   - `adventure.md` as the primary card
+  - optional local rules root:
+    - `rules/adventure_rules.md`
   - optional local `world.md` and `scenario.md` when those entities were first created inside the adventure
   - optional local protagonist card such as `characters/player.md`
   - `current_scene.md` for the immediate playable scene
@@ -126,3 +130,4 @@
 - prefer clear sections over heavy schema complexity
 - do not turn product data into engine-language metadata dumps
 - keep `Visual Concept` sections reusable and durable rather than locked to one momentary pose, wound, or outfit variation unless that variation is itself canonically stable
+- keep workspace-local rules short, explicit, and scoped to constraints that are awkward to express cleanly inside the primary card
