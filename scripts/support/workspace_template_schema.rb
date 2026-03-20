@@ -9,8 +9,8 @@ module WorkspaceTemplateSchema
 
   REPO_ROOT = File.expand_path("../../../..", __dir__)
   PRODUCT_ROOT = File.join(REPO_ROOT, "products", "rpg-engine")
-  ADVENTURE_ROOT = File.join(PRODUCT_ROOT, "workspaces", "adventure")
-  WORLD_ROOT = File.join(PRODUCT_ROOT, "workspaces", "world")
+  ADVENTURE_ROOT = File.join(PRODUCT_ROOT, "workspace", "adventure")
+  WORLD_ROOT = File.join(PRODUCT_ROOT, "workspace", "world")
 
   TEMPLATE_MAP = {
     ["adventure", "adventure.md"] => "skills/play-bootstrap-adventure/assets/adventure_card_template.md",

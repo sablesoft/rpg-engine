@@ -106,18 +106,18 @@ end
 
 def detect_scope(owner_card)
   normalized = owner_card
-  if normalized.include?("/workspaces/adventure/")
-    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/adventure/[^/]+)/})
+  if normalized.include?("/workspace/adventure/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspace/adventure/[^/]+)/})
     return [:adventure, match[1]]
   end
 
-  if normalized.include?("/workspaces/world/") && normalized.include?("/scenarios/")
-    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/world/[^/]+/scenarios/[^/]+)/})
+  if normalized.include?("/workspace/world/") && normalized.include?("/scenarios/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspace/world/[^/]+/scenarios/[^/]+)/})
     return [:scenario, match[1]]
   end
 
-  if normalized.include?("/workspaces/world/")
-    match = normalized.match(%r{(.*/products/rpg-engine/workspaces/world/[^/]+)/})
+  if normalized.include?("/workspace/world/")
+    match = normalized.match(%r{(.*/products/rpg-engine/workspace/world/[^/]+)/})
     return [:world, match[1]]
   end
 
@@ -292,6 +292,15 @@ def merge_bullets(existing_lines, new_bullets)
   merged
 end
 
+def placeholder_visual_concept?(concept_basis)
+  return true if concept_basis.nil?
+
+  normalized = concept_basis.strip
+  return true if normalized.empty?
+
+  normalized == "No stable visual concept could be inferred from the current card."
+end
+
 def relative_path(from_path, to_path)
   Pathname.new(to_path).relative_path_from(Pathname.new(File.dirname(from_path))).to_s
 end
@@ -380,7 +389,7 @@ def insert_preview_section(path, lines)
     end
 
     updated_lines = content_lines.dup
-    updated_lines.insert(insert_at, "", *block_lines)
+    updated_lines.insert(insert_at, "", *block_lines, "")
     write_text(path, updated_lines.join("\n"))
     return
   end
@@ -434,7 +443,7 @@ def normalize_images_section(owner_card, preview_slug)
 end
 
 def upsert_visual_concept(path, concept_basis)
-  return if concept_basis.nil? || concept_basis.strip.empty?
+  return if placeholder_visual_concept?(concept_basis)
 
   bullet = "- #{concept_basis.strip}"
   visual_header, existing = section_lines_any(path, WorkspaceCardHeaders.aliases(:visual_concept))
