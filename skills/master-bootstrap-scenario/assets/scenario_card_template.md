@@ -5,6 +5,7 @@ Required sections:
 - {{dict.scenario.premise}}
 - {{dict.sections.tone}}
 - {{dict.scenario.main_conflict}}
+- Player Introduction
 - Opening Scene Policy
 Optional sections:
 - {{dict.scenario.stakes}}
@@ -31,6 +32,9 @@ Subsections may be added under any top-level section.
 
 ## {{dict.scenario.main_conflict}}
 {{main_conflict}}
+
+## Player Introduction
+{{player_introduction}}
 
 ## Opening Scene Policy
 {{opening_scene_policy}}

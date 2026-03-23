@@ -41,6 +41,8 @@
 - those scene templates should extend a shared scene-engine skeleton while remaining free to add scene-specific state and log sections for the concrete mechanic
 - do not store global invocation triggers inside reusable scene definitions; the caller scene or owning context decides when to invoke a scene
 - every scenario used in play must resolve its opening-scene policy before scene execution begins
+- before the opening scene starts, `play` should present the selected scenario's short player-facing introduction so the player understands the world tone, the scenario frame, and what kind of experience is beginning
+- this introduction belongs to the scenario-entry boundary and should be shown exactly once for that scenario entry, not repeated on later questions inside the opening scene or on later scene turns unless the user explicitly asks for a recap
 - every adventure used in play must resolve its starting scenario before the opening scene is instantiated
 - support both:
   - chained scene transitions, where one completed scene points to the next scene definition to instantiate

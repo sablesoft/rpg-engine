@@ -197,4 +197,5 @@
   - one prepared opening scene
   - a small prepared choice set of opening scenes
   - dynamic opening-scene generation guidance
+- every scenario should also define a short player-facing introduction that is shown exactly once before its opening scene begins
 - every adventure must resolve its starting scenario before entering live play; that starting scenario may be preselected, dynamically created, or chosen from a small compatible set
