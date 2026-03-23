@@ -14,6 +14,7 @@ routing:
     - update consequences
   default_skills:
     - play-bootstrap-adventure
+    - play-bootstrap-scene-instance
     - play-run-adventure
     - image-generate
     - image-save
@@ -21,6 +22,7 @@ routing:
 boundaries:
   owns:
     - player-facing bootstrap into a playable adventure
+    - scene-instance creation from prepared or dynamically generated scene definitions
     - scene progression inside one adventure
     - consequence resolution and state updates
     - player-facing narration and choices

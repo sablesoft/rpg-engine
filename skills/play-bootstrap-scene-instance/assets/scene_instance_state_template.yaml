@@ -1,0 +1,19 @@
+scene_instance_id: {{scene_instance_id}}
+scene_definition:
+  scope_type: {{scope_type}}
+  scope_slug: {{scope_slug}}
+  scene_slug: {{scene_slug}}
+status: active
+phase: {{initial_phase}}
+step: 1
+iteration: 1
+binding:
+  world_slug: {{world_slug}}
+  scenario_slug: {{scenario_slug}}
+  participants: []
+  parameters: {}
+stack:
+  parent_scene_instance_id:
+  paused_scene_instance_ids: []
+pending_prompt:
+outputs: {}

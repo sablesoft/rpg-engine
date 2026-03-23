@@ -17,6 +17,7 @@
 
 - `world` uses a world card
 - `scenario` uses a scenario card
+- reusable `scene` definitions use a scene card
 - `character` uses a character card
 - `adventure` uses an adventure card
 - image-owning or image-participating entities may include a `Visual Concept` section when visual continuity matters
@@ -56,6 +57,7 @@
 - only `world` and `adventure` are top-level workspace repositories
 - every global `scenario` belongs to one `world` repository
 - every global `character` belongs to one `world` repository
+- every reusable `scene` definition belongs either to one `world` repository directly or to one world-owned `scenario`
 - every `adventure` belongs to one world context and may contain local cards for any entity first created during play
 
 ## Global vs local entity form
@@ -83,7 +85,16 @@
     - `characters/`
     - `factions/`
     - `species/`
+    - `scenes/`
     - `scenarios/`
+
+- each reusable world-owned scene definition uses:
+  - `products/rpg-engine/workspace/world/<world_slug>/scenes/<scene_slug>/scene.md`
+  - optional support files such as:
+    - `state_template.yaml`
+    - `log_template.md`
+    - `mechanics.md`
+    - `examples.md`
 
 - each global scenario inside a world uses:
   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
@@ -91,6 +102,15 @@
   - optional scope-local image root:
     - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/images/`
   - support-card folders such as `quests/`, `locations/`, `characters/`
+
+- each reusable scenario-owned scene definition uses:
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenes/<scene_slug>/scene.md`
+  - optional support files such as:
+    - `state_template.yaml`
+    - `log_template.md`
+    - `mechanics.md`
+    - `examples.md`
+- each reusable scene definition should provide scene-specific `state_template.yaml` and `log_template.md` built on top of a shared scene-engine skeleton rather than reusing one rigid static template unchanged for every scene
 
 - each global character inside a world uses:
   - `products/rpg-engine/workspace/world/<world_slug>/characters/<character_slug>.md`
@@ -102,11 +122,30 @@
   - optional local `world.md` and `scenario.md` when those entities were first created inside the adventure
   - optional local protagonist card such as `characters/player.md`
   - `current_scene.md` for the immediate playable scene
+  - `scene_state.yaml` for the current active scene-instance pointer, stack, and resumable execution state
   - `state.yaml`, `facts.yaml`, and `flags.yaml` for mutable run state
+  - `scenes/` for mutable scene instances created or executed during the run
   - `events/` and `sessions/` for play history
   - optional scope-local image root:
     - `images/`
   - support-card folders such as `locations/`, `quests/`, `characters/`, `factions/`, `species/`
+
+- each scene instance inside an adventure uses:
+  - adventure-local scene definitions:
+    - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/definitions/<scene_slug>/scene.md`
+    - optional support files such as:
+      - `state_template.yaml`
+      - `log_template.md`
+      - `mechanics.md`
+  - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/scene.md`
+  - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/state.yaml`
+  - optional `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/log.md`
+- a scene instance may execute:
+  - a reusable scene definition from world scope
+  - a reusable scene definition from scenario scope
+  - a dynamically generated adventure-local scene definition that is still explicitly bound to the active world or active scenario context
+- do not execute a mutable scene instance without a stable scene definition artifact to anchor its rules and semantics
+- keep a shared core scene-state skeleton across all scenes, but allow scene-specific template extensions for combat, questionnaires, rituals, negotiations, and other specialized scene needs
 
 ## Repository ownership
 
@@ -122,6 +161,8 @@
 - each item in that location-placement chain should include both the parent location name and its kind
 - when the target card path is known, each item in that chain should use a Markdown link to the corresponding location or world card
 - `quest` cards are scenario-level by default, but may exist as local cards inside an `adventure`
+- reusable `scene` definitions are world-level or scenario-level by default; they are not top-level repositories and they are not mutable play-state artifacts
+- `play` may also create adventure-local scene definitions during live play when needed, but those remain local run artifacts until explicitly promoted
 - `character` cards are world-level by default, but may exist as local cards inside a world-owned `scenario` or an `adventure`
 - `faction` and `species` cards may exist at world, scenario, or adventure scope depending on where they are established
 - image assets always belong to one concrete owner entity and live in that entity's scope-local `images/` subtree
@@ -136,6 +177,7 @@
 
 - see the default locality rule
 - local support cards may be promoted to a more global scope through `master` workflows when the user asks for it
+- adventure-local reusable scene definitions may be promoted into scenario or world scope through `master` workflows when the user asks for it
 - local `world` cards may be promoted into standalone `world` repositories through `master` workflows when the user asks for it
 - local `scenario` and `character` cards may be promoted into a target `world` repository through `master` workflows when the user asks for it
 - promotion may move an entity from `adventure` to `scenario` or `world`, or from a world-owned `scenario` to the wider world scope, depending on the requested target scope
@@ -150,3 +192,9 @@
 - do not turn product data into engine-language metadata dumps
 - keep `Visual Concept` sections reusable and durable rather than locked to one momentary pose, wound, or outfit variation unless that variation is itself canonically stable
 - keep workspace-local rules short, explicit, and scoped to constraints that are awkward to express cleanly inside the primary card
+- keep reusable scene definitions stable and canonical; keep mutable iteration state, pending choices, and execution logs in scene instances rather than rewriting the definition during play
+- every scenario should define its opening-scene policy as one of:
+  - one prepared opening scene
+  - a small prepared choice set of opening scenes
+  - dynamic opening-scene generation guidance
+- every adventure must resolve its starting scenario before entering live play; that starting scenario may be preselected, dynamically created, or chosen from a small compatible set

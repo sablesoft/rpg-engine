@@ -12,6 +12,7 @@ routing:
   default_skills:
     - master-bootstrap-world
     - master-bootstrap-scenario
+    - master-bootstrap-scene
     - master-bootstrap-character
     - master-promote
     - master-edit-content
@@ -23,6 +24,7 @@ boundaries:
   owns:
     - world canon creation and editing
     - scenario creation and editing
+    - reusable scene definition creation and editing in world or scenario scope
     - character creation and editing
     - promotion of local entities into broader canon scopes
     - reusable content preparation before play

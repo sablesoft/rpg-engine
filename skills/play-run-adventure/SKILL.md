@@ -21,6 +21,7 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/assets/workspace_dictionary/`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
+- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/event_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/session_log_template.md`
@@ -32,9 +33,13 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 3. Read and update adventure files under:
    - `products/rpg-engine/workspace/adventure/<slug>/adventure.md`
    - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+   - `products/rpg-engine/workspace/adventure/<slug>/scene_state.yaml`
    - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
    - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
    - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
+   - `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/scene.md`
+   - `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/state.yaml`
+   - `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/log.md` when present
    - `products/rpg-engine/workspace/adventure/<slug>/events/<id>.md`
    - `products/rpg-engine/workspace/adventure/<slug>/sessions/<id>.md`
    - `products/rpg-engine/rules/workspace/global.md` when present
@@ -44,11 +49,17 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - `products/rpg-engine/rules/workspace/world/<world_slug>.md` when that world workspace exists and defines local rules
    - other scoped files under `products/rpg-engine/rules/workspace/<scope_type>/<entity_slug>.md` when the current scene depends on that concrete scenario, character, location, quest, faction, species, item, or other product-defined entity
    - skip any absent optional rule layer without treating it as an error
-4. Present the immediate situation, available options, risks, and observable facts.
-5. Resolve the player's action according to world rules, scenario pressure, character capabilities, and any relevant scoped local rule files.
-6. When new local entities are introduced during play, give them visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being referenced again.
-7. Update the adventure state, consequences, and newly learned information.
-8. End with a clear next decision point unless the scene fully concludes.
+4. Treat the active scene instance as the execution unit for the current turn and respect its definition, binding, current phase, pending prompt, nested stack, and completion conditions.
+5. Present the immediate situation, available options, risks, and observable facts.
+6. Resolve the player's action according to world rules, scenario pressure, character capabilities, the active scene definition, and any relevant scoped local rule files.
+7. When the current scene calls for a child scene, pause the parent and create a nested scene instance rather than flattening the child into the parent's prose.
+8. When the current scene completes, use its result contract to either:
+   - resume its parent scene
+   - instantiate the next chained scene
+   - or return control to free play framing
+9. When new local entities are introduced during play, give them visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being referenced again.
+10. Update the adventure state, consequences, and newly learned information.
+11. End with a clear next decision point unless the scene fully concludes.
 
 # Constraints
 
@@ -59,6 +70,8 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - do not ignore relevant scoped local rules for concrete entities that materially shape the active scene
 - do not fail or stall because an optional workspace rule file is absent
 - treat relevant scoped local rules as active gameplay constraints and behavior instructions, not as passive metadata
+- do not keep the real active-scene step, pending prompt, or nested-scene stack only inside transient model context
+- do not mutate the reusable scene definition while resolving one instance
 - do not promote a local entity rule into general world law unless the canon already supports that broader scope
 - do not introduce a new local entity under a visible title that already belongs to a different established entity inside the same world context; add an epithet or qualifier instead
 - when updating cards during play, link mentions of entities that already have known separate cards

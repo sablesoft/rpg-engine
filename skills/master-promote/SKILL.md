@@ -46,6 +46,8 @@ Move a locally scoped entity into a broader canonical scope such as a world-owne
 - `adventure/location -> scenario/location`
 - `adventure/location -> world/location`
 - `adventure/quest -> scenario/quest`
+- `adventure/scene -> scenario/scene`
+- `adventure/scene -> world/scene`
 - `adventure/faction -> scenario/faction`
 - `adventure/faction -> world/faction`
 - `adventure/specie -> scenario/specie`
@@ -90,10 +92,12 @@ Typical entity types:
   - `products/rpg-engine/workspace/world/<world_slug>/characters/<slug>.md`
   - `products/rpg-engine/workspace/world/<world_slug>/factions/<slug>.md`
   - `products/rpg-engine/workspace/world/<world_slug>/species/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenes/<scene_slug>/scene.md`
 - promoted support cards into scenario scope:
   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/quests/<slug>.md`
   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/locations/<slug>.md`
   - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/characters/<slug>.md`
+  - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenes/<scene_slug>/scene.md`
 - promoted all-workspace global rule file:
   - `products/rpg-engine/rules/workspace/global.md`
 - localized workspace rules:

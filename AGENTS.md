@@ -42,6 +42,7 @@ Follow workspace structural conventions from:
 
 - `products/rpg-engine/assets/workspace_templates/world_structure.md`
 - `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
+- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
 - `products/rpg-engine/assets/workspace_templates/character_structure.md`
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 
@@ -59,7 +60,14 @@ One-shot override:
 - `@play: ...`
 - `@ref: ...`
 
+Persistent switch with inline request:
+
+- `@master - ...`
+- `@play - ...`
+- `@ref - ...`
+
 Use engine-level one-shot override semantics from the root `AGENTS.md`.
+Use engine-level persistent switch with inline request semantics from the root `AGENTS.md`.
 
 Persistent mode switch semantics:
 
@@ -101,6 +109,8 @@ Scoped support entities:
 
 - locations are usually world-scoped but may be local to an adventure
 - quests are usually scenario-scoped but may be local to an adventure
+- reusable scene definitions are always attached to one concrete `world` or one concrete world-owned `scenario`
+- scene instances always live inside an `adventure` and execute one concrete reusable or dynamically generated scene definition in run-specific form
 - characters are usually world-scoped but may be local to a world-owned scenario or an adventure
 - factions and species may also be local before they are promoted more globally
 - `master` may promote local entities into a more global scope when the user requests it
@@ -115,6 +125,7 @@ Use:
 
 - `master-bootstrap-world`
 - `master-bootstrap-scenario`
+- `master-bootstrap-scene`
 - `master-bootstrap-character`
 - `master-promote`
 - `master-edit-content`
@@ -126,6 +137,8 @@ Responsibilities:
 
 - create and edit canon-bearing content
 - maintain consistency between world, scenario, and character content
+- create and edit reusable scene definitions attached to one world or one world-owned scenario
+- define reusable canonical scene packages for later use in `play`
 - prepare playable content for `play`
 - emit direct terminal file links only for artifacts under `products/rpg-engine/workspace/` when the user wants to inspect them
 - prepare temporary visual generation results grounded in established canon
@@ -144,6 +157,7 @@ Do not:
 Use:
 
 - `play-bootstrap-adventure`
+- `play-bootstrap-scene-instance`
 - `play-run-adventure`
 - `image-generate`
 - `image-save`
@@ -152,6 +166,8 @@ Responsibilities:
 
 - guide the player from world/scenario/character selection or generation into a playable adventure
 - run one adventure scene by scene
+- instantiate reusable or newly generated scene definitions into mutable adventure-local scene instances
+- generate new adventure-local scene definitions on the fly when no prepared world- or scenario-owned definition fits the current situation
 - resolve choices and consequences
 - update the selected adventure workspace
 - honor relevant local rule files under `products/rpg-engine/rules/workspace/` as active gameplay constraints for the current run and current scene
@@ -193,3 +209,5 @@ Do not:
 Canon lives in workspace.  
 Context lives in runtime.  
 Play state lives in adventure.
+Reusable scene logic lives in world or scenario scope.  
+Mutable scene execution lives in adventure.

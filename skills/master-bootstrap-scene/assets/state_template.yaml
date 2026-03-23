@@ -1,0 +1,19 @@
+scene_definition_slug: {{scene_slug}}
+scene_kind: {{scene_kind}}
+state_core_version: 1
+status: pending
+phase: {{initial_phase}}
+step: 0
+iteration: 0
+binding:
+  world_slug: {{world_slug}}
+  scenario_slug: {{scenario_slug}}
+participants: []
+parameters: {}
+pending_prompt:
+outputs: {}
+nested:
+  parent_scene_instance_id:
+  child_scene_instance_ids: []
+scene_specific_state: {}
+scene_specific_outputs: {}

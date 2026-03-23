@@ -16,6 +16,7 @@ Optional support-card folders:
 - `products/rpg-engine/workspace/world/<slug>/characters/`
 - `products/rpg-engine/workspace/world/<slug>/factions/`
 - `products/rpg-engine/workspace/world/<slug>/species/`
+- `products/rpg-engine/workspace/world/<slug>/scenes/`
 - `products/rpg-engine/workspace/world/<slug>/scenarios/`
 
 World-owned scenarios:
@@ -26,9 +27,18 @@ World-owned scenarios:
 - `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/quests/`
 - `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/locations/`
 - `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/characters/`
+- `products/rpg-engine/workspace/world/<slug>/scenarios/<scenario_slug>/scenes/`
 
 World-owned global characters:
 - `products/rpg-engine/workspace/world/<slug>/characters/<character_slug>.md`
+
+World-owned reusable scenes:
+- `products/rpg-engine/workspace/world/<slug>/scenes/<scene_slug>/scene.md`
+- optional support files such as:
+  - `state_template.yaml`
+  - `log_template.md`
+  - `mechanics.md`
+  - `examples.md`
 
 Primary card:
 - `world.md` is the main readable source of truth

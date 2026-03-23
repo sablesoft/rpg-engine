@@ -5,6 +5,7 @@ Required sections:
 - {{dict.sections.scenario}}
 - {{dict.adventure.protagonist}}
 - {{dict.sections.description}}
+- Starting Scenario Resolution
 Optional sections:
 - {{dict.adventure.immediate_goal}}
 - {{dict.adventure.active_tensions}}
@@ -24,6 +25,9 @@ Subsections may be added under any top-level section.
 
 ## {{dict.sections.scenario}}
 {{scenario_title}}
+
+## Starting Scenario Resolution
+{{starting_scenario_resolution}}
 
 ## {{dict.adventure.protagonist}}
 {{character_name}}

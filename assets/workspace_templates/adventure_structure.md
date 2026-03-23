@@ -10,10 +10,19 @@ Local core cards when first created in play:
 
 Play state files:
 - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+- `products/rpg-engine/workspace/adventure/<slug>/scene_state.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/images/`
+
+Scene instances:
+- `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/scene.md`
+- optional `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/state_template.yaml`
+- optional `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/log_template.md`
+- `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/scene.md`
+- `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/state.yaml`
+- optional `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/log.md`
 
 History:
 - `products/rpg-engine/workspace/adventure/<slug>/events/`

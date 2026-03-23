@@ -16,6 +16,7 @@ Define how `rpg-engine` uses `rules/workspace/` for all-workspace defaults and f
   - `products/rpg-engine/rules/workspace/world/<slug>.md`
   - `products/rpg-engine/rules/workspace/adventure/<slug>.md`
   - `products/rpg-engine/rules/workspace/scenario/<slug>.md`
+  - `products/rpg-engine/rules/workspace/scene/<slug>.md`
   - `products/rpg-engine/rules/workspace/character/<slug>.md`
   - `products/rpg-engine/rules/workspace/location/<slug>.md`
   - `products/rpg-engine/rules/workspace/quest/<slug>.md`
@@ -29,7 +30,7 @@ Define how `rpg-engine` uses `rules/workspace/` for all-workspace defaults and f
 - `products/rpg-engine/rules/workspace/global.md` defines defaults for every workspace in `rpg-engine`
 - `products/rpg-engine/rules/workspace/world/<slug>.md` defines local canon, tone, metaphysical limits, taboos, or scope-specific constraints for one concrete `world`
 - `products/rpg-engine/rules/workspace/adventure/<slug>.md` defines local run constraints, safety boundaries, continuity locks, scene-handling constraints, or other play limits for one concrete `adventure`
-- other files under `products/rpg-engine/rules/workspace/<scope_type>/<slug>.md` may define local rules for one concrete scenario, character, quest, location, faction, species, or other product-local scope
+- other files under `products/rpg-engine/rules/workspace/<scope_type>/<slug>.md` may define local rules for one concrete scenario, scene, character, quest, location, faction, species, or other product-local scope
 - workspace-local rules complement workspace cards; they do not replace `world.md` or `adventure.md` as the main readable source of truth
 
 ## Reading order
