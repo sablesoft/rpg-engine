@@ -86,8 +86,9 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
     - optional `products/rpg-engine/rules/workspace/adventure/<slug>.md`
     - optional local `products/rpg-engine/workspace/adventure/<slug>/world.md`
     - optional local `products/rpg-engine/workspace/adventure/<slug>/scenario.md`
-    - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+    - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md` as a lightweight opening snapshot
     - `products/rpg-engine/workspace/adventure/<slug>/scene_state.yaml`
+    - optional `products/rpg-engine/workspace/adventure/<slug>/scenario_log.md`
     - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
     - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
     - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`

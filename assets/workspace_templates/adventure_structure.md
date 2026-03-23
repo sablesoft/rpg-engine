@@ -9,8 +9,9 @@ Local core cards when first created in play:
 - `products/rpg-engine/workspace/adventure/<slug>/scenario.md`
 
 Play state files:
-- `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
+- `products/rpg-engine/workspace/adventure/<slug>/current_scene.md` as a lightweight player-facing snapshot of the active scene
 - `products/rpg-engine/workspace/adventure/<slug>/scene_state.yaml`
+- optional `products/rpg-engine/workspace/adventure/<slug>/scenario_log.md`
 - `products/rpg-engine/workspace/adventure/<slug>/state.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/facts.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
@@ -20,7 +21,6 @@ Scene instances:
 - `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/scene.md`
 - optional `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/state_template.yaml`
 - optional `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/log_template.md`
-- `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/scene.md`
 - `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/state.yaml`
 - optional `products/rpg-engine/workspace/adventure/<slug>/scenes/<scene_instance_id>/log.md`
 

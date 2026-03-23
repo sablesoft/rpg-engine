@@ -52,6 +52,23 @@
 - if the entity does not have its own card yet or the target path is still unknown, plain text is allowed temporarily
 - when a separate card is later created or resolved, update relevant mentions to links as part of the same editing pass when practical
 
+## Card materialization triggers
+
+- do not create a separate card for every passing mention or disposable background detail
+- create a separate card when an entity becomes established enough that future turns or edits are likely to refer back to it as the same continuing entity
+- create a separate card when the user explicitly asks for that card
+- create a separate card when an entity is about to carry stable canon-bearing details that should not remain scattered only across scene prose or neighboring cards
+- create a separate card when the user asks a direct identifying question about a named or clearly individuated entity and the answer would otherwise dump stable canon into transient scene prose without a proper source of truth
+- this direct-question trigger applies to questions such as:
+  - who is this person
+  - what group is this
+  - what order is this
+  - what place is this
+  - what species is this
+  - what is this object
+- when such a direct question is answered and the entity does not already have its own card, materialize the card in the appropriate current scope during the same pass unless the entity is still intentionally too vague, unnamed, or disposable
+- when a new card is materialized because of a direct question, update the directly touched scene or content files so the established entity is linked to its new card
+
 ## Top-level repository rule
 
 - only `world` and `adventure` are top-level workspace repositories
@@ -121,8 +138,9 @@
     - `products/rpg-engine/rules/workspace/adventure/<slug>.md`
   - optional local `world.md` and `scenario.md` when those entities were first created inside the adventure
   - optional local protagonist card such as `characters/player.md`
-  - `current_scene.md` for the immediate playable scene
+  - `current_scene.md` for a compact player-facing snapshot of the immediate playable scene
   - `scene_state.yaml` for the current active scene-instance pointer, stack, and resumable execution state
+  - optional `scenario_log.md` for scene-completion summaries at the scenario-throughline level
   - `state.yaml`, `facts.yaml`, and `flags.yaml` for mutable run state
   - `scenes/` for mutable scene instances created or executed during the run
   - `events/` and `sessions/` for play history
@@ -137,7 +155,6 @@
       - `state_template.yaml`
       - `log_template.md`
       - `mechanics.md`
-  - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/scene.md`
   - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/state.yaml`
   - optional `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/log.md`
 - a scene instance may execute:
@@ -146,6 +163,23 @@
   - a dynamically generated adventure-local scene definition that is still explicitly bound to the active world or active scenario context
 - do not execute a mutable scene instance without a stable scene definition artifact to anchor its rules and semantics
 - keep a shared core scene-state skeleton across all scenes, but allow scene-specific template extensions for combat, questionnaires, rituals, negotiations, and other specialized scene needs
+- treat the scene-instance log as the primary turn-by-turn execution record during live play
+- prefer a log-first scene-instance model:
+  - `state.yaml` should keep only compact resumable structure such as definition reference, status, phase, binding, outputs, and parent/child stack pointers
+  - `state.yaml` should not duplicate per-turn prose that already lives in `log.md`
+  - `state.yaml` should not keep rolling `player_input_log`
+  - `state.yaml` should not keep a constantly rewritten `pending_prompt` when the latest prompt already exists in `log.md`
+  - `state.yaml` should not introduce `active_threads` unless a concrete mechanic later proves it necessary
+- do not create a separate mutable `scene.md` inside a scene instance; the canonical readable scene description belongs to the reusable scene definition
+- initialize each scene-instance `log.md` with the opening framing of that instance so the log remains a self-sufficient readable record of the whole scene from its first prompt onward
+- keep `current_scene.md` light:
+  - it should summarize where the player is, what is happening now, and what decision or action is currently live
+  - it should not duplicate the full scene log, transcript, or long-form scene prose
+  - it may mention the active scene definition or active scene instance briefly when that helps orientation
+  - it should be rewritten only when the visible player-facing situation meaningfully changes, not on every micro-turn
+- when an entire scene completes, optionally append a compact summary entry to `scenario_log.md`
+- each `scenario_log.md` entry should summarize one completed scene through the lens of the current scenario run rather than duplicating the full scene log
+- such entries should capture the scene's key turns, revelations, durable consequences, and transition into the next scene or pause point
 
 ## Repository ownership
 
@@ -192,7 +226,7 @@
 - do not turn product data into engine-language metadata dumps
 - keep `Visual Concept` sections reusable and durable rather than locked to one momentary pose, wound, or outfit variation unless that variation is itself canonically stable
 - keep workspace-local rules short, explicit, and scoped to constraints that are awkward to express cleanly inside the primary card
-- keep reusable scene definitions stable and canonical; keep mutable iteration state, pending choices, and execution logs in scene instances rather than rewriting the definition during play
+- keep reusable scene definitions stable and canonical; keep mutable iteration state and execution logs in scene instances rather than rewriting the definition during play
 - every scenario should define its opening-scene policy as one of:
   - one prepared opening scene
   - a small prepared choice set of opening scenes

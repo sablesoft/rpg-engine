@@ -19,13 +19,14 @@ Scene instances inside an adventure:
   - optional support files:
     - `state_template.yaml`
     - `log_template.md`
-- `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/scene.md`
 - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/state.yaml`
 - optional `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/log.md`
 
 Current-scene projection:
 - `products/rpg-engine/workspace/adventure/<adventure_slug>/current_scene.md`
 - `products/rpg-engine/workspace/adventure/<adventure_slug>/scene_state.yaml`
+- `current_scene.md` is a lightweight player-facing snapshot, not the primary transcript of the active scene
+- the full turn-by-turn record belongs in the scene-instance log
 
 Definition guidance:
 - a reusable scene definition is canonical and stable
@@ -37,5 +38,7 @@ Definition guidance:
 
 Instance guidance:
 - a scene instance is mutable play-state
-- it tracks the active step, phase, parameters, bindings, nested-scene stack, pending choice, results, and log
+- it tracks compact resumable structure such as status, phase, bindings, nested-scene stack pointers, outputs, and log
+- its `log.md` is the primary turn-by-turn execution record and should begin with the opening framing and first offered decision point for that scene instance
+- its `state.yaml` should stay deliberately small and should not duplicate prompt prose, rolling player-input transcripts, or other material already present in the log
 - it may execute a prepared reusable scene definition or a dynamically generated adventure-local definition that is still bound to the active world or scenario

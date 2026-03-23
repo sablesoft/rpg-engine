@@ -26,14 +26,17 @@ Revise existing RPG content with clear control over scope and canon consistency.
 3. Check which linked entities may be affected.
 4. Check whether the requested new or revised title would collide with any already established entity name inside the same world context that should remain distinct.
 5. Apply the edit while preserving established world and scenario consistency.
-6. Highlight downstream consequences when edits affect playable content.
-7. Keep revisions explicit rather than silently rewriting canon assumptions.
+6. When the user asks a direct identifying question about a named or clearly individuated entity and that entity does not yet have its own card, materialize the appropriate card in the current scope when the entity has become stable enough to carry its own canon.
+7. Update directly touched files so mentions of that newly materialized entity link to its card.
+8. Highlight downstream consequences when edits affect playable content.
+9. Keep revisions explicit rather than silently rewriting canon assumptions.
 
 # Constraints
 
 - do not use this skill to modify `rpg-engine` product contracts such as modes, skills, templates, or rules outside `rules/workspace/`; such requests belong to `@dev`
 - do not answer with read-only summaries when the user asked for an edit
 - do not hide canon conflicts introduced by the requested change
+- do not leave a newly clarified stable entity only as scattered prose when the user explicitly drilled into what that entity is
 - do not advance play state unless the edit explicitly targets an adventure instance
 - do not use this skill for scope promotion workflows that belong to `master-promote`
 - do not ignore workspace-local rules when they exist for the edited world or adventure

@@ -110,7 +110,7 @@ Scoped support entities:
 - locations are usually world-scoped but may be local to an adventure
 - quests are usually scenario-scoped but may be local to an adventure
 - reusable scene definitions are always attached to one concrete `world` or one concrete world-owned `scenario`
-- scene instances always live inside an `adventure` and execute one concrete reusable or dynamically generated scene definition in run-specific form
+- scene instances always live inside an `adventure` and execute one concrete reusable or dynamically generated scene definition in run-specific form through compact state plus a running scene log
 - characters are usually world-scoped but may be local to a world-owned scenario or an adventure
 - factions and species may also be local before they are promoted more globally
 - `master` may promote local entities into a more global scope when the user requests it

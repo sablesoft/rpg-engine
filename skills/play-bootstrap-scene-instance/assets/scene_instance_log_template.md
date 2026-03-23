@@ -1,8 +1,10 @@
 # {{instance_name}} Log
 
+## Opening Context
+{{opening_context}}
+
 ## Step 1
 - Phase: {{phase}}
-- Prompt: {{prompt}}
-- Choice:
+- Player Input:
 - Outcome:
-- State Changes:
+- Durable State Changes:

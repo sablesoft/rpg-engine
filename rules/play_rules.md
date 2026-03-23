@@ -33,6 +33,8 @@
 - use the adventure workspace as the source of truth for scene-instance state, scene stack, progress, consequences, and session history
 - during play, new local locations, quests, characters, factions, species, and similar entities may be introduced inside the active adventure when they are relevant to the current run
 - apply the default locality rule from `products/rpg-engine/rules/data_rules.md`
+- when the player asks a direct identifying question about a named or clearly individuated in-scene entity and that entity would otherwise remain only in scene prose, `play` should usually materialize an adventure-local card for it in the same pass
+- after such a card is created, update the current scene and other directly touched files so the entity is linked to that new card
 - treat scoped local rule files as active guardrails for interpretation and resolution during play, not as passive editorial notes
 - apply only the scoped local rules that are relevant to the current run and current scene; do not silently treat one entity's local rule file as universal world canon
 - keep reusable scene definitions immutable during live execution unless the user explicitly switches to authoring intent
@@ -40,6 +42,16 @@
 - a reusable scene definition should describe scene purpose, framing, rules, inputs, parameters, completion conditions, result contract, transition guidance, and the templates for its mutable `state.yaml` and `log.md`
 - those scene templates should extend a shared scene-engine skeleton while remaining free to add scene-specific state and log sections for the concrete mechanic
 - do not store global invocation triggers inside reusable scene definitions; the caller scene or owning context decides when to invoke a scene
+- use a log-first execution model for live scenes:
+  - append a short scene-log entry on each meaningful turn
+  - treat the scene log as the primary per-turn source of truth for prompts, choices, outcomes, and immediate scene progression
+  - keep scene-instance `state.yaml` compact and resumable rather than verbose
+  - do not rewrite a mutable scene-instance card on every turn because scene instances no longer own `scene.md`
+  - keep `current_scene.md` as a short player-facing snapshot rather than a full transcript or scene dump
+  - update heavier summaries, synthesized consequences, and broader adventure-facing cards only when actually needed or when a scene completes
+- initialize each scene log with the opening scene framing and the first offered decision point so later turns can recover full scene context by reading the log from the top
+- when a scene completes, append one scenario-level summary entry to `scenario_log.md` for the active adventure when that file exists or when the scenario run has become substantial enough to merit it
+- each scenario-log entry should be derived from the completed scene log and should capture only the key moments, durable reveals, and transition outcome rather than repeating the whole turn-by-turn record
 - every scenario used in play must resolve its opening-scene policy before scene execution begins
 - before the opening scene starts, `play` should present the selected scenario's short player-facing introduction so the player understands the world tone, the scenario frame, and what kind of experience is beginning
 - this introduction belongs to the scenario-entry boundary and should be shown exactly once for that scenario entry, not repeated on later questions inside the opening scene or on later scene turns unless the user explicitly asks for a recap

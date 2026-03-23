@@ -5,20 +5,15 @@ Required sections:
 - {{dict.sections.description}}
 - {{dict.sections.active_tension}}
 Optional sections:
-- {{dict.sections.present_npcs}}
 - {{dict.sections.immediate_options}}
-- {{dict.sections.preview}}
+- {{dict.sections.present_npcs}}
 - {{dict.sections.notes}}
-- {{dict.sections.images}}
 Subsections may be added under any top-level section.
 -->
 # {{title}}
 
 ## {{dict.sections.type}}
 {{dict.entity_types.scene}}
-
-## {{dict.sections.preview}}
-[![{{preview_name}}]({{preview_path}})]({{preview_path}})
 
 ## {{dict.sections.where}}
 {{where}}
@@ -39,6 +34,3 @@ Subsections may be added under any top-level section.
 
 ## {{dict.sections.notes}}
 {{notes}}
-
-## {{dict.sections.images}}
-- `{{image_slug_1}}` — role: {{image_role_1}}; card: `{{image_card_path_1}}`

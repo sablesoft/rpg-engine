@@ -20,7 +20,6 @@ Instantiate the next active scene for `play`, using either a prepared world/scen
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/assets/workspace_templates/scene_structure.md`
-- `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_card_template.md`
 - `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_state_template.yaml`
 - `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_log_template.md`
 
@@ -34,7 +33,6 @@ Instantiate the next active scene for `play`, using either a prepared world/scen
    - optional `log_template.md`
    that is still explicitly bound to the active world or scenario context.
 4. Create the mutable scene instance package under:
-   - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/scene.md`
    - `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/state.yaml`
    - optional `products/rpg-engine/workspace/adventure/<adventure_slug>/scenes/<scene_instance_id>/log.md`
 5. Update:
@@ -42,8 +40,10 @@ Instantiate the next active scene for `play`, using either a prepared world/scen
    - `products/rpg-engine/workspace/adventure/<adventure_slug>/scene_state.yaml`
    so the active instance, stack, parent/child relation, and resumable pointer are explicit.
 6. Carry forward the selected definition's rules, state template shape, log template shape, and scene binding into the new instance.
-7. When instantiating a nested scene, pause the parent scene explicitly before activating the child instance.
-8. Keep any freshly generated scene definition stable after creation; later turns should update only the instance state and log unless the user explicitly switches into authoring intent.
+7. Seed the instance log with the opening framing of the scene plus the first offered decision point so the log can later be read as a complete scene record from the top.
+8. Keep the instance state compact and resumable; do not copy prompt prose or rolling player-input transcripts into `state.yaml` when the log already carries them.
+9. When instantiating a nested scene, pause the parent scene explicitly before activating the child instance.
+10. Keep any freshly generated scene definition stable after creation; later turns should update primarily the instance log and only the minimum required instance state unless the user explicitly switches into authoring intent.
 
 # Constraints
 
@@ -52,6 +52,7 @@ Instantiate the next active scene for `play`, using either a prepared world/scen
 - do not create an adventure-local scene definition that is detached from the active world or active scenario context
 - do not keep active multi-step scene progress only in transient model memory
 - do not lose parent/child scene relationships when nesting occurs
+- do not create a mutable scene-instance `scene.md`; scene readability belongs to the definition and the scene log
 - when writing instance-facing mentions of entities that already have known separate cards, link them with Markdown links
 
 # Output
