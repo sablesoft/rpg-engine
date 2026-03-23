@@ -174,12 +174,19 @@ Responsibilities:
 - emit direct file links only for image artifacts under `products/rpg-engine/workspace/` when visual inspection is useful
 - prepare temporary scene, character, and location image results grounded in current adventure context
 - save approved adventure-local images into versioned content
+- when starting a new adventure, treat world-owned canon as the only preexisting content source
+- when starting a new adventure, do not read any other adventure workspace for canon, data, examples, structure, templates, or protocol hints
+- when continuing an existing adventure, read only the specifically selected or runtime-active adventure
 
 Do not:
 
 - redesign world canon during live play
 - answer as a pure encyclopedia when the user is clearly playing
 - ignore relevant scoped local rules for the active adventure, world, or currently involved entities
+- import names, places, factions, scenes, or other established entities from one adventure into another unless they were explicitly promoted into world or scenario scope
+- treat adventure-local content from another run as scenario canon just because it fits the same world or scenario
+- during new-adventure bootstrap, read a sibling or older adventure for structure, protocol shape, migration clues, or any other fallback reference
+- during work on any concrete adventure run, read any sibling, older, or unrelated adventure workspace
 - emit direct links to full cards or other non-image workspace files
 - stream step-by-step progress commentary; at most send one short processing acknowledgement before the final result
 

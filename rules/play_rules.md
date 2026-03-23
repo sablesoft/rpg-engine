@@ -26,6 +26,17 @@
 - `ref` is read-only
 - `master` is the mode for canon creation and revision
 
+## New adventure bootstrap provenance
+
+- when the player is starting a new adventure, treat `world` repositories and world-owned `scenario` and `character` content as the only preexisting canon sources by default
+- when the player is starting a new adventure, do not read any other `adventure` workspace for content, examples, structure, templates, protocol shape, migration clues, or fallback reference
+- when a new adventure needs additional detail during bootstrap, create that detail as local content inside the new `adventure` rather than importing it from another adventure
+- if a named entity appears only inside another adventure workspace and has not been explicitly promoted, treat it as unavailable to the new adventure bootstrap
+- before reusing any established named entity in a new adventure, verify that its source scope is `world` or world-owned `scenario`; if not, treat it as local to its original run
+- if the user asks to continue play, then read only the selected or runtime-active adventure as the source of truth for that run
+- if `master` is explicitly inspecting or promoting a concrete adventure, that workflow may read that specifically targeted adventure, but this exception does not apply inside new-adventure bootstrap in `play`
+- while working with any concrete adventure run in `play`, do not read any sibling, older, or unrelated `adventure` workspace for canon, examples, comparison, debugging, protocol inference, or fallback reference
+
 ## Continuity
 
 - when starting a new game, `play` may guide selection or creation of world, scenario, and protagonist inputs

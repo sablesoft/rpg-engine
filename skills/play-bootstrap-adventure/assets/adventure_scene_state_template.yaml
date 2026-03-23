@@ -1,0 +1,14 @@
+active_scene_instance_id: {{scene_instance_id}}
+active_scene_definition:
+  scope_type: {{scope_type}}
+  scope_slug: {{scope_slug}}
+  scene_slug: {{scene_slug}}
+status: {{status}}
+stack:
+  active:
+    - {{scene_instance_id}}
+  paused: []
+transition:
+  mode: {{transition_mode}}
+  return_to_scenario: {{scenario_slug}}
+  next_scene_definition:

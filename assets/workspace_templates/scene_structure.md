@@ -27,6 +27,9 @@ Current-scene projection:
 - `products/rpg-engine/workspace/adventure/<adventure_slug>/scene_state.yaml`
 - `current_scene.md` is a lightweight player-facing snapshot, not the primary transcript of the active scene
 - the full turn-by-turn record belongs in the scene-instance log
+- a bootstrap opening snapshot may use `products/rpg-engine/skills/play-bootstrap-adventure/assets/opening_current_scene_template.md`
+- a regular turn snapshot may use `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
+- adventure-level `scene_state.yaml` may use `products/rpg-engine/skills/play-bootstrap-adventure/assets/adventure_scene_state_template.yaml`
 
 Definition guidance:
 - a reusable scene definition is canonical and stable

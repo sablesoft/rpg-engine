@@ -17,6 +17,12 @@ Play state files:
 - `products/rpg-engine/workspace/adventure/<slug>/flags.yaml`
 - `products/rpg-engine/workspace/adventure/<slug>/images/`
 
+Shared play templates:
+- opening bootstrap `current_scene.md` may use `products/rpg-engine/skills/play-bootstrap-adventure/assets/opening_current_scene_template.md`
+- ongoing turn `current_scene.md` may use `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
+- adventure-level `scene_state.yaml` may use `products/rpg-engine/skills/play-bootstrap-adventure/assets/adventure_scene_state_template.yaml`
+- `scenario_log.md` may use `products/rpg-engine/skills/play-run-adventure/assets/scenario_log_template.md`
+
 Scene instances:
 - `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/scene.md`
 - optional `products/rpg-engine/workspace/adventure/<slug>/scenes/definitions/<scene_slug>/state_template.yaml`

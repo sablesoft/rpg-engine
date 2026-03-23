@@ -23,14 +23,17 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
 - `products/rpg-engine/assets/workspace_templates/scene_structure.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
+- `products/rpg-engine/skills/play-run-adventure/assets/scenario_log_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/event_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/session_log_template.md`
+- `products/rpg-engine/skills/play-bootstrap-adventure/assets/adventure_scene_state_template.yaml`
 
 # Behavior
 
 1. Confirm the target adventure instance and current scene context.
 2. If the user is clearly trying to start a new game rather than continue one, hand off to `play-bootstrap-adventure`.
-3. Read and update adventure files under:
+3. Read and update only the target adventure instance and its directly relevant world/scenario/rule layers.
+4. Read and update adventure files under:
    - `products/rpg-engine/workspace/adventure/<slug>/adventure.md`
    - `products/rpg-engine/workspace/adventure/<slug>/current_scene.md`
    - `products/rpg-engine/workspace/adventure/<slug>/scene_state.yaml`
@@ -49,27 +52,28 @@ Advance one adventure instance through scenes, player choices, and resulting sta
    - `products/rpg-engine/rules/workspace/world/<world_slug>.md` when that world workspace exists and defines local rules
    - other scoped files under `products/rpg-engine/rules/workspace/<scope_type>/<entity_slug>.md` when the current scene depends on that concrete scenario, character, location, quest, faction, species, item, or other product-defined entity
    - skip any absent optional rule layer without treating it as an error
-4. Treat the active scene instance as the execution unit for the current turn and respect its definition, binding, current phase, log, nested stack, and completion conditions.
-5. Present the immediate situation, available options, risks, and observable facts.
-6. Resolve the player's action according to world rules, scenario pressure, character capabilities, the active scene definition, and any relevant scoped local rule files.
-7. When the current scene calls for a child scene, pause the parent and create a nested scene instance rather than flattening the child into the parent's prose.
-8. When the current scene completes, use its result contract to either:
+5. Treat the active scene instance as the execution unit for the current turn and respect its definition, binding, current phase, log, nested stack, and completion conditions.
+6. Present the immediate situation, available options, risks, and observable facts.
+7. Resolve the player's action according to world rules, scenario pressure, character capabilities, the active scene definition, and any relevant scoped local rule files.
+8. When the current scene calls for a child scene, pause the parent and create a nested scene instance rather than flattening the child into the parent's prose.
+9. When the current scene completes, use its result contract to either:
    - resume its parent scene
    - instantiate the next chained scene
    - or return control to free play framing
-9. When the current scene completes, append a compact scenario-level summary entry to `scenario_log.md` based on the completed scene log when scenario logging is in use for that adventure.
-10. When new local entities are introduced during play, give them visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being referenced again.
-11. When the player asks a direct identifying question about a named or clearly individuated in-scene entity and that entity does not already have its own card, create the appropriate adventure-local card in the same pass when the entity has become stable enough to deserve one.
-12. After materializing such a card, update the directly touched scene or content files so the entity is linked to the new card.
-13. Update the scene log on each meaningful turn and keep instance/adventure state writes minimal.
-14. Update `current_scene.md` only when the visible player-facing situation, location, or active decision point has meaningfully changed.
-15. Update the adventure state, consequences, and newly learned information only when the turn actually changes durable run state or when the scene reaches a meaningful checkpoint or completion.
-16. End with a clear next decision point unless the scene fully concludes.
+10. When the current scene completes, append a compact scenario-level summary entry to `scenario_log.md` based on the completed scene log when scenario logging is in use for that adventure.
+11. When new local entities are introduced during play, give them visible names that do not collide with other established entity names inside the same world context unless the same entity is intentionally being referenced again.
+12. When the player asks a direct identifying question about a named or clearly individuated in-scene entity and that entity does not already have its own card, create the appropriate adventure-local card in the same pass when the entity has become stable enough to deserve one.
+13. After materializing such a card, update the directly touched scene or content files so the entity is linked to the new card.
+14. Update the scene log on each meaningful turn and keep instance/adventure state writes minimal.
+15. Update `current_scene.md` only when the visible player-facing situation, location, or active decision point has meaningfully changed.
+16. Update the adventure state, consequences, and newly learned information only when the turn actually changes durable run state or when the scene reaches a meaningful checkpoint or completion.
+17. End with a clear next decision point unless the scene fully concludes.
 
 # Constraints
 
 - do not redesign core canon during live play
 - do not answer as a read-only encyclopedia
+- do not read any sibling, older, or unrelated adventure workspace while resolving the current run
 - do not skip consequence updates after meaningful player actions
 - do not leave a newly clarified stable entity stranded only inside scene prose when the player's direct question clearly established it as a reusable adventure entity
 - do not violate established workspace-local world or adventure rules

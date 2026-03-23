@@ -35,10 +35,13 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/state_template.yaml`
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/facts_template.yaml`
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/flags_template.yaml`
+- `products/rpg-engine/skills/play-bootstrap-adventure/assets/adventure_scene_state_template.yaml`
+- `products/rpg-engine/skills/play-bootstrap-adventure/assets/opening_current_scene_template.md`
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/location_card_template.md`
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/quest_card_template.md`
 - `products/rpg-engine/skills/play-bootstrap-adventure/assets/world_bootstrap_checklist.md`
 - `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_state_template.yaml`
+- `products/rpg-engine/skills/play-run-adventure/assets/scenario_log_template.md`
 
 # Behavior
 
@@ -65,6 +68,9 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 16. Resolve the selected scenario's opening-scene policy before entering live play.
 17. Create the opening scene through the scene-instance model rather than relying only on freeform `current_scene.md`.
 18. Finish with a clear opening situation and transition naturally into `play-run-adventure`.
+19. During new-adventure bootstrap, treat every other `adventure` workspace as completely off-limits to reading.
+20. During new-adventure bootstrap, verify provenance before reusing any established named entity: only `world` and world-owned `scenario` or `character` content may be reused as preexisting canon.
+21. If a needed named entity exists only inside another adventure, do not import it; either create a new local entity for the current run or stay at a more abstract world/scenario level.
 
 # Selection and generation flow
 
@@ -79,6 +85,10 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - character:
   - prefer characters that belong to the selected world repository and fit the scenario
   - if none fit, propose 3 distinct protagonist options derived from the character card model and create the selected one
+- provenance discipline:
+  - for a new adventure, do not browse sibling `adventure` workspaces just to find reusable names, places, factions, or hooks
+  - do not read sibling `adventure` workspaces for structure, format examples, templates, protocol shape, migration clues, or any other fallback
+  - when in doubt about an entity's scope, default to treating it as unavailable canon for the new run until its promotion is explicitly confirmed
 - adventure:
   - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
   - prepare:
@@ -116,6 +126,9 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - do not discard or ignore relevant scoped local rules that should meaningfully shape the opening situation, NPC behavior, scene framing, or environmental logic
 - do not create a local adventure entity with a visible title that duplicates another established entity title inside the same world context unless the user is clearly reusing that same entity
 - when bootstrap content mentions an entity that already has a known separate card, link that mention to the card
+- do not read any other `products/rpg-engine/workspace/adventure/<slug>/` content during new-adventure bootstrap for any reason
+- do not import adventure-local entities from another run into the new run unless their promotion into world or scenario scope is explicitly established
+- do not use another adventure as evidence that a name, place, faction, or scene already belongs to the selected scenario
 
 # Output
 
