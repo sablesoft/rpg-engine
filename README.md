@@ -47,8 +47,8 @@ It adds RPG-specific:
 
 Workspace-facing card titles, section labels, and entity-type labels should be resolved from:
 
-- `products/rpg-engine/assets/workspace_dictionary/*.template.yaml`
-- local overrides such as `products/rpg-engine/assets/workspace_dictionary/ru/sections.yaml`
+- `products/rpg-engine/assets/workspace-dictionary/*.template.yaml`
+- local overrides such as `products/rpg-engine/assets/workspace-dictionary/ru/sections.yaml`
 
 This keeps `content_language` output consistent across scripts, templates, and hand-authored cards.
 Committed repository content should keep only the template files.
@@ -58,6 +58,16 @@ Required sections must always be present in live cards, while optional sections 
 Subsections may be added under any main section.
 Use `Description` as the shared general-purpose descriptive section instead of introducing new top-level `Summary` fields.
 Use `ruby products/rpg-engine/scripts/validate-workspace-cards` to verify that live workspace cards still match the current template structure.
+
+## Naming Convention
+
+Use one simple path rule throughout `rpg-engine`:
+
+- directories use `kebab-case`
+- ordinary files use `snake_case`
+- fixed engine contract names such as `AGENTS.md`, `SKILL.md`, `README.md`, and dotfiles keep their required names
+
+When a slug maps directly to a directory name, the slug should also be `kebab-case`.
 
 ## Core idea
 

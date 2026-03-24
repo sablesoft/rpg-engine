@@ -23,9 +23,9 @@
 - image-owning or image-participating entities may include a `Visual Concept` section when visual continuity matters
 - a `Visual Concept` section should describe stable visual identity rather than one transient scene state
 - card-facing section headers should follow `content_language`; engine-language headers may still appear in support metadata files
-- the source of truth for workspace-facing card labels is `products/rpg-engine/assets/workspace_dictionary/`
+- the source of truth for workspace-facing card labels is `products/rpg-engine/assets/workspace-dictionary/`
 - commit only `*.template.yaml` dictionary files in that directory
-- when `content_language` is not `en`, create local translation files under a language subdirectory such as `workspace_dictionary/ru/` and update those instead of hard-coding labels into scripts or templates
+- when `content_language` is not `en`, create local translation files under a language subdirectory such as `workspace-dictionary/ru/` and update those instead of hard-coding labels into scripts or templates
 - card templates must distinguish required and optional top-level sections
 - required sections must always be present in generated and refactored cards
 - optional sections may be omitted when unknown, empty, or intentionally deferred

@@ -19,7 +19,7 @@ Instantiate the next active scene for `play`, using either a prepared world/scen
 - `products/rpg-engine/modes/play.yaml`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
-- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scene_structure.md`
 - `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_state_template.yaml`
 - `products/rpg-engine/skills/play-bootstrap-scene-instance/assets/scene_instance_log_template.md`
 

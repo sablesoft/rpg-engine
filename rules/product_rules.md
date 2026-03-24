@@ -24,10 +24,14 @@ Define product-level invariants, domain boundaries, and workflow constraints for
 - keep visible entity names unique within each world context and its descendant content; when natural collisions occur inside that world context, disambiguate with explicit epithets or qualifiers in the title itself
 - keep inter-card references explicit with Markdown links when the referenced entity already has its own card
 - keep workspace-facing labels in the workspace dictionary flow rather than hard-coding them in scripts or templates
-- keep shared labels in `workspace_dictionary/sections*`
+- keep shared labels in `workspace-dictionary/sections*`
 - keep labels unique to one entity or document type in dictionary files for that entity or document type
 - commit only `*.template.yaml` dictionary files; keep concrete non-English or user-adjusted realizations local and ignored by git
 - when card templates are created or refactored, update the matching dictionary files in the same change
+- use `kebab-case` for all directory names under `products/rpg-engine/`
+- use `snake_case` for ordinary file names under `products/rpg-engine/`
+- preserve fixed engine contract names when they are externally mandated, such as `AGENTS.md`, `SKILL.md`, `README.md`, and dotfiles
+- when a slug maps directly to a directory name, keep that slug in `kebab-case` as well
 
 ## File link policy
 

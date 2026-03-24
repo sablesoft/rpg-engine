@@ -19,9 +19,9 @@ Advance one adventure instance through scenes, player choices, and resulting sta
 - `products/rpg-engine/rules/play_rules.md`
 - `products/rpg-engine/rules/workspace_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
-- `products/rpg-engine/assets/workspace_dictionary/`
-- `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
-- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
+- `products/rpg-engine/assets/workspace-dictionary/`
+- `products/rpg-engine/assets/workspace-templates/adventure_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scene_structure.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/current_scene_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/scenario_log_template.md`
 - `products/rpg-engine/skills/play-run-adventure/assets/event_template.md`

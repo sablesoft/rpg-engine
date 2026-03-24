@@ -17,8 +17,8 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/rules/data_rules.md`
-- `products/rpg-engine/assets/workspace_dictionary/`
-- `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
+- `products/rpg-engine/assets/workspace-dictionary/`
+- `products/rpg-engine/assets/workspace-templates/scenario_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/global_story_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/tone_and_theme_template.md`
@@ -34,7 +34,7 @@ Create a scenario inside one world repository, with plot structure, stakes, fact
    - a small prepared choice set of opening scenes
    - dynamic opening-scene generation guidance
 5. Ensure the scenario title and any newly introduced entity names are distinct from other established entity names inside that same world context unless the same entity is intentionally being revised.
-6. Create or update a world-owned scenario structure following `products/rpg-engine/assets/workspace_templates/scenario_structure.md` and using:
+6. Create or update a world-owned scenario structure following `products/rpg-engine/assets/workspace-templates/scenario_structure.md` and using:
    - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/scenario.md`
    - `scenario.md` as the primary card
    - `products/rpg-engine/workspace/world/<world_slug>/scenarios/<scenario_slug>/global_story.md`

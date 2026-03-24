@@ -17,8 +17,8 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/rules/data_rules.md`
-- `products/rpg-engine/assets/workspace_dictionary/`
-- `products/rpg-engine/assets/workspace_templates/character_structure.md`
+- `products/rpg-engine/assets/workspace-dictionary/`
+- `products/rpg-engine/assets/workspace-templates/character_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_option_template.md`
 
@@ -27,7 +27,7 @@ Create a world-owned character card with identity, motivations, capabilities, hi
 1. Confirm the world context for the character and locate the owning world repository.
 2. Define the character role, background, relationships, capabilities, limits, goals, and narrative hooks.
 3. Ensure the character title and any newly introduced named entities are distinct from other established entity names inside that same world context unless the same entity is intentionally being revised.
-4. Create or update a world-owned character card following `products/rpg-engine/assets/workspace_templates/character_structure.md` and using:
+4. Create or update a world-owned character card following `products/rpg-engine/assets/workspace-templates/character_structure.md` and using:
    - `products/rpg-engine/workspace/world/<world_slug>/characters/<character_slug>.md`
    - the character card template as the primary content artifact
 5. Mark whether the character is suitable as a player-controlled protagonist.

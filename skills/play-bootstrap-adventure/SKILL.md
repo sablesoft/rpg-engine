@@ -22,10 +22,10 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
 - `products/rpg-engine/rules/workspace_rules.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/state/runtime.yaml`
-- `products/rpg-engine/assets/workspace_dictionary/`
-- `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
-- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
-- `products/rpg-engine/assets/workspace_templates/adventure_rules_template.md`
+- `products/rpg-engine/assets/workspace-dictionary/`
+- `products/rpg-engine/assets/workspace-templates/adventure_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scene_structure.md`
+- `products/rpg-engine/assets/workspace-templates/adventure_rules_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scenario/assets/scenario_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-character/assets/character_card_template.md`
@@ -90,7 +90,7 @@ Provide a player-facing bootstrap flow that starts a new adventure without forci
   - do not read sibling `adventure` workspaces for structure, format examples, templates, protocol shape, migration clues, or any other fallback
   - when in doubt about an entity's scope, default to treating it as unavailable canon for the new run until its promotion is explicitly confirmed
 - adventure:
-  - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
+  - create one playthrough instance from the selected world, scenario, and protagonist following `products/rpg-engine/assets/workspace-templates/adventure_structure.md`
   - prepare:
     - `products/rpg-engine/workspace/adventure/<slug>/adventure.md`
     - optional `products/rpg-engine/rules/workspace/adventure/<slug>.md`

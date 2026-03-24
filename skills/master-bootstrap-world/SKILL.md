@@ -16,9 +16,9 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 - `.agents/rules/skill_rules.md`
 - `products/rpg-engine/product.yaml`
 - `products/rpg-engine/modes/master.yaml`
-- `products/rpg-engine/assets/workspace_dictionary/`
-- `products/rpg-engine/assets/workspace_templates/world_structure.md`
-- `products/rpg-engine/assets/workspace_templates/world_rules_template.md`
+- `products/rpg-engine/assets/workspace-dictionary/`
+- `products/rpg-engine/assets/workspace-templates/world_structure.md`
+- `products/rpg-engine/assets/workspace-templates/world_rules_template.md`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/world_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-world/assets/setting_template.md`
@@ -33,7 +33,7 @@ Create a world workspace that defines canon, lore, physics, factions, history, a
 1. Confirm the request belongs to `rpg-engine` and the `master` mode.
 2. Define the world identity, genre, tone, physical rules, power systems, major factions, history, and open tensions.
 3. Ensure the world title and any newly introduced entity names are distinct from other established entity names inside that same world context unless the same entity is intentionally being revised.
-4. Create or update a `world` workspace under `products/rpg-engine/workspace/` following `products/rpg-engine/assets/workspace_templates/world_structure.md` and using:
+4. Create or update a `world` workspace under `products/rpg-engine/workspace/` following `products/rpg-engine/assets/workspace-templates/world_structure.md` and using:
    - `products/rpg-engine/workspace/world/<slug>/world.md`
    - `world.md` as the primary card
    - optional `products/rpg-engine/rules/workspace/world/<slug>.md` when this world needs explicit workspace-local invariants

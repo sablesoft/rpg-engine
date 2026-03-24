@@ -8,7 +8,7 @@ module WorkspaceDictionary
 
   REPO_ROOT = File.expand_path("../../../..", __dir__)
   RUNTIME_PATH = File.join(REPO_ROOT, "state", "runtime.yaml")
-  DICTIONARY_DIR = File.join(REPO_ROOT, "products", "rpg-engine", "assets", "workspace_dictionary")
+  DICTIONARY_DIR = File.join(REPO_ROOT, "products", "rpg-engine", "assets", "workspace-dictionary")
   FALLBACK_LANGUAGE = "en"
   GROUPS = %w[
     document_titles

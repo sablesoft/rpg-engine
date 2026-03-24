@@ -19,7 +19,7 @@ Create canonical reusable scene definitions for `rpg-engine` that can later be i
 - `products/rpg-engine/modes/master.yaml`
 - `products/rpg-engine/rules/data_rules.md`
 - `products/rpg-engine/rules/play_rules.md`
-- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scene_structure.md`
 - `products/rpg-engine/skills/master-bootstrap-scene/assets/scene_card_template.md`
 - `products/rpg-engine/skills/master-bootstrap-scene/assets/state_template.yaml`
 - `products/rpg-engine/skills/master-bootstrap-scene/assets/log_template.md`

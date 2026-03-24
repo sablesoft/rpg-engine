@@ -40,11 +40,21 @@ When a current scene materially depends on a more specific product entity such a
 
 Follow workspace structural conventions from:
 
-- `products/rpg-engine/assets/workspace_templates/world_structure.md`
-- `products/rpg-engine/assets/workspace_templates/scenario_structure.md`
-- `products/rpg-engine/assets/workspace_templates/scene_structure.md`
-- `products/rpg-engine/assets/workspace_templates/character_structure.md`
-- `products/rpg-engine/assets/workspace_templates/adventure_structure.md`
+- `products/rpg-engine/assets/workspace-templates/world_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scenario_structure.md`
+- `products/rpg-engine/assets/workspace-templates/scene_structure.md`
+- `products/rpg-engine/assets/workspace-templates/character_structure.md`
+- `products/rpg-engine/assets/workspace-templates/adventure_structure.md`
+
+## Naming Convention
+
+This rule is product-wide and should be treated as a high-visibility invariant.
+
+- all directory names under `products/rpg-engine/` must use `kebab-case`
+- all ordinary file names under `products/rpg-engine/` must use `snake_case`
+- preserve fixed engine contract names when they are mandated by the engine or platform, such as `AGENTS.md`, `SKILL.md`, `README.md`, and dotfiles
+- slug values that correspond directly to directory names should also use `kebab-case`
+- do not introduce new product paths that mix `snake_case` and `kebab-case` arbitrarily
 
 ## Mode commands
 
