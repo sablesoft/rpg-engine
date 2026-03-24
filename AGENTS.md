@@ -139,7 +139,7 @@ Use:
 - `master-bootstrap-character`
 - `master-promote`
 - `master-edit-content`
-- `dev-file-link`
+- `terminal-link`
 - `image-generate`
 - `image-save`
 
